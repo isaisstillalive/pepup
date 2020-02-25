@@ -183,11 +183,6 @@ define(function() {
                 src: "mode/akari/img/none.png"
               });
             }
-            if (current.pin !== undefined) {
-              images.push({
-                src: `img/pin${current.pin}.png`
-              });
-            }
           }
           return images;
         }

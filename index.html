@@ -53,6 +53,10 @@
       <div @click="click">
         <!-- <object type="image/svg+xml" data="mode/akari/cell.svg"></object> -->
         <img v-for="image in images" :src="image.src" />
+        <img
+          v-if="current.pin !== undefined"
+          :src="`img/pin${current.pin}.png`"
+        />
       </div>
     </template>
     <script
