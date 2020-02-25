@@ -158,6 +158,7 @@ requirejs([`../mode/${game}/main`], function(game) {
     el: "#app",
     data: {
       board: new game.board(width, height, source),
+      cursor: { x: 0, y: 0 },
       border: 1
     },
     methods: {

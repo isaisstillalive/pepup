@@ -18,7 +18,42 @@ html {
   width: 100px;
   height: 100px;
   position: absolute;
-  background-color: red;
+  background-color: black;
+  overflow: hidden;
+}
+
+#control table {
+  width: calc(70px * 3 + 3px);
+  height: calc(70px * 3 + 3px);
+}
+#control table td {
+  width: calc(70px - 1px);
+  height: calc(70px - 1px);
+}
+
+#board table,
+#control table {
+  /* background-color: black; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  transform: translateY(-50%) translateX(-50%);
+  border-collapse: collapse;
+  border: solid 2px #aaa;
+}
+
+#board table td,
+#control table td {
+  position: relative;
+  border: solid 1px #aaa;
+}
+
+#board table td img,
+#control table td img {
+  vertical-align: top;
+  width: 100%;
+  position: absolute;
 }
 
 #undo,
@@ -49,26 +84,4 @@ html {
 #confirm {
   left: 100px;
   top: 480px;
-}
-
-#board table {
-  /* background-color: black; */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translateY(-50%) translateX(-50%);
-  transform: translateY(-50%) translateX(-50%);
-  border-collapse: collapse;
-  border: solid 2px #aaa;
-}
-
-#board table td {
-  position: relative;
-  border: solid 1px #aaa;
-}
-
-#board table td img {
-  vertical-align: top;
-  width: 100%;
-  position: absolute;
 }
