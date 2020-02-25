@@ -151,7 +151,12 @@ requirejs([`../mode/${game}/main`], function(game) {
     },
     methods: {
       click() {
-        this.board.click(this.x, this.y);
+        if (this.cursor.x == undefined) {
+          this.board.click(this.x, this.y);
+        } else {
+          this.cursor.x = this.x;
+          this.cursor.y = this.y;
+        }
       }
     },
     mixins: [game.cell]
@@ -176,6 +181,9 @@ requirejs([`../mode/${game}/main`], function(game) {
       },
       confirm() {
         this.board.confirm();
+      },
+      touchmove(event) {
+        console.log(event);
       }
     },
     computed: {
