@@ -41,8 +41,10 @@ class BaseBoard {
       }
       this.record(x, y, change);
     }
-    Object.assign(this.data[x + y * width], change);
+    const index = x + y * width;
+    Object.assign(this.data[index], change);
     this.changed(x, y, change);
+    Vue.set(this.data, index, this.data[index]);
   }
 
   record(x, y, to) {
@@ -117,8 +119,7 @@ class BaseBoard {
       const record = this.history[index];
       if (record.to.pin !== undefined) {
         record.to.pin = undefined;
-        this.set(record.x, record.y, { pin: undefined });
-        break;
+        return this.set(record.x, record.y, { pin: undefined });
       }
     }
     this.pincount -= 1;
