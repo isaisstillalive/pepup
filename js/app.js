@@ -18,6 +18,8 @@ class BaseBoard {
     this.data = new Array(width * height);
     this.initialize();
 
+    this.pincount = 0;
+    this.pin = false;
     this.historyIndex = 0;
     this.history = [];
   }
@@ -32,6 +34,11 @@ class BaseBoard {
   }
   set(x, y, change, rec = false) {
     if (rec) {
+      if (this.pin) {
+        this.pincount += 1;
+        change.pin = this.pincount;
+        this.pin = false;
+      }
       this.record(x, y, change);
     }
     Object.assign(this.data[x + y * width], change);
@@ -75,6 +82,47 @@ class BaseBoard {
     this.historyIndex += 1;
     this.set(record.x, record.y, record.to);
   }
+
+  pin() {
+    if (!this.doRedo) {
+      return;
+    }
+    const record = this.history[this.historyIndex];
+    this.historyIndex += 1;
+    this.set(record.x, record.y, record.to);
+  }
+  get hasPin() {
+    return this.pincount > 0;
+  }
+  dispose() {
+    if (!this.hasPin) {
+      return;
+    }
+    this.historyIndex -= 1;
+    for (; this.historyIndex >= 0; this.historyIndex--) {
+      const record = this.history[this.historyIndex];
+      this.set(record.x, record.y, record.from);
+      if (record.to.pin !== undefined) {
+        break;
+      }
+    }
+    this.history.splice(this.historyIndex, 99999);
+    this.pincount -= 1;
+  }
+  confirm() {
+    if (!this.hasPin) {
+      return;
+    }
+    for (let index = this.historyIndex - 1; index >= 0; index--) {
+      const record = this.history[index];
+      if (record.to.pin !== undefined) {
+        record.to.pin = undefined;
+        this.set(record.x, record.y, { pin: undefined });
+        break;
+      }
+    }
+    this.pincount -= 1;
+  }
 }
 
 requirejs([`../mode/${game}/main`], function(game) {
@@ -116,6 +164,12 @@ requirejs([`../mode/${game}/main`], function(game) {
       },
       redo() {
         this.board.redo();
+      },
+      dispose() {
+        this.board.dispose();
+      },
+      confirm() {
+        this.board.confirm();
       }
     },
     computed: {
@@ -130,6 +184,17 @@ requirejs([`../mode/${game}/main`], function(game) {
       },
       doRedo() {
         return this.board.doRedo;
+      },
+      hasPin() {
+        return this.board.hasPin;
+      },
+      pin: {
+        get() {
+          return this.board.pin;
+        },
+        set(value) {
+          this.board.pin = value;
+        }
       },
       cellsize() {
         return Math.floor(

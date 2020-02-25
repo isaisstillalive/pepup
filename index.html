@@ -36,6 +36,18 @@
         <img v-if="doRedo" src="img/redo.png" />
         <img v-else src="img/redo_disable.png" />
       </div>
+      <div id="pin" @click="pin = !pin">
+        <img v-if="pin" src="img/pin_on.png" />
+        <img v-else src="img/pin_off.png" />
+      </div>
+      <div id="dispose" @click="dispose">
+        <img v-if="hasPin" src="img/dispose.png" />
+        <img v-else src="img/dispose_disable.png" />
+      </div>
+      <div id="confirm" @click="confirm">
+        <img v-if="hasPin" src="img/confirm.png" />
+        <img v-else src="img/confirm_disable.png" />
+      </div>
     </div>
     <template id="cell">
       <div @click="click">
