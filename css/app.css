@@ -13,7 +13,7 @@ html {
 }
 
 #control {
-  left: 0px;
+  left: 220px;
   top: 430px;
   width: 100px;
   height: 100px;
@@ -31,23 +31,23 @@ html {
   position: absolute;
 }
 #undo {
-  left: 100px;
+  left: 0px;
   top: 430px;
 }
 #redo {
-  left: 150px;
+  left: 50px;
   top: 430px;
 }
 #pin {
-  left: 200px;
-  top: 430px;
+  left: 0px;
+  top: 480px;
 }
 #dispose {
-  left: 250px;
-  top: 430px;
+  left: 50px;
+  top: 480px;
 }
 #confirm {
-  left: 250px;
+  left: 100px;
   top: 480px;
 }
 
