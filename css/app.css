@@ -1,10 +1,10 @@
 html {
-    touch-action: manipulation
+  touch-action: manipulation;
 }
 
 #board {
-    left: 0px;
-    top: 0px;
+  left: 0px;
+  top: 0px;
   /* top: 20px; */
   width: 320px;
   height: 430px;
@@ -13,12 +13,28 @@ html {
 }
 
 #control {
-    left: 0px;
-    top: 430px;
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    background-color: red;
+  left: 0px;
+  top: 430px;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  background-color: red;
+}
+
+#undo,
+#redo {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  border: solid 1px black;
+}
+#undo {
+  left: 100px;
+  top: 430px;
+}
+#redo {
+  left: 125px;
+  top: 430px;
 }
 
 #board table {
@@ -33,12 +49,12 @@ html {
 }
 
 #board table td {
-    position:  relative;
-    border: solid 1px #aaa;
+  position: relative;
+  border: solid 1px #aaa;
 }
 
 #board table td img {
-    vertical-align: top;
+  vertical-align: top;
   width: 100%;
   position: absolute;
 }

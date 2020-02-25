@@ -1,20 +1,82 @@
 const query = location.search.slice(1).split("/");
 const game = query[0];
-const width = query[1];
-const height = query[2];
-const data = query[3];
+const width = Number.parseInt(query[1]);
+const height = Number.parseInt(query[2]);
+const source = query[3];
+
+// Safariのスクロール禁止
+window.addEventListener("touchmove", event => event.preventDefault(), {
+  passive: false
+});
+
+class BaseBoard {
+  constructor(width, height, source) {
+    this.width = width;
+    this.height = height;
+    this.source = source;
+
+    this.data = new Array(width * height);
+    this.initialize();
+
+    this.historyIndex = 0;
+    this.history = [];
+  }
+
+  initialize() {}
+
+  get(x, y) {
+    if (this.width <= x || x < 0) {
+      return undefined;
+    }
+    return this.data[x + y * width];
+  }
+  set(x, y, change, rec = false) {
+    if (rec) {
+      this.record(x, y, change);
+    }
+    Object.assign(this.data[x + y * width], change);
+    this.changed(x, y, change);
+  }
+
+  record(x, y, to) {
+    const current = this.get(x, y);
+    const from = {};
+    for (const key in to) {
+      from[key] = current[key];
+    }
+    this.history.splice(this.historyIndex, 99999, {
+      x: x,
+      y: y,
+      from: from,
+      to: to
+    });
+    this.historyIndex += 1;
+  }
+
+  undo() {
+    if (this.historyIndex == 0) {
+      return;
+    }
+    this.historyIndex -= 1;
+    const record = this.history[this.historyIndex];
+    this.set(record.x, record.y, record.from);
+  }
+  redo() {
+    if (this.historyIndex == this.history.length) {
+      return;
+    }
+    const record = this.history[this.historyIndex];
+    this.historyIndex += 1;
+    this.set(record.x, record.y, record.to);
+  }
+}
 
 requirejs([`../mode/${game}/main`], function(game) {
-  // Safariのスクロール禁止
-  window.addEventListener("touchmove", event => event.preventDefault(), {
-    passive: false
-  });
-
   Vue.component("cell", {
     template: "#cell",
     props: {
-      map: {
-        type: Array
+      board: {
+        type: game.board
       },
       x: {
         type: Number
@@ -23,20 +85,40 @@ requirejs([`../mode/${game}/main`], function(game) {
         type: Number
       }
     },
+    computed: {
+      current() {
+        return this.board.get(this.x, this.y);
+      }
+    },
+    methods: {
+      click() {
+        this.board.click(this.x, this.y);
+      }
+    },
     mixins: [game.cell]
   });
 
   const app = new Vue({
     el: "#app",
-    mixins: [game.board],
     data: {
-      width: Number.parseInt(width),
-      height: Number.parseInt(height),
-      data: data,
-      map: [],
+      board: new game.board(width, height, source),
       border: 1
     },
+    methods: {
+      undo() {
+        this.board.undo();
+      },
+      redo() {
+        this.board.redo();
+      }
+    },
     computed: {
+      width() {
+        return this.board.width;
+      },
+      height() {
+        return this.board.height;
+      },
       cellsize() {
         return Math.floor(
           Math.min(

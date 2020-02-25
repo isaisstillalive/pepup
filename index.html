@@ -21,13 +21,15 @@
                 v-for="x in width"
                 :style="{ width: cellsize + 'px', height: cellsize + 'px' }"
               >
-                <cell :map="map" :x="x-1" :y="y-1"></cell>
+                <cell :board="board" :x="x-1" :y="y-1"></cell>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
       <div id="control"></div>
+      <div id="undo" @click="undo">&lt;</div>
+      <div id="redo" @click="redo">&gt;</div>
     </div>
     <template id="cell">
       <div @click="click">
