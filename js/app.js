@@ -61,7 +61,7 @@ class BaseBoard {
   }
 
   get doUndo() {
-    return this.historyIndex != 0;
+    return this.historyIndex > 0 && !this.history[this.historyIndex - 1].to.pin;
   }
   get doRedo() {
     return this.historyIndex < this.history.length;
