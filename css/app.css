@@ -1,4 +1,44 @@
-td {
-    border: 1px black solid;
-    width: 10px;
+html {
+    touch-action: manipulation
+}
+
+#board {
+    left: 0px;
+    top: 0px;
+  /* top: 20px; */
+  width: 320px;
+  height: 430px;
+  position: absolute;
+  background-color: black;
+}
+
+#control {
+    left: 0px;
+    top: 430px;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    background-color: red;
+}
+
+#board table {
+  /* background-color: black; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  transform: translateY(-50%) translateX(-50%);
+  border-collapse: collapse;
+  border: solid 2px #aaa;
+}
+
+#board table td {
+    position:  relative;
+    border: solid 1px #aaa;
+}
+
+#board table td img {
+    vertical-align: top;
+  width: 100%;
+  position: absolute;
 }
