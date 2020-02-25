@@ -185,7 +185,7 @@ define(function() {
             }
             if (current.pin !== undefined) {
               images.push({
-                src: `mode/akari/img/pin${current.pin}.png`
+                src: `img/pin${current.pin}.png`
               });
             }
           }
