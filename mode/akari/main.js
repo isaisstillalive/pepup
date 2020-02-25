@@ -130,6 +130,9 @@ define(function() {
       computed: {
         images() {
           const current = this.current;
+          if (current == undefined) {
+            return;
+          }
 
           const images = [];
           if (current.type == "wall") {

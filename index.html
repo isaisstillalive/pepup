@@ -21,7 +21,7 @@
                 v-for="x in width"
                 :style="{ width: cellsize + 'px', height: cellsize + 'px' }"
               >
-                <cell :board="board" :x="x-1" :y="y-1"></cell>
+                <cell :board="board" :cursor="cursor" :x="x-1" :y="y-1"></cell>
               </td>
             </tr>
           </tbody>
@@ -34,6 +34,7 @@
               <td v-for="addx in 3">
                 <cell
                   :board="board"
+                  :cursor="{}"
                   :x="cursor.x + addx - 2"
                   :y="cursor.y + addy - 2"
                 ></cell>
@@ -68,9 +69,10 @@
         <!-- <object type="image/svg+xml" data="mode/akari/cell.svg"></object> -->
         <img v-for="image in images" :src="image.src" />
         <img
-          v-if="current.pin !== undefined"
+          v-if="current !== undefined && current.pin !== undefined"
           :src="`img/pin${current.pin}.png`"
         />
+        <img v-if="x == cursor.x && y == cursor.y" src="img/cursor.png" />
       </div>
     </template>
     <script

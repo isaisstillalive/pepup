@@ -139,6 +139,9 @@ requirejs([`../mode/${game}/main`], function(game) {
       },
       y: {
         type: Number
+      },
+      cursor: {
+        type: Object
       }
     },
     computed: {
