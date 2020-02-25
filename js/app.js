@@ -119,7 +119,8 @@ class BaseBoard {
       const record = this.history[index];
       if (record.to.pin !== undefined) {
         record.to.pin = undefined;
-        return this.set(record.x, record.y, { pin: undefined });
+        this.set(record.x, record.y, { pin: undefined });
+        break;
       }
     }
     this.pincount -= 1;
