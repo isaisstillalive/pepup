@@ -53,8 +53,14 @@ class BaseBoard {
     this.historyIndex += 1;
   }
 
+  get doUndo() {
+    return this.historyIndex != 0;
+  }
+  get doRedo() {
+    return this.historyIndex < this.history.length;
+  }
   undo() {
-    if (this.historyIndex == 0) {
+    if (!this.doUndo) {
       return;
     }
     this.historyIndex -= 1;
@@ -62,7 +68,7 @@ class BaseBoard {
     this.set(record.x, record.y, record.from);
   }
   redo() {
-    if (this.historyIndex == this.history.length) {
+    if (!this.doRedo) {
       return;
     }
     const record = this.history[this.historyIndex];
@@ -118,6 +124,12 @@ requirejs([`../mode/${game}/main`], function(game) {
       },
       height() {
         return this.board.height;
+      },
+      doUndo() {
+        return this.board.doUndo;
+      },
+      doRedo() {
+        return this.board.doRedo;
       },
       cellsize() {
         return Math.floor(

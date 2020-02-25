@@ -23,17 +23,16 @@ html {
 
 #undo,
 #redo {
-  width: 25px;
-  height: 25px;
+  width: 50px;
+  height: 50px;
   position: absolute;
-  border: solid 1px black;
 }
 #undo {
   left: 100px;
   top: 430px;
 }
 #redo {
-  left: 125px;
+  left: 150px;
   top: 430px;
 }
 

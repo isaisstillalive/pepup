@@ -28,8 +28,14 @@
         </table>
       </div>
       <div id="control"></div>
-      <div id="undo" @click="undo">&lt;</div>
-      <div id="redo" @click="redo">&gt;</div>
+      <div id="undo" @click="undo">
+        <img v-if="doUndo" src="img/undo.png" />
+        <img v-else src="img/undo_disable.png" />
+      </div>
+      <div id="redo" @click="redo">
+        <img v-if="doRedo" src="img/redo.png" />
+        <img v-else src="img/redo_disable.png" />
+      </div>
     </div>
     <template id="cell">
       <div @click="click">
