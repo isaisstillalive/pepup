@@ -13,8 +13,8 @@
 
   <body>
     <div id="app">
-      <div id="board">
-        <table :style="boardsize" @touchstart="touchstart" @touchmove="touchmove" @touchend="touchend">
+      <div id="board" @touchstart="touchstart" @touchmove="touchmove" @touchend="touchend">
+        <table :style="boardsize">
           <tbody>
             <tr v-for="y in height">
               <td
