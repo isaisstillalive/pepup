@@ -18,10 +18,10 @@ class BaseBoard {
     this.data = new Array(width * height);
     for (let i = 0; i < this.data.length; i++) {
       this.data[i] = {
-        wall: false,
+        number: -1,
       };
     }
-    this.initialize(source);
+    this.decode(source);
 
     this.pincount = 0;
     this.pin = false;
@@ -29,7 +29,36 @@ class BaseBoard {
     this.history = [];
   }
 
-  initialize(source) {}
+  decode(source) {}
+  decode4Cell(source) {
+    let c = 0;
+    for (let i = 0; i < source.length; i++) {
+      const cell = this.data[c];
+      if (cell === undefined) {
+        break;
+      }
+
+      const char = source.charAt(i);
+      if (char === '.') {
+        cell.number = -2;
+      } else {
+        const number = parseInt(char, 36);
+        if (number <= 4) {
+          cell.number = number;
+        } else if (number <= 9) {
+          cell.number = number - 5;
+          c += 1;
+        } else if (number <= 15) {
+          cell.number = number - 10;
+          c += 2;
+        } else {
+          c += (number-16);
+        }
+      }
+
+      c += 1;
+    }
+  }
 
   get(x, y) {
     if (this.width <= x || x < 0) {

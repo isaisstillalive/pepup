@@ -1,41 +1,18 @@
 define(function() {
   class Board extends BaseBoard {
-    initialize(data) {
-      const map = [
-        [9, 5, 9, 9, 9, 1, 9, 1, 9, 9],
-        [9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
-        [9, 9, 9, 2, 9, 9, 9, 9, 9, 9],
-        [9, 9, 9, 9, 9, 9, 9, 2, 9, 9],
-        [9, 9, 1, 9, 9, 9, 9, 9, 9, 2],
-        [9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
-        [9, 9, 9, 9, 9, 1, 9, 9, 9, 9],
-        [1, 9, 9, 9, 9, 9, 9, 9, 5, 9],
-        [9, 9, 9, 9, 9, 9, 2, 9, 9, 9],
-        [9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
-      ];
-
-      for (let y = 0; y < this.height; y++) {
-        for (let x = 0; x < this.width; x++) {
-          let cell;
-          const element = map[y][x];
-          if (element >= 0 && element <= 4) {
-            cell = {
-              wall: true,
-              number: element
-            };
-          } else if (element == 5) {
-            cell = {
-              wall: true,
-              number: null
-            };
-          } else {
-            cell = {
-              wall: false,
-              triangle: 0,
-              none: false,
-            };
-          }
-          this.data[x + y * width] = cell;
+    decode(data) {
+      this.decode4Cell(source);
+      for (let c = 0; c < this.data.length; c++) {
+        const cell = this.data[c];
+        if (cell.number == -1) {
+          cell.wall = false;
+          cell.triangle = 0;
+          cell.none = false;
+        } else if (cell.number == -2) {
+          cell.wall = true;
+          cell.number = null;
+        } else {
+          cell.wall = true;
         }
       }
     }
