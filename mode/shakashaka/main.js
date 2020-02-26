@@ -64,7 +64,7 @@ define(function() {
         }
       }
       if (change.triangle == 0) {
-        change.none = !cell.none;
+        change.none = (cell.triangle == 0) && !cell.none;
       } else {
         change.none = false;
       }
