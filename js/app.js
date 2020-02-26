@@ -46,6 +46,7 @@ class BaseBoard {
     this.changed(x, y, change);
     Vue.set(this.data, index, this.data[index]);
   }
+  changed(x, y, change) {}
 
   record(x, y, to) {
     const current = this.get(x, y);

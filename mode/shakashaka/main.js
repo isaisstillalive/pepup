@@ -1,0 +1,151 @@
+define(function() {
+  class Board extends BaseBoard {
+    initialize(data) {
+      const map = [
+        [9, 5, 9, 9, 9, 1, 9, 1, 9, 9],
+        [9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+        [9, 9, 9, 2, 9, 9, 9, 9, 9, 9],
+        [9, 9, 9, 9, 9, 9, 9, 2, 9, 9],
+        [9, 9, 1, 9, 9, 9, 9, 9, 9, 2],
+        [9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+        [9, 9, 9, 9, 9, 1, 9, 9, 9, 9],
+        [1, 9, 9, 9, 9, 9, 9, 9, 5, 9],
+        [9, 9, 9, 9, 9, 9, 2, 9, 9, 9],
+        [9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
+      ];
+
+      for (let y = 0; y < this.height; y++) {
+        for (let x = 0; x < this.width; x++) {
+          let cell;
+          const element = map[y][x];
+          if (element >= 0 && element <= 4) {
+            cell = {
+              type: "wall",
+              number: element
+            };
+          } else if (element == 5) {
+            cell = {
+              type: "wall",
+              number: null
+            };
+          } else {
+            cell = {
+              type: "floor",
+              triangle: 0,
+              none: false,
+            };
+          }
+          this.data[x + y * width] = cell;
+        }
+      }
+    }
+
+    click(x, y) {
+      const cell = this.get(x, y, true);
+
+      if (cell.type != "floor") {
+        return;
+      }
+      const change = {};
+
+      if (cell.triangle == 4) {
+        change.triangle = 0;
+        change.none = true;
+      } else if (cell.none) {
+        change.none = false;
+      } else {
+        change.triangle = cell.triangle + 1;
+      }
+
+      this.set(x, y, change, true);
+    }
+
+    arounds(x, y) {
+      let result = {
+        triangle: 0,
+        filled: 0
+      };
+
+      const arounds = [
+        [-1, 0],
+        [1, 0],
+        [0, -1],
+        [0, 1]
+      ];
+      for (const around of arounds) {
+        const cell = this.get(x + around[0], y + around[1]);
+        if (cell == undefined || cell.type == "wall" || cell.none) {
+          result.filled += 1;
+        } else if (cell.triangle >= 1) {
+          result.filled += 1;
+          if (cell.triangle) {
+            result.triangle += 1;
+          }
+        }
+      }
+
+      result.filled = result.filled == 4;
+
+      return result;
+    }
+  }
+
+  return {
+    board: Board,
+    cell: {
+      computed: {
+        images() {
+          const current = this.current;
+          if (current == undefined) {
+            return;
+          }
+
+          const images = [];
+          if (current.type == "wall") {
+            if (current.number == null) {
+              images.push({
+                src: "mode/shakashaka/img/wall.png"
+              });
+            } else {
+              images.push({
+                src: `mode/shakashaka/img/wall${current.number}.png`
+              });
+
+              const arounds = this.board.arounds(this.x, this.y);
+              if (arounds.filled) {
+                if (arounds.light == current.number) {
+                  images.push({
+                    src: "mode/shakashaka/img/ruleok.png"
+                  });
+                } else {
+                  images.push({
+                    src: "mode/shakashaka/img/ruleng.png"
+                  });
+                }
+              } else if (arounds.light > current.number) {
+                images.push({
+                  src: "mode/shakashaka/img/ruleng.png"
+                });
+              }
+            }
+          } else if (current.type == "floor") {
+            images.push({
+              src: "mode/shakashaka/img/floor.png"
+            });
+            if (current.triangle >= 1) {
+              images.push({
+                src: `mode/shakashaka/img/triangle${current.triangle}.png`
+              });
+            }
+            if (current.none) {
+              images.push({
+                src: "mode/shakashaka/img/none.png"
+              });
+            }
+          }
+          return images;
+        }
+      }
+    }
+  };
+});
