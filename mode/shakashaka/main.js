@@ -51,33 +51,6 @@ define(function() {
 
       this.set(x, y, change, true);
     }
-
-    arounds(x, y) {
-      let result = {
-        triangle: 0,
-        filled: 0
-      };
-
-      const arounds = [
-        [-1, 0],
-        [1, 0],
-        [0, -1],
-        [0, 1]
-      ];
-      for (const around of arounds) {
-        const cell = this.get(x + around[0], y + around[1]);
-        if (cell == undefined || cell.wall || cell.none) {
-          result.filled += 1;
-        } else if (cell.triangle >= 1) {
-          result.filled += 1;
-          result.triangle += 1;
-        }
-      }
-
-      result.filled = result.filled == 4;
-
-      return result;
-    }
   }
 
   class Cell extends BaseCell {
@@ -93,7 +66,7 @@ define(function() {
             src: `mode/shakashaka/img/wall${this.number}.png`
           });
 
-          const arounds = this.board.arounds(this.x, this.y);
+          const arounds = this.arounds();
           if (arounds.filled) {
             if (arounds.triangle == this.number) {
               images.push({
@@ -126,6 +99,33 @@ define(function() {
         }
       }
       return images;
+    }
+
+    arounds() {
+      let result = {
+        triangle: 0,
+        filled: 0
+      };
+
+      const arounds = [
+        [-1, 0],
+        [1, 0],
+        [0, -1],
+        [0, 1]
+      ];
+      for (const around of arounds) {
+        const cell = this.board.get(this.x + around[0], this.y + around[1]);
+        if (cell == undefined || cell.wall || cell.none) {
+          result.filled += 1;
+        } else if (cell.triangle >= 1) {
+          result.filled += 1;
+          result.triangle += 1;
+        }
+      }
+
+      result.filled = result.filled == 4;
+
+      return result;
     }
   }
 
