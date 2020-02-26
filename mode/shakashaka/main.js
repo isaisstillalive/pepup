@@ -20,17 +20,17 @@ define(function() {
           const element = map[y][x];
           if (element >= 0 && element <= 4) {
             cell = {
-              type: "wall",
+              wall: true,
               number: element
             };
           } else if (element == 5) {
             cell = {
-              type: "wall",
+              wall: true,
               number: null
             };
           } else {
             cell = {
-              type: "floor",
+              wall: false,
               triangle: 0,
               none: false,
             };
@@ -43,7 +43,7 @@ define(function() {
     click(x, y, touch) {
       const cell = this.get(x, y, true);
 
-      if (cell.type != "floor") {
+      if (cell.wall) {
         return;
       }
       const change = {};
@@ -86,7 +86,7 @@ define(function() {
       ];
       for (const around of arounds) {
         const cell = this.get(x + around[0], y + around[1]);
-        if (cell == undefined || cell.type == "wall" || cell.none) {
+        if (cell == undefined || cell.wall || cell.none) {
           result.filled += 1;
         } else if (cell.triangle >= 1) {
           result.filled += 1;
@@ -111,7 +111,7 @@ define(function() {
           }
 
           const images = [];
-          if (current.type == "wall") {
+          if (current.wall) {
             if (current.number == null) {
               images.push({
                 src: "mode/shakashaka/img/wall.png"
@@ -138,7 +138,7 @@ define(function() {
                 });
               }
             }
-          } else if (current.type == "floor") {
+          } else {
             images.push({
               src: "mode/shakashaka/img/floor.png"
             });

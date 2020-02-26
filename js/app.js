@@ -16,7 +16,12 @@ class BaseBoard {
     this.source = source;
 
     this.data = new Array(width * height);
-    this.initialize();
+    for (let i = 0; i < this.data.length; i++) {
+      this.data[i] = {
+        wall: false,
+      };
+    }
+    this.initialize(source);
 
     this.pincount = 0;
     this.pin = false;
@@ -24,7 +29,7 @@ class BaseBoard {
     this.history = [];
   }
 
-  initialize() {}
+  initialize(source) {}
 
   get(x, y) {
     if (this.width <= x || x < 0) {

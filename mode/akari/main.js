@@ -1,6 +1,6 @@
 define(function() {
   class Board extends BaseBoard {
-    initialize(data) {
+    initialize(source) {
       const map = [
         [9, 9, 0, 5, 5, 5, 0, 9, 9, 9],
         [9, 9, 9, 9, 1, 9, 9, 9, 9, 9],
@@ -26,17 +26,17 @@ define(function() {
           const element = map[y][x];
           if (element >= 0 && element <= 4) {
             cell = {
-              type: "wall",
+              wall: true,
               number: element
             };
           } else if (element == 5) {
             cell = {
-              type: "wall",
+              wall: true,
               number: null
             };
           } else {
             cell = {
-              type: "floor",
+              wall: false,
               light: false,
               none: false,
               bright: 0
@@ -56,7 +56,7 @@ define(function() {
     click(x, y) {
       const cell = this.get(x, y, true);
 
-      if (cell.type != "floor") {
+      if (cell.wall) {
         return;
       }
       const change = {};
@@ -85,7 +85,7 @@ define(function() {
       let y = basey + addy;
       while (true) {
         const cell = this.get(x, y);
-        if (cell == undefined || cell.type == "wall") {
+        if (cell == undefined || cell.wall) {
           break;
         }
         cell.bright += value ? 1 : -1;
@@ -108,7 +108,7 @@ define(function() {
       ];
       for (const around of arounds) {
         const cell = this.get(x + around[0], y + around[1]);
-        if (cell == undefined || cell.type == "wall" || cell.none) {
+        if (cell == undefined || cell.wall || cell.none) {
           result.filled += 1;
         } else if (cell.bright >= 1) {
           result.filled += 1;
@@ -135,7 +135,7 @@ define(function() {
           }
 
           const images = [];
-          if (current.type == "wall") {
+          if (current.wall) {
             if (current.number == null) {
               images.push({
                 src: "mode/akari/img/wall.png"
@@ -162,7 +162,7 @@ define(function() {
                 });
               }
             }
-          } else if (current.type == "floor") {
+          } else {
             images.push({
               src: "mode/akari/img/floor.png"
             });
