@@ -13,7 +13,12 @@
 
   <body>
     <div id="app">
-      <div id="board" @touchstart="touchstart" @touchmove="touchmove" @touchend="touchend">
+      <div
+        id="board"
+        @touchstart="touchstart"
+        @touchmove="touchmove"
+        @touchend="touchend"
+      >
         <table :style="boardsize">
           <tbody>
             <tr v-for="y in height">
@@ -80,7 +85,10 @@
       </div>
     </div>
     <template id="cell">
-      <div @click="$emit('click', $event)" @touchend="$emit('touchend', $event)">
+      <div
+        @click="$emit('click', $event)"
+        @touchend="$emit('touchend', $event)"
+      >
         <!-- <object type="image/svg+xml" data="mode/akari/cell.svg"></object> -->
         <img v-for="image in images" :src="image.src" />
         <img

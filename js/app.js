@@ -18,7 +18,7 @@ class BaseBoard {
     this.data = new Array(width * height);
     for (let i = 0; i < this.data.length; i++) {
       this.data[i] = {
-        number: -1,
+        number: -1
       };
     }
     this.decode(source);
@@ -39,7 +39,7 @@ class BaseBoard {
       }
 
       const char = source.charAt(i);
-      if (char === '.') {
+      if (char === ".") {
         cell.number = -2;
       } else {
         const number = parseInt(char, 36);
@@ -52,7 +52,7 @@ class BaseBoard {
           cell.number = number - 10;
           c += 2;
         } else {
-          c += (number-16);
+          c += number - 16;
         }
       }
 
@@ -196,7 +196,7 @@ requirejs([`../mode/${game}/main`], function(game) {
       border: 1
     },
     methods: {
-      setCursor(x, y){
+      setCursor(x, y) {
         this.cursor.x = x;
         this.cursor.y = y;
       },
@@ -204,7 +204,7 @@ requirejs([`../mode/${game}/main`], function(game) {
         const clientRect = event.target.getBoundingClientRect();
         const touchX = event.changedTouches[0].clientX - clientRect.left;
         const touchY = event.changedTouches[0].clientY - clientRect.top;
-        this.board.click(x, y, {x: touchX / 70, y: touchY / 70});
+        this.board.click(x, y, { x: touchX / 70, y: touchY / 70 });
       },
       undo() {
         this.board.undo();
@@ -218,7 +218,7 @@ requirejs([`../mode/${game}/main`], function(game) {
       confirm() {
         this.board.confirm();
       },
-      touchstart(event){
+      touchstart(event) {
         this.touch = {
           id: event.changedTouches[0].identifier,
           startX: event.changedTouches[0].pageX,
@@ -228,19 +228,27 @@ requirejs([`../mode/${game}/main`], function(game) {
         };
       },
       touchmove(event) {
-        const touch = Array.from(event.changedTouches).find(touch => touch.identifier == this.touch.id);
+        const touch = Array.from(event.changedTouches).find(
+          touch => touch.identifier == this.touch.id
+        );
         if (touch === undefined) {
           return;
         }
         const movedX = touch.pageX - this.touch.startX;
         const movedY = touch.pageY - this.touch.startY;
 
-        this.cursor.x = Math.min(Math.max(0, this.touch.cursorX + Math.floor(movedX / 25)), this.width-1);
-        this.cursor.y = Math.min(Math.max(0, this.touch.cursorY + Math.floor(movedY / 25)), this.height-1);
+        this.cursor.x = Math.min(
+          Math.max(0, this.touch.cursorX + Math.floor(movedX / 25)),
+          this.width - 1
+        );
+        this.cursor.y = Math.min(
+          Math.max(0, this.touch.cursorY + Math.floor(movedY / 25)),
+          this.height - 1
+        );
       },
-      touchend(event){
+      touchend(event) {
         this.touch = {};
-      },
+      }
     },
     computed: {
       width() {

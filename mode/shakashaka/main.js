@@ -30,18 +30,18 @@ define(function() {
       if (touch.y < margin) {
         if (touch.x < margin) {
           change.triangle = 1;
-        } else if (touch.x >= (1-margin)) {
+        } else if (touch.x >= 1 - margin) {
           change.triangle = 2;
         }
-      } else if (touch.y >= (1-margin)) {
+      } else if (touch.y >= 1 - margin) {
         if (touch.x < margin) {
           change.triangle = 4;
-        } else if (touch.x >= (1-margin)) {
+        } else if (touch.x >= 1 - margin) {
           change.triangle = 3;
         }
       }
       if (change.triangle == 0) {
-        change.none = (cell.triangle == 0) && !cell.none;
+        change.none = cell.triangle == 0 && !cell.none;
       } else {
         change.none = false;
       }
