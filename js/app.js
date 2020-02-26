@@ -171,6 +171,10 @@ requirejs([`../mode/${game}/main`], function(game) {
       border: 1
     },
     methods: {
+      setCursor(x, y){
+        this.cursor.x = x;
+        this.cursor.y = y;
+      },
       undo() {
         this.board.undo();
       },

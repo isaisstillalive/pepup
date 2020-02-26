@@ -21,7 +21,13 @@
                 v-for="x in width"
                 :style="{ width: cellsize + 'px', height: cellsize + 'px' }"
               >
-                <cell :board="board" :cursor="cursor" :x="x-1" :y="y-1"></cell>
+                <cell
+                  :board="board"
+                  :cursor="cursor"
+                  :x="x-1"
+                  :y="y-1"
+                  @click="setCursor(x-1, y-1)"
+                ></cell>
               </td>
             </tr>
           </tbody>
@@ -65,7 +71,7 @@
       </div>
     </div>
     <template id="cell">
-      <div @click="click">
+      <div @click="$emit('click', $event.target.value)">
         <!-- <object type="image/svg+xml" data="mode/akari/cell.svg"></object> -->
         <img v-for="image in images" :src="image.src" />
         <img
