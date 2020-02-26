@@ -39,11 +39,19 @@
             <tr v-for="addy in 3">
               <td v-for="addx in 3">
                 <cell
+                  v-if="addx == 2 && addy == 2"
                   :board="board"
                   :cursor="{}"
                   :x="cursor.x + addx - 2"
                   :y="cursor.y + addy - 2"
                   @touchend="clickCell(cursor.x + addx - 2, cursor.y + addy - 2, $event)"
+                ></cell>
+                <cell
+                  v-else
+                  :board="board"
+                  :cursor="{}"
+                  :x="cursor.x + addx - 2"
+                  :y="cursor.y + addy - 2"
                 ></cell>
               </td>
             </tr>
