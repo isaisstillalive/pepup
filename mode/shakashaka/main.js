@@ -23,26 +23,29 @@ define(function() {
       if (cell.wall) {
         return;
       }
+
       const change = {};
 
-      const margin = 0.3;
-      change.triangle = 0;
-      if (touch.y < margin) {
-        if (touch.x < margin) {
-          change.triangle = 1;
-        } else if (touch.x >= 1 - margin) {
-          change.triangle = 2;
-        }
-      } else if (touch.y >= 1 - margin) {
-        if (touch.x < margin) {
-          change.triangle = 4;
-        } else if (touch.x >= 1 - margin) {
-          change.triangle = 3;
-        }
-      }
-      if (change.triangle == 0) {
+      const dist = Math.sqrt((touch.x - 0.5) ** 2 + (touch.y - 0.5) ** 2);
+      if (dist <= 0.25) {
+        change.triangle = 0;
         change.none = cell.triangle == 0 && !cell.none;
       } else {
+        let triangle = 0;
+        if (touch.y < 0.5) {
+          if (touch.x < 0.5) {
+            triangle = 1;
+          } else {
+            triangle = 2;
+          }
+        } else {
+          if (touch.x < 0.5) {
+            triangle = 4;
+          } else {
+            triangle = 3;
+          }
+        }
+        change.triangle = cell.triangle == triangle ? 0 : triangle;
         change.none = false;
       }
 
