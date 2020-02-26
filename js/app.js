@@ -167,6 +167,7 @@ requirejs([`../mode/${game}/main`], function(game) {
     data: {
       board: new game.board(width, height, source),
       cursor: { x: 0, y: 0 },
+      touch: {},
       border: 1
     },
     methods: {
@@ -182,9 +183,29 @@ requirejs([`../mode/${game}/main`], function(game) {
       confirm() {
         this.board.confirm();
       },
+      touchstart(event){
+        this.touch = {
+          id: event.changedTouches[0].identifier,
+          startX: event.changedTouches[0].pageX,
+          startY: event.changedTouches[0].pageY,
+          cursorX: this.cursor.x,
+          cursorY: this.cursor.y
+        };
+      },
       touchmove(event) {
-        console.log(event);
-      }
+        const touch = Array.from(event.changedTouches).find(touch => touch.identifier == this.touch.id);
+        if (touch === undefined) {
+          return;
+        }
+        const movedX = touch.pageX - this.touch.startX;
+        const movedY = touch.pageY - this.touch.startY;
+
+        this.cursor.x = Math.min(Math.max(0, this.touch.cursorX + Math.floor(movedX / 40)), this.width-1);
+        this.cursor.y = Math.min(Math.max(0, this.touch.cursorY + Math.floor(movedY / 40)), this.height-1);
+      },
+      touchend(event){
+        this.touch = {};
+      },
     },
     computed: {
       width() {
