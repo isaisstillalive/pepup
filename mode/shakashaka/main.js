@@ -90,9 +90,7 @@ define(function() {
           result.filled += 1;
         } else if (cell.triangle >= 1) {
           result.filled += 1;
-          if (cell.triangle) {
-            result.triangle += 1;
-          }
+          result.triangle += 1;
         }
       }
 
@@ -125,7 +123,7 @@ define(function() {
 
               const arounds = this.board.arounds(this.x, this.y);
               if (arounds.filled) {
-                if (arounds.light == current.number) {
+                if (arounds.triangle == current.number) {
                   images.push({
                     src: "mode/shakashaka/img/ruleok.png"
                   });
@@ -134,7 +132,7 @@ define(function() {
                     src: "mode/shakashaka/img/ruleng.png"
                   });
                 }
-              } else if (arounds.light > current.number) {
+              } else if (arounds.triangle > current.number) {
                 images.push({
                   src: "mode/shakashaka/img/ruleng.png"
                 });
