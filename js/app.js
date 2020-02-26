@@ -149,16 +149,6 @@ requirejs([`../mode/${game}/main`], function(game) {
         return this.board.get(this.x, this.y);
       }
     },
-    methods: {
-      click() {
-        if (this.cursor.x == undefined) {
-          this.board.click(this.x, this.y);
-        } else {
-          this.cursor.x = this.x;
-          this.cursor.y = this.y;
-        }
-      }
-    },
     mixins: [game.cell]
   });
 
@@ -174,6 +164,9 @@ requirejs([`../mode/${game}/main`], function(game) {
       setCursor(x, y){
         this.cursor.x = x;
         this.cursor.y = y;
+      },
+      clickCell(x, y, event) {
+        this.board.click(x, y);
       },
       undo() {
         this.board.undo();
