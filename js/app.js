@@ -201,10 +201,13 @@ requirejs([`../mode/${game}/main`], function(game) {
         this.cursor.y = y;
       },
       clickCell(x, y, event) {
-        const clientRect = event.target.getBoundingClientRect();
+        const clientRect = event.currentTarget.getBoundingClientRect();
         const touchX = event.changedTouches[0].clientX - clientRect.left;
         const touchY = event.changedTouches[0].clientY - clientRect.top;
-        this.board.click(x, y, { x: touchX / 70, y: touchY / 70 });
+        this.board.click(x, y, {
+          x: touchX / clientRect.width,
+          y: touchY / clientRect.height
+        });
       },
       undo() {
         this.board.undo();

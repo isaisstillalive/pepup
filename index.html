@@ -38,21 +38,12 @@
           </tbody>
         </table>
       </div>
-      <div id="control">
+      <div id="control" @touchend="clickCell(cursor.x, cursor.y, $event)">
         <table>
           <tbody>
             <tr v-for="addy in 3">
               <td v-for="addx in 3">
                 <cell
-                  v-if="addx == 2 && addy == 2"
-                  :board="board"
-                  :cursor="{}"
-                  :x="cursor.x + addx - 2"
-                  :y="cursor.y + addy - 2"
-                  @touchend="clickCell(cursor.x + addx - 2, cursor.y + addy - 2, $event)"
-                ></cell>
-                <cell
-                  v-else
                   :board="board"
                   :cursor="{}"
                   :x="cursor.x + addx - 2"
@@ -85,10 +76,7 @@
       </div>
     </div>
     <template id="cell">
-      <div
-        @click="$emit('click', $event)"
-        @touchend="$emit('touchend', $event)"
-      >
+      <div @click="$emit('click', $event)">
         <!-- <object type="image/svg+xml" data="mode/akari/cell.svg"></object> -->
         <img v-for="image in images" :src="image.src" />
         <img
