@@ -28,11 +28,14 @@
               >
                 <cell
                   :board="board"
-                  :cursor="cursor"
                   :x="x-1"
                   :y="y-1"
                   @click="setCursor(x-1, y-1)"
                 ></cell>
+                <img
+                  v-if="cursor.x == x-1 && cursor.y == y-1"
+                  src="img/cursor.png"
+                />
               </td>
             </tr>
           </tbody>
@@ -45,7 +48,6 @@
               <td v-for="addx in 3">
                 <cell
                   :board="board"
-                  :cursor="{}"
                   :x="cursor.x + addx - 2"
                   :y="cursor.y + addy - 2"
                 ></cell>
@@ -83,7 +85,6 @@
           v-if="current !== undefined && current.pin !== undefined"
           :src="`img/pin${current.pin}.png`"
         />
-        <img v-if="x == cursor.x && y == cursor.y" src="img/cursor.png" />
       </div>
     </template>
     <script

@@ -95,72 +95,67 @@ define(function() {
     }
   }
 
-  return {
-    board: Board,
-    cell: {
-      computed: {
-        images() {
-          const current = this.current;
-          if (current == undefined) {
-            return;
-          }
+  class Cell extends BaseCell {
+    images() {
+      const images = [];
+      if (this.wall) {
+        if (this.number == null) {
+          images.push({
+            src: "mode/akari/img/wall.png"
+          });
+        } else {
+          images.push({
+            src: `mode/akari/img/wall${this.number}.png`
+          });
 
-          const images = [];
-          if (current.wall) {
-            if (current.number == null) {
+          const arounds = this.board.arounds(this.x, this.y);
+          if (arounds.filled) {
+            if (arounds.light == this.number) {
               images.push({
-                src: "mode/akari/img/wall.png"
+                src: "mode/akari/img/ruleok.png"
               });
             } else {
               images.push({
-                src: `mode/akari/img/wall${current.number}.png`
+                src: "mode/akari/img/ruleng.png"
               });
-
-              const arounds = this.board.arounds(this.x, this.y);
-              if (arounds.filled) {
-                if (arounds.light == current.number) {
-                  images.push({
-                    src: "mode/akari/img/ruleok.png"
-                  });
-                } else {
-                  images.push({
-                    src: "mode/akari/img/ruleng.png"
-                  });
-                }
-              } else if (arounds.light > current.number) {
-                images.push({
-                  src: "mode/akari/img/ruleng.png"
-                });
-              }
             }
-          } else {
+          } else if (arounds.light > this.number) {
             images.push({
-              src: "mode/akari/img/floor.png"
+              src: "mode/akari/img/ruleng.png"
             });
-            if (current.bright >= 1) {
-              images.push({
-                src: "mode/akari/img/bright.png"
-              });
-            }
-            if (current.light) {
-              images.push({
-                src: "mode/akari/img/light.png"
-              });
-              if (current.bright >= 2) {
-                images.push({
-                  src: "mode/akari/img/ruleng.png"
-                });
-              }
-            }
-            if (current.none) {
-              images.push({
-                src: "mode/akari/img/none.png"
-              });
-            }
           }
-          return images;
+        }
+      } else {
+        images.push({
+          src: "mode/akari/img/floor.png"
+        });
+        if (this.bright >= 1) {
+          images.push({
+            src: "mode/akari/img/bright.png"
+          });
+        }
+        if (this.light) {
+          images.push({
+            src: "mode/akari/img/light.png"
+          });
+          if (this.bright >= 2) {
+            images.push({
+              src: "mode/akari/img/ruleng.png"
+            });
+          }
+        }
+        if (this.none) {
+          images.push({
+            src: "mode/akari/img/none.png"
+          });
         }
       }
+      return images;
     }
+  }
+
+  return {
+    board: Board,
+    cell: Cell
   };
 });

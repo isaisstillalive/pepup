@@ -80,62 +80,57 @@ define(function() {
     }
   }
 
-  return {
-    board: Board,
-    cell: {
-      computed: {
-        images() {
-          const current = this.current;
-          if (current == undefined) {
-            return;
-          }
+  class Cell extends BaseCell {
+    images() {
+      const images = [];
+      if (this.wall) {
+        if (this.number == null) {
+          images.push({
+            src: "mode/shakashaka/img/wall.png"
+          });
+        } else {
+          images.push({
+            src: `mode/shakashaka/img/wall${this.number}.png`
+          });
 
-          const images = [];
-          if (current.wall) {
-            if (current.number == null) {
+          const arounds = this.board.arounds(this.x, this.y);
+          if (arounds.filled) {
+            if (arounds.triangle == this.number) {
               images.push({
-                src: "mode/shakashaka/img/wall.png"
+                src: "mode/shakashaka/img/ruleok.png"
               });
             } else {
               images.push({
-                src: `mode/shakashaka/img/wall${current.number}.png`
+                src: "mode/shakashaka/img/ruleng.png"
               });
-
-              const arounds = this.board.arounds(this.x, this.y);
-              if (arounds.filled) {
-                if (arounds.triangle == current.number) {
-                  images.push({
-                    src: "mode/shakashaka/img/ruleok.png"
-                  });
-                } else {
-                  images.push({
-                    src: "mode/shakashaka/img/ruleng.png"
-                  });
-                }
-              } else if (arounds.triangle > current.number) {
-                images.push({
-                  src: "mode/shakashaka/img/ruleng.png"
-                });
-              }
             }
-          } else {
+          } else if (arounds.triangle > this.number) {
             images.push({
-              src: "mode/shakashaka/img/floor.png"
+              src: "mode/shakashaka/img/ruleng.png"
             });
-            if (current.triangle >= 1) {
-              images.push({
-                src: `mode/shakashaka/img/triangle${current.triangle}.png`
-              });
-            }
-            if (current.none) {
-              images.push({
-                src: "mode/shakashaka/img/none.png"
-              });
-            }
           }
-          return images;
+        }
+      } else {
+        images.push({
+          src: "mode/shakashaka/img/floor.png"
+        });
+        if (this.triangle >= 1) {
+          images.push({
+            src: `mode/shakashaka/img/triangle${this.triangle}.png`
+          });
+        }
+        if (this.none) {
+          images.push({
+            src: "mode/shakashaka/img/none.png"
+          });
         }
       }
+      return images;
     }
+  }
+
+  return {
+    board: Board,
+    cell: Cell
   };
 });

@@ -10,16 +10,19 @@ window.addEventListener("touchmove", event => event.preventDefault(), {
 });
 
 class BaseBoard {
-  constructor(width, height, source) {
+  constructor(width, height, source, cell) {
     this.width = width;
     this.height = height;
     this.source = source;
 
     this.data = new Array(width * height);
     for (let i = 0; i < this.data.length; i++) {
-      this.data[i] = {
-        number: -1
-      };
+      this.data[i] = Object.assign(new cell(), {
+        number: -1,
+        board: this,
+        x: i % this.width,
+        y: Math.floor(i / this.width)
+      });
     }
     this.decode(source);
 
@@ -162,6 +165,8 @@ class BaseBoard {
   }
 }
 
+class BaseCell {}
+
 requirejs([`../mode/${game}/main`], function(game) {
   Vue.component("cell", {
     template: "#cell",
@@ -174,23 +179,22 @@ requirejs([`../mode/${game}/main`], function(game) {
       },
       y: {
         type: Number
-      },
-      cursor: {
-        type: Object
       }
     },
     computed: {
       current() {
         return this.board.get(this.x, this.y);
+      },
+      images() {
+        if (this.current) return this.current.images();
       }
-    },
-    mixins: [game.cell]
+    }
   });
 
   const app = new Vue({
     el: "#app",
     data: {
-      board: new game.board(width, height, source),
+      board: new game.board(width, height, source, game.cell),
       cursor: { x: 0, y: 0 },
       touch: {},
       border: 1
