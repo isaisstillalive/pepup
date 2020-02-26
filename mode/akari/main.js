@@ -6,21 +6,13 @@ define(function() {
         const cell = this.data[c];
         if (cell.number == -1) {
           cell.wall = false;
-          cell.light = false;
           cell.none = false;
-          cell.bright = 0;
         } else if (cell.number == -2) {
           cell.wall = true;
           cell.number = null;
         } else {
           cell.wall = true;
         }
-      }
-    }
-
-    changed(x, y, change) {
-      if (change.light !== undefined) {
-        this.ray(x, y, change.light);
       }
     }
 
@@ -43,30 +35,15 @@ define(function() {
 
       this.set(x, y, change, true);
     }
-
-    ray(x, y, value) {
-      this.setBrights(x - 1, y, 1, 0, value);
-      this.setBrights(x, y, -1, 0, value);
-      this.setBrights(x, y, 0, 1, value);
-      this.setBrights(x, y, 0, -1, value);
-    }
-
-    setBrights(basex, basey, addx, addy, value) {
-      let x = basex + addx;
-      let y = basey + addy;
-      while (true) {
-        const cell = this.get(x, y);
-        if (cell == undefined || cell.wall) {
-          break;
-        }
-        cell.bright += value ? 1 : -1;
-        x += addx;
-        y += addy;
-      }
-    }
   }
 
   class Cell extends BaseCell {
+    constructor() {
+      super();
+      this.dlight = 0;
+      this.bright = 0;
+    }
+
     images() {
       const images = [];
       if (this.wall) {
@@ -151,6 +128,36 @@ define(function() {
       result.filled = result.filled == 4;
 
       return result;
+    }
+
+    set light(value) {
+      this.dlight = value;
+      this.ray(value);
+    }
+    get light() {
+      return this.dlight;
+    }
+
+    ray(value) {
+      Vue.set(this, "bright", this.bright + (value ? 1 : -1));
+      this.setBrights(1, 0, value);
+      this.setBrights(-1, 0, value);
+      this.setBrights(0, 1, value);
+      this.setBrights(0, -1, value);
+    }
+
+    setBrights(addx, addy, value) {
+      let x = this.x + addx;
+      let y = this.y + addy;
+      while (true) {
+        const cell = this.board.get(x, y);
+        if (cell == undefined || cell.wall) {
+          break;
+        }
+        Vue.set(cell, "bright", cell.bright + (value ? 1 : -1));
+        x += addx;
+        y += addy;
+      }
     }
   }
 
