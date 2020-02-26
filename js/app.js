@@ -200,8 +200,8 @@ requirejs([`../mode/${game}/main`], function(game) {
         const movedX = touch.pageX - this.touch.startX;
         const movedY = touch.pageY - this.touch.startY;
 
-        this.cursor.x = Math.min(Math.max(0, this.touch.cursorX + Math.floor(movedX / 40)), this.width-1);
-        this.cursor.y = Math.min(Math.max(0, this.touch.cursorY + Math.floor(movedY / 40)), this.height-1);
+        this.cursor.x = Math.min(Math.max(0, this.touch.cursorX + Math.floor(movedX / 25)), this.width-1);
+        this.cursor.y = Math.min(Math.max(0, this.touch.cursorY + Math.floor(movedY / 25)), this.height-1);
       },
       touchend(event){
         this.touch = {};
