@@ -167,7 +167,10 @@ requirejs([`../mode/${game}/main`], function(game) {
         this.cursor.y = y;
       },
       clickCell(x, y, event) {
-        this.board.click(x, y);
+        const clientRect = event.target.getBoundingClientRect();
+        const touchX = event.changedTouches[0].pageX - (clientRect.left + window.pageXOffset);
+        const touchY = event.changedTouches[0].pageY - (clientRect.top + window.pageYOffset);
+        this.board.click(x, y, {x: touchX / 70, y: touchY / 70});
       },
       undo() {
         this.board.undo();

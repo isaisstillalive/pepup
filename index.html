@@ -43,7 +43,7 @@
                   :cursor="{}"
                   :x="cursor.x + addx - 2"
                   :y="cursor.y + addy - 2"
-                  @touchend="clickCell(cursor.x + addx - 2, cursor.y + addy - 2)"
+                  @touchend="clickCell(cursor.x + addx - 2, cursor.y + addy - 2, $event)"
                 ></cell>
               </td>
             </tr>
@@ -72,7 +72,7 @@
       </div>
     </div>
     <template id="cell">
-      <div @click="$emit('click', $event.target.value)" @touchend="$emit('touchend', $event.target.value)">
+      <div @click="$emit('click', $event)" @touchend="$emit('touchend', $event)">
         <!-- <object type="image/svg+xml" data="mode/akari/cell.svg"></object> -->
         <img v-for="image in images" :src="image.src" />
         <img

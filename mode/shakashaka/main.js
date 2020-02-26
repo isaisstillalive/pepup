@@ -40,7 +40,7 @@ define(function() {
       }
     }
 
-    click(x, y) {
+    click(x, y, touch) {
       const cell = this.get(x, y, true);
 
       if (cell.type != "floor") {
@@ -48,13 +48,25 @@ define(function() {
       }
       const change = {};
 
-      if (cell.triangle == 4) {
-        change.triangle = 0;
-        change.none = true;
-      } else if (cell.none) {
-        change.none = false;
+      const margin = 0.3;
+      change.triangle = 0;
+      if (touch.y < margin) {
+        if (touch.x < margin) {
+          change.triangle = 1;
+        } else if (touch.x >= (1-margin)) {
+          change.triangle = 2;
+        }
+      } else if (touch.y >= (1-margin)) {
+        if (touch.x < margin) {
+          change.triangle = 4;
+        } else if (touch.x >= (1-margin)) {
+          change.triangle = 3;
+        }
+      }
+      if (change.triangle == 0) {
+        change.none = !cell.none;
       } else {
-        change.triangle = cell.triangle + 1;
+        change.none = false;
       }
 
       this.set(x, y, change, true);
