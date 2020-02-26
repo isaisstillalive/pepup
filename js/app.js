@@ -168,8 +168,8 @@ requirejs([`../mode/${game}/main`], function(game) {
       },
       clickCell(x, y, event) {
         const clientRect = event.target.getBoundingClientRect();
-        const touchX = event.changedTouches[0].pageX - (clientRect.left + window.pageXOffset);
-        const touchY = event.changedTouches[0].pageY - (clientRect.top + window.pageYOffset);
+        const touchX = event.changedTouches[0].clientX - clientRect.left;
+        const touchY = event.changedTouches[0].clientY - clientRect.top;
         this.board.click(x, y, {x: touchX / 70, y: touchY / 70});
       },
       undo() {
