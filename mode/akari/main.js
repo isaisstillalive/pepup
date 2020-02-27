@@ -2,18 +2,6 @@ define(function() {
   class Board extends BaseBoard {
     decode(source) {
       this.decode4Cell(source);
-      for (let c = 0; c < this.data.length; c++) {
-        const cell = this.data[c];
-        if (cell.number == -1) {
-          cell.wall = false;
-          cell.none = false;
-        } else if (cell.number == -2) {
-          cell.wall = true;
-          cell.number = null;
-        } else {
-          cell.wall = true;
-        }
-      }
     }
 
     click(x, y) {
@@ -38,12 +26,6 @@ define(function() {
   }
 
   class Cell extends BaseCell {
-    constructor(...args) {
-      super(...args);
-      this.dlight = 0;
-      this.bright = 0;
-    }
-
     images() {
       const images = [];
       if (this.wall) {
@@ -128,6 +110,25 @@ define(function() {
       result.filled = result.filled == 4;
 
       return result;
+    }
+
+    set qnum(value) {
+      switch (value) {
+        case -1:
+          this.wall = false;
+          this.none = false;
+          this.bright = 0;
+          break;
+
+        case -2:
+          this.wall = true;
+          break;
+
+        default:
+          this.wall = true;
+          this.number = value;
+          break;
+      }
     }
 
     set light(value) {

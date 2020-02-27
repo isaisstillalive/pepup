@@ -38,16 +38,16 @@ class BaseBoard {
 
       const char = source.charAt(i);
       if (char === ".") {
-        cell.number = -2;
+        cell.qnum = -2;
       } else {
         const number = parseInt(char, 36);
         if (number <= 4) {
-          cell.number = number;
+          cell.qnum = number;
         } else if (number <= 9) {
-          cell.number = number - 5;
+          cell.qnum = number - 5;
           c += 1;
         } else if (number <= 15) {
-          cell.number = number - 10;
+          cell.qnum = number - 10;
           c += 2;
         } else {
           c += number - 16;
@@ -163,7 +163,7 @@ class BaseCell {
     this.board = board;
     this.x = x;
     this.y = y;
-    this.number = -1;
+    this.qnum = -1;
   }
 }
 
