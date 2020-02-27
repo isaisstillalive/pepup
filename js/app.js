@@ -30,12 +30,10 @@ class BaseBoard {
   decode(source) {}
   decode4Cell(source) {
     let c = 0;
-    for (let i = 0; i < source.length; i++) {
+    for (let i = 0; i < source.length && c < this.data.length; i++) {
       const cell = this.data[c];
-      if (cell === undefined) {
-        break;
-      }
 
+      let skip = 0;
       const char = source.charAt(i);
       if (char === ".") {
         cell.qnum = -2;
@@ -45,16 +43,19 @@ class BaseBoard {
           cell.qnum = number;
         } else if (number <= 9) {
           cell.qnum = number - 5;
-          c += 1;
+          skip += 1;
         } else if (number <= 15) {
           cell.qnum = number - 10;
-          c += 2;
+          skip += 2;
         } else {
-          c += number - 16;
+          skip += number - 16;
         }
       }
-
       c += 1;
+      for (let i = 0; i < skip && c < this.data.length; i++) {
+        this.data[c].qnum = -1;
+        c += 1;
+      }
     }
   }
 
@@ -163,7 +164,6 @@ class BaseCell {
     this.board = board;
     this.x = x;
     this.y = y;
-    this.qnum = -1;
   }
 }
 
