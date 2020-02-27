@@ -3,44 +3,42 @@ define(function() {
     decode(data) {
       this.decode4Cell(source);
     }
+  }
 
-    click(x, y, touch) {
-      const cell = this.get(x, y, true);
-
-      if (cell.wall) {
+  class Cell extends BaseCell {
+    click(x, y) {
+      if (this.wall) {
         return;
       }
 
       const change = {};
 
-      const dist = Math.sqrt((touch.x - 0.5) ** 2 + (touch.y - 0.5) ** 2);
+      const dist = Math.sqrt((x - 0.5) ** 2 + (y - 0.5) ** 2);
       if (dist <= 0.25) {
         change.triangle = 0;
-        change.none = cell.triangle == 0 && !cell.none;
+        change.none = this.triangle == 0 && !this.none;
       } else {
         let triangle = 0;
-        if (touch.y < 0.5) {
-          if (touch.x < 0.5) {
+        if (y < 0.5) {
+          if (x < 0.5) {
             triangle = 1;
           } else {
             triangle = 2;
           }
         } else {
-          if (touch.x < 0.5) {
+          if (x < 0.5) {
             triangle = 4;
           } else {
             triangle = 3;
           }
         }
-        change.triangle = cell.triangle == triangle ? 0 : triangle;
+        change.triangle = this.triangle == triangle ? 0 : triangle;
         change.none = false;
       }
 
-      this.set(x, y, change, true);
+      this.update(change);
     }
-  }
 
-  class Cell extends BaseCell {
     images() {
       const images = [];
       if (this.wall) {
