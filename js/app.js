@@ -177,6 +177,10 @@ class BaseCell {
     this.x = x;
     this.y = y;
   }
+
+  update(change) {
+    this.board.set(this.x, this.y, change, true);
+  }
 }
 
 requirejs([`../mode/${game}/main`], function(game) {
@@ -220,10 +224,9 @@ requirejs([`../mode/${game}/main`], function(game) {
         const clientRect = event.currentTarget.getBoundingClientRect();
         const touchX = event.changedTouches[0].clientX - clientRect.left;
         const touchY = event.changedTouches[0].clientY - clientRect.top;
-        this.board.click(x, y, {
-          x: touchX / clientRect.width,
-          y: touchY / clientRect.height
-        });
+        this.board
+          .get(x, y)
+          .click(touchX / clientRect.width, touchY / clientRect.height);
       },
       undo() {
         this.board.undo();

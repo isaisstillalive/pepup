@@ -3,28 +3,29 @@ define(function() {
     decode(source) {
       this.decode4Cell(source);
     }
-  }
 
-  class Cell extends BaseCell {
     click(x, y) {
-      if (this.wall) {
+      const cell = this.get(x, y, true);
+
+      if (cell.wall) {
         return;
       }
-
       const change = {};
 
-      if (this.light) {
+      if (cell.light) {
         change.light = false;
         change.none = true;
-      } else if (this.none) {
+      } else if (cell.none) {
         change.none = false;
       } else {
         change.light = true;
       }
 
-      this.update(change);
+      this.set(x, y, change, true);
     }
+  }
 
+  class Cell extends BaseCell {
     images() {
       const images = [];
       if (this.wall) {
