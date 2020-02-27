@@ -28,13 +28,29 @@ class BaseBoard {
   }
 
   decode(source) {}
-  decode4Cell(source) {
+  *decodeIterator(source) {
     let c = 0;
     for (let i = 0; i < source.length && c < this.data.length; i++) {
       const cell = this.data[c];
 
-      let skip = 0;
       const char = source.charAt(i);
+      let skip = yield [char, cell];
+
+      c += 1;
+      for (let i = 0; i < skip && c < this.data.length; i++) {
+        this.data[c].qnum = -1;
+        c += 1;
+      }
+    }
+  }
+  decode4Cell(source) {
+    const it = this.decodeIterator(source);
+    let result = it.next();
+    while (!result.done) {
+      const char = result.value[0];
+      const cell = result.value[1];
+
+      let skip;
       if (char === ".") {
         cell.qnum = -2;
       } else {
@@ -43,19 +59,15 @@ class BaseBoard {
           cell.qnum = number;
         } else if (number <= 9) {
           cell.qnum = number - 5;
-          skip += 1;
+          skip = 1;
         } else if (number <= 15) {
           cell.qnum = number - 10;
-          skip += 2;
+          skip = 2;
         } else {
-          skip += number - 16;
+          skip = number - 16;
         }
       }
-      c += 1;
-      for (let i = 0; i < skip && c < this.data.length; i++) {
-        this.data[c].qnum = -1;
-        c += 1;
-      }
+      result = it.next(skip);
     }
   }
 
