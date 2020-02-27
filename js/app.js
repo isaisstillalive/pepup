@@ -64,6 +64,7 @@ class BaseBoard {
           cell.qnum = number - 10;
           skip = 2;
         } else {
+          cell.qnum = -1;
           skip = number - 16;
         }
       }
