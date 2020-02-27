@@ -99,7 +99,7 @@ define(function() {
         [0, 1]
       ];
       for (const around of arounds) {
-        const cell = this.cell(this.x + around[0], this.y + around[1]);
+        const cell = this.cell(around[0], around[1]);
         if (cell == undefined || cell.wall || cell.none) {
           result.filled += 1;
         } else if (cell.triangle >= 1) {

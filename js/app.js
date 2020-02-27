@@ -179,8 +179,8 @@ class BaseCell {
     this.y = y;
   }
 
-  cell(x, y) {
-    return this.board.get(x, y);
+  cell(addx, addy) {
+    return this.board.get(this.x + addx, this.y + addy);
   }
 
   update(change) {
