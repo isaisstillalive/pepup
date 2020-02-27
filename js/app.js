@@ -17,12 +17,7 @@ class BaseBoard {
 
     this.data = new Array(width * height);
     for (let i = 0; i < this.data.length; i++) {
-      this.data[i] = Object.assign(new cell(), {
-        number: -1,
-        board: this,
-        x: i % this.width,
-        y: Math.floor(i / this.width)
-      });
+      this.data[i] = new cell(this, i % this.width, Math.floor(i / this.width));
     }
     this.decode(source);
 
@@ -163,7 +158,14 @@ class BaseBoard {
   }
 }
 
-class BaseCell {}
+class BaseCell {
+  constructor(board, x, y) {
+    this.board = board;
+    this.x = x;
+    this.y = y;
+    this.number = -1;
+  }
+}
 
 requirejs([`../mode/${game}/main`], function(game) {
   Vue.component("cell", {

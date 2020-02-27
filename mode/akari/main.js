@@ -38,8 +38,8 @@ define(function() {
   }
 
   class Cell extends BaseCell {
-    constructor() {
-      super();
+    constructor(...args) {
+      super(...args);
       this.dlight = 0;
       this.bright = 0;
     }
