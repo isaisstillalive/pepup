@@ -1,91 +1,87 @@
 define(function() {
   class Board extends BaseBoard {
     decode(source) {
-      this.decode4Cell(source);
-    }
-
-    click(x, y) {
-      const cell = this.get(x, y, true);
-
-      if (cell.wall) {
-        return;
-      }
-      const change = {};
-
-      if (cell.light) {
-        change.light = false;
-        change.none = true;
-      } else if (cell.none) {
-        change.none = false;
-      } else {
-        change.light = true;
-      }
-
-      this.set(x, y, change, true);
+      this.decodeCircle(source);
     }
   }
 
   class Cell extends BaseCell {
-    images() {
-      const images = [];
-      if (this.wall) {
-        if (this.number == null) {
-          images.push({
-            src: "mode/akari/img/wall.png"
-          });
-        } else {
-          images.push({
-            src: `mode/akari/img/wall${this.number}.png`
-          });
+    click(x, y) {
+      let cell;
+      let property;
+      const change = {};
 
-          const arounds = this.arounds();
-          if (arounds.filled) {
-            if (arounds.light == this.number) {
-              images.push({
-                src: "mode/akari/img/ruleok.png"
-              });
-            } else {
-              images.push({
-                src: "mode/akari/img/ruleng.png"
-              });
-            }
-          } else if (arounds.light > this.number) {
-            images.push({
-              src: "mode/akari/img/ruleng.png"
-            });
+      // 左と上は隣のセル
+      if (y <= 1 - x) {
+        if (y <= 0.5 - Math.abs(0.5 - x)) {
+          if (this.y == 0) {
+            return;
           }
+          cell = this.cell(0, -1);
+          property = "bottom";
+        } else {
+          if (this.x == 0) {
+            return;
+          }
+          cell = this.cell(-1, 0);
+          property = "right";
         }
       } else {
-        images.push({
-          src: "mode/akari/img/floor.png"
-        });
-        if (this.bright >= 1) {
-          images.push({
-            src: "mode/akari/img/bright.png"
-          });
-        }
-        if (this.light) {
-          images.push({
-            src: "mode/akari/img/light.png"
-          });
-          if (this.bright >= 2) {
-            images.push({
-              src: "mode/akari/img/ruleng.png"
-            });
+        cell = this;
+        if (y <= x) {
+          if (this.x == this.board.width - 1) {
+            return;
           }
+          property = "right";
+        } else {
+          if (this.y == this.board.height - 1) {
+            return;
+          }
+          property = "bottom";
         }
-        if (this.none) {
+      }
+
+      change[property] = (cell[property] + 1) % 3;
+      cell.update(change);
+    }
+
+    images() {
+      const images = [];
+      images.push({
+        src: `mode/mashu/img/floor${this.number}.png`
+      });
+      if (this.x > 0) {
+        const cell = this.cell(-1, 0);
+        if (cell.right >= 1) {
           images.push({
-            src: "mode/akari/img/none.png"
+            src: `mode/mashu/img/left${cell.right}.png`
           });
         }
+      }
+      if (this.y > 0) {
+        const cell = this.cell(0, -1);
+        if (cell.bottom >= 1) {
+          images.push({
+            src: `mode/mashu/img/top${cell.bottom}.png`
+          });
+        }
+      }
+      if (this.right >= 1) {
+        images.push({
+          src: `mode/mashu/img/right${this.right}.png`
+        });
+      }
+      if (this.bottom >= 1) {
+        images.push({
+          src: `mode/mashu/img/bottom${this.bottom}.png`
+        });
       }
       return images;
     }
 
     arounds() {
       let result = {
-        light: 0,
+        triangle: 0,
         filled: 0
       };
 
@@ -99,11 +95,9 @@ define(function() {
         const cell = this.board.get(this.x + around[0], this.y + around[1]);
         if (cell == undefined || cell.wall || cell.none) {
           result.filled += 1;
-        } else if (cell.bright >= 1) {
+        } else if (cell.triangle >= 1) {
           result.filled += 1;
-          if (cell.light) {
-            result.light += 1;
-          }
+          result.triangle += 1;
         }
       }
 
@@ -113,52 +107,9 @@ define(function() {
     }
 
     set qnum(value) {
-      switch (value) {
-        case -1:
-          this.wall = false;
-          this.none = false;
-          this.bright = 0;
-          break;
-
-        case -2:
-          this.wall = true;
-          break;
-
-        default:
-          this.wall = true;
-          this.number = value;
-          break;
-      }
-    }
-
-    set light(value) {
-      this.dlight = value;
-      this.ray(value);
-    }
-    get light() {
-      return this.dlight;
-    }
-
-    ray(value) {
-      Vue.set(this, "bright", this.bright + (value ? 1 : -1));
-      this.setBrights(1, 0, value);
-      this.setBrights(-1, 0, value);
-      this.setBrights(0, 1, value);
-      this.setBrights(0, -1, value);
-    }
-
-    setBrights(addx, addy, value) {
-      let x = this.x + addx;
-      let y = this.y + addy;
-      while (true) {
-        const cell = this.board.get(x, y);
-        if (cell == undefined || cell.wall) {
-          break;
-        }
-        Vue.set(cell, "bright", cell.bright + (value ? 1 : -1));
-        x += addx;
-        y += addy;
-      }
+      this.number = value;
+      this.right = 0;
+      this.bottom = 0;
     }
   }
 

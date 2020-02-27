@@ -71,6 +71,22 @@ class BaseBoard {
       result = it.next(skip);
     }
   }
+  decodeCircle(source) {
+    const tri = [9, 3, 1];
+
+    let c = 0;
+    for (let i = 0; i < source.length; i++) {
+      const char = source.charAt(i);
+
+      const ca = parseInt(char, 27);
+      for (let w = 0; w < 3 && c < this.data.length; w++) {
+        const cell = this.data[c];
+        const val = ((ca / tri[w]) | 0) % 3;
+        cell.qnum = val;
+        c += 1;
+      }
+    }
+  }
 
   get(x, y) {
     if (this.width <= x || x < 0) {
