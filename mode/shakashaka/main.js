@@ -1,6 +1,6 @@
 define(function() {
   class Board extends BaseBoard {
-    decode(data) {
+    decode(source) {
       this.decode4Cell(source);
     }
   }
