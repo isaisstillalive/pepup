@@ -179,6 +179,10 @@ class BaseCell {
     this.y = y;
   }
 
+  cell(x, y) {
+    return this.board.get(x, y);
+  }
+
   update(change) {
     this.board.set(this.x, this.y, change, true);
   }

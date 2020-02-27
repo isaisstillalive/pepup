@@ -95,7 +95,7 @@ define(function() {
         [0, 1]
       ];
       for (const around of arounds) {
-        const cell = this.board.get(this.x + around[0], this.y + around[1]);
+        const cell = this.cell(this.x + around[0], this.y + around[1]);
         if (cell == undefined || cell.wall || cell.none) {
           result.filled += 1;
         } else if (cell.bright >= 1) {
@@ -150,7 +150,7 @@ define(function() {
       let x = this.x + addx;
       let y = this.y + addy;
       while (true) {
-        const cell = this.board.get(x, y);
+        const cell = this.cell(x, y);
         if (cell == undefined || cell.wall) {
           break;
         }
