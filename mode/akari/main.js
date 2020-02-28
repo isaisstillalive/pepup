@@ -28,14 +28,13 @@ define(function() {
     images() {
       const images = [];
       if (this.wall) {
-        if (this.number == null) {
+        images.push({
+          src: "img/cell/wall.png",
+          class: "bg"
+        });
+        if (this.number != null) {
           images.push({
-            src: "mode/akari/img/wall.png",
-            class: "bg"
-          });
-        } else {
-          images.push({
-            src: `mode/akari/img/wall${this.number}.png`,
+            src: `img/cell/n${this.number}w.png`,
             class: "bg"
           });
 
@@ -43,22 +42,22 @@ define(function() {
           if (arounds.filled) {
             if (arounds.light == this.number) {
               images.push({
-                src: "mode/akari/img/ruleok.png"
+                src: "img/cell/ruleok.png"
               });
             } else {
               images.push({
-                src: "mode/akari/img/ruleng.png"
+                src: "img/cell/ruleng.png"
               });
             }
           } else if (arounds.light > this.number) {
             images.push({
-              src: "mode/akari/img/ruleng.png"
+              src: "img/cell/ruleng.png"
             });
           }
         }
       } else {
         images.push({
-          src: "mode/akari/img/floor.png",
+          src: "img/cell/floor.png",
           class: "bg"
         });
         if (this.bright >= 1) {
@@ -73,13 +72,13 @@ define(function() {
           });
           if (this.bright >= 2) {
             images.push({
-              src: "mode/akari/img/ruleng.png"
+              src: "img/cell/ruleng.png"
             });
           }
         }
         if (this.none) {
           images.push({
-            src: "mode/akari/img/none.png"
+            src: "img/cell/none.png"
           });
         }
       }

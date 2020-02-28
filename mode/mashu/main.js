@@ -43,9 +43,20 @@ define(function() {
     images() {
       const images = [];
       images.push({
-        src: `mode/mashu/img/floor${this.number}.png`,
+        src: "img/cell/floor.png",
         class: "bg"
       });
+      if (this.circle === true) {
+        images.push({
+          src: "mode/mashu/img/white.png",
+          class: "bg"
+        });
+      } else if (this.circle === false) {
+        images.push({
+          src: "mode/mashu/img/black.png",
+          class: "bg"
+        });
+      }
       if (this.right >= 1) {
         images.push({
           src: `mode/mashu/img/right${this.right}.png`,
@@ -62,7 +73,9 @@ define(function() {
     }
 
     set qnum(value) {
-      this.number = value;
+      if (value >= 1) {
+        this.circle = value == 1;
+      }
       this.right = 0;
       this.bottom = 0;
     }

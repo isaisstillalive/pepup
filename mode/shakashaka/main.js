@@ -42,14 +42,13 @@ define(function() {
     images() {
       const images = [];
       if (this.wall) {
-        if (this.number == null) {
+        images.push({
+          src: "img/cell/wall.png",
+          class: "bg"
+        });
+        if (this.number != null) {
           images.push({
-            src: "mode/shakashaka/img/wall.png",
-            class: "bg"
-          });
-        } else {
-          images.push({
-            src: `mode/shakashaka/img/wall${this.number}.png`,
+            src: `img/cell/n${this.number}w.png`,
             class: "bg"
           });
 
@@ -57,22 +56,22 @@ define(function() {
           if (arounds.filled) {
             if (arounds.triangle == this.number) {
               images.push({
-                src: "mode/shakashaka/img/ruleok.png"
+                src: "img/cell/ruleok.png"
               });
             } else {
               images.push({
-                src: "mode/shakashaka/img/ruleng.png"
+                src: "img/cell/ruleng.png"
               });
             }
           } else if (arounds.triangle > this.number) {
             images.push({
-              src: "mode/shakashaka/img/ruleng.png"
+              src: "img/cell/ruleng.png"
             });
           }
         }
       } else {
         images.push({
-          src: "mode/shakashaka/img/floor.png",
+          src: "img/cell/floor.png",
           class: "bg"
         });
         if (this.triangle >= 1) {
@@ -82,7 +81,7 @@ define(function() {
         }
         if (this.none) {
           images.push({
-            src: "mode/shakashaka/img/none.png"
+            src: "img/cell/none.png"
           });
         }
       }
