@@ -30,11 +30,13 @@ define(function() {
       if (this.wall) {
         if (this.number == null) {
           images.push({
-            src: "mode/akari/img/wall.png"
+            src: "mode/akari/img/wall.png",
+            class: "bg"
           });
         } else {
           images.push({
-            src: `mode/akari/img/wall${this.number}.png`
+            src: `mode/akari/img/wall${this.number}.png`,
+            class: "bg"
           });
 
           const arounds = this.arounds();
@@ -56,11 +58,13 @@ define(function() {
         }
       } else {
         images.push({
-          src: "mode/akari/img/floor.png"
+          src: "mode/akari/img/floor.png",
+          class: "bg"
         });
         if (this.bright >= 1) {
           images.push({
-            src: "mode/akari/img/bright.png"
+            src: "mode/akari/img/bright.png",
+            class: "bg"
           });
         }
         if (this.light) {

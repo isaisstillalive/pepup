@@ -44,11 +44,13 @@ define(function() {
       if (this.wall) {
         if (this.number == null) {
           images.push({
-            src: "mode/shakashaka/img/wall.png"
+            src: "mode/shakashaka/img/wall.png",
+            class: "bg"
           });
         } else {
           images.push({
-            src: `mode/shakashaka/img/wall${this.number}.png`
+            src: `mode/shakashaka/img/wall${this.number}.png`,
+            class: "bg"
           });
 
           const arounds = this.arounds();
@@ -70,7 +72,8 @@ define(function() {
         }
       } else {
         images.push({
-          src: "mode/shakashaka/img/floor.png"
+          src: "mode/shakashaka/img/floor.png",
+          class: "bg"
         });
         if (this.triangle >= 1) {
           images.push({

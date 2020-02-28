@@ -43,26 +43,19 @@ define(function() {
     images() {
       const images = [];
       images.push({
-        src: `mode/mashu/img/floor${this.number}.png`
+        src: `mode/mashu/img/floor${this.number}.png`,
+        class: "bg"
       });
-      if (this.left >= 1) {
-        images.push({
-          src: `mode/mashu/img/left${this.left}.png`
-        });
-      }
-      if (this.top >= 1) {
-        images.push({
-          src: `mode/mashu/img/top${this.top}.png`
-        });
-      }
       if (this.right >= 1) {
         images.push({
-          src: `mode/mashu/img/right${this.right}.png`
+          src: `mode/mashu/img/right${this.right}.png`,
+          class: "link"
         });
       }
       if (this.bottom >= 1) {
         images.push({
-          src: `mode/mashu/img/bottom${this.bottom}.png`
+          src: `mode/mashu/img/bottom${this.bottom}.png`,
+          class: "link"
         });
       }
       return images;
