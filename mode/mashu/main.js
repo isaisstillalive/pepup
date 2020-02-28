@@ -109,15 +109,16 @@ define(function() {
         return this.correctionWhite();
       } else if (this.circle === false) {
         return this.correctionBlack();
-      } else {
-        const lines = this.lines;
-        if (lines == 2) {
-          return true;
-        } else if (lines >= 3) {
-          return false;
-        }
       }
-      return null;
+
+      const lines = this.lines;
+      if (lines == 1) {
+        return null;
+      } else if (lines == 0 || lines == 2) {
+        return true;
+      } else {
+        return false;
+      }
     }
     correctionWhite() {
       // 曲がっていればNG
