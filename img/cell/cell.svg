@@ -29,10 +29,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="-19.218646"
+     inkscape:cx="-90.647217"
      inkscape:cy="48.165001"
      inkscape:document-units="px"
-     inkscape:current-layer="layer8"
+     inkscape:current-layer="layer2"
      showgrid="true"
      units="px"
      borderlayer="true"
@@ -67,15 +67,14 @@
     </rdf:RDF>
   </metadata>
   <g
+     inkscape:label="floor"
      inkscape:groupmode="layer"
-     id="layer9"
-     inkscape:label="bright"
+     id="layer1"
+     transform="translate(0,-270.54166)"
      style="display:none">
     <g
-       transform="translate(0,-270.54166)"
-       style="display:inline"
-       id="g6050-4"
-       inkscape:export-filename="bright.png"
+       id="g6050"
+       inkscape:export-filename="floor.png"
        inkscape:export-xdpi="96.000008"
        inkscape:export-ydpi="96.000008">
       <rect
@@ -83,18 +82,19 @@
          x="0"
          height="26.458332"
          width="26.458332"
-         id="rect12-3"
-         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#e6e6e6;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+         id="rect12"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#808080;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
     </g>
   </g>
   <g
      inkscape:groupmode="layer"
-     id="layer8"
-     inkscape:label="light"
+     id="layer12"
+     inkscape:label="none"
      style="display:none">
     <g
-       id="g6201"
-       inkscape:export-filename=".\light.png"
+       style="display:inline"
+       id="g6201-2"
+       inkscape:export-filename=".\none.png"
        inkscape:export-xdpi="96.000008"
        inkscape:export-ydpi="96.000008">
       <rect
@@ -102,15 +102,226 @@
          x="0"
          height="26.458332"
          width="26.458332"
-         id="rect12-0"
+         id="rect12-0-6"
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
       <ellipse
-         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.0583334;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-         id="path6204"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.0583334;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         id="path6204-3"
          cx="13.229166"
          cy="13.229167"
-         rx="10.583333"
-         ry="10.583334" />
+         rx="3.9687486"
+         ry="3.9687493" />
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="wall"
+     style="display:inline">
+    <g
+       id="g6053"
+       inkscape:export-filename="wall.png"
+       inkscape:export-xdpi="96.000008"
+       inkscape:export-ydpi="96.000008">
+      <rect
+         y="-2.6458333e-06"
+         x="0"
+         height="26.458332"
+         width="26.458332"
+         id="rect12-6"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="wall0"
+     style="display:none">
+    <g
+       id="g6074"
+       inkscape:export-filename=".\n0w.png"
+       inkscape:export-xdpi="96.000008"
+       inkscape:export-ydpi="96.000008">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;line-height:0%;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP, Heavy';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="13.234127"
+         y="23.071663"
+         id="text6077"><tspan
+           sodipodi:role="line"
+           id="tspan6079"
+           x="13.234127"
+           y="23.071663"
+           style="font-size:26.45833397px;line-height:1.25">0</tspan></text>
+      <rect
+         y="-2.6458333e-06"
+         x="0"
+         height="26.458332"
+         width="26.458332"
+         id="rect12-0-6-1"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="wall1"
+     style="display:none">
+    <g
+       id="g6074-3"
+       inkscape:export-filename=".\n1w.png"
+       inkscape:export-xdpi="96.000008"
+       inkscape:export-ydpi="96.000008">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;line-height:0%;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP, Heavy';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="13.234127"
+         y="23.071663"
+         id="text6077-9"><tspan
+           sodipodi:role="line"
+           id="tspan6079-6"
+           x="13.234127"
+           y="23.071663"
+           style="font-size:26.45833397px;line-height:1.25">1</tspan></text>
+      <rect
+         y="-2.6458333e-06"
+         x="0"
+         height="26.458332"
+         width="26.458332"
+         id="rect12-0-6-0"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer5"
+     inkscape:label="wall2"
+     style="display:none">
+    <g
+       id="g6074-2"
+       inkscape:export-filename=".\n2w.png"
+       inkscape:export-xdpi="96.000008"
+       inkscape:export-ydpi="96.000008">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;line-height:0%;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP, Heavy';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="13.234127"
+         y="23.071663"
+         id="text6077-5"><tspan
+           sodipodi:role="line"
+           id="tspan6079-8"
+           x="13.234127"
+           y="23.071663"
+           style="font-size:26.45833397px;line-height:1.25">2</tspan></text>
+      <rect
+         y="-2.6458333e-06"
+         x="0"
+         height="26.458332"
+         width="26.458332"
+         id="rect12-0-6-4"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer6"
+     inkscape:label="wall3"
+     style="display:none">
+    <g
+       id="g6074-2-5"
+       inkscape:export-filename=".\n3w.png"
+       inkscape:export-xdpi="96.000008"
+       inkscape:export-ydpi="96.000008">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;line-height:0%;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP, Heavy';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="13.234127"
+         y="23.071663"
+         id="text6077-5-8"><tspan
+           sodipodi:role="line"
+           id="tspan6079-8-2"
+           x="13.234127"
+           y="23.071663"
+           style="font-size:26.45833397px;line-height:1.25">3</tspan></text>
+      <rect
+         y="-2.6458333e-06"
+         x="0"
+         height="26.458332"
+         width="26.458332"
+         id="rect12-0-6-01"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer7"
+     inkscape:label="wall4"
+     style="display:none">
+    <g
+       id="g6074-2-53"
+       inkscape:export-filename=".\n4w.png"
+       inkscape:export-xdpi="96.000008"
+       inkscape:export-ydpi="96.000008">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;line-height:0%;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP, Heavy';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="13.234127"
+         y="23.071663"
+         id="text6077-5-3"><tspan
+           sodipodi:role="line"
+           id="tspan6079-8-5"
+           x="13.234127"
+           y="23.071663"
+           style="font-size:26.45833397px;line-height:1.25">4</tspan></text>
+      <rect
+         y="-2.6458333e-06"
+         x="0"
+         height="26.458332"
+         width="26.458332"
+         id="rect12-0-6-6"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer10"
+     inkscape:label="ruleok"
+     style="display:none">
+    <g
+       transform="translate(0,-270.54166)"
+       style="display:inline"
+       id="g6050-7"
+       inkscape:export-filename="ruleok.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         y="270.54166"
+         x="0"
+         height="26.458332"
+         width="26.458332"
+         id="rect12-8"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:0.6;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer11"
+     inkscape:label="ruleng"
+     style="display:none">
+    <g
+       transform="translate(0,-270.54166)"
+       style="display:inline"
+       id="g6050-7-2"
+       inkscape:export-filename="ruleng.png"
+       inkscape:export-xdpi="96.000008"
+       inkscape:export-ydpi="96.000008">
+      <rect
+         y="270.54166"
+         x="0"
+         height="26.458332"
+         width="26.458332"
+         id="rect12-8-0"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:0.3;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
     </g>
   </g>
 </svg>
