@@ -51,11 +51,27 @@ define(function() {
           src: "mode/mashu/img/white.png",
           class: "bg"
         });
+        if (this.whiteng) {
+          images.push({
+            src: "img/cell/ruleng.png"
+          });
+        }
       } else if (this.circle === false) {
         images.push({
           src: "mode/mashu/img/black.png",
           class: "bg"
         });
+        if (this.blackng) {
+          images.push({
+            src: "img/cell/ruleng.png"
+          });
+        }
+      } else {
+        if (this.lines >= 3) {
+          images.push({
+            src: "img/cell/ruleng.png"
+          });
+        }
       }
       if (this.right >= 1) {
         images.push({
@@ -70,6 +86,59 @@ define(function() {
         });
       }
       return images;
+    }
+
+    get lines() {
+      let line = 0;
+      ["right", "bottom", "left", "top"].forEach(dir => {
+        if (this[dir] == 1) {
+          line += 1;
+        }
+      });
+      return line;
+    }
+    get horizontal() {
+      return this.right == 1 || this.left == 1;
+    }
+    get vertical() {
+      return this.top == 1 || this.bottom == 1;
+    }
+
+    get whiteng() {
+      if (this.horizontal && this.vertical) {
+        return true;
+      }
+      if (this.left == 1 && this.right == 1) {
+        if (this.cell(-1, 0).left == 1 && this.cell(1, 0).right == 1) {
+          return true;
+        }
+      }
+      if (this.top == 1 && this.bottom == 1) {
+        if (this.cell(0, -1).top == 1 && this.cell(0, 1).bottom == 1) {
+          return true;
+        }
+      }
+    }
+
+    get blackng() {
+      if (
+        (this.top == 1 && this.bottom == 1) ||
+        (this.right == 1 && this.left == 1)
+      ) {
+        return true;
+      }
+      if (this.left == 1 && this.cell(-1, 0).vertical) {
+        return true;
+      }
+      if (this.right == 1 && this.cell(1, 0).vertical) {
+        return true;
+      }
+      if (this.top == 1 && this.cell(0, -1).horizontal) {
+        return true;
+      }
+      if (this.bottom == 1 && this.cell(0, 1).horizontal) {
+        return true;
+      }
     }
 
     set qnum(value) {
