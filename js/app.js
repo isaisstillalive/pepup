@@ -21,10 +21,7 @@ class BaseBoard {
     }
     this.decode(source);
 
-    this.pincount = 0;
-    this.pin = false;
-    this.historyIndex = 0;
-    this.history = [];
+    this.history = new History(this);
   }
 
   decode(source) {}
@@ -96,95 +93,40 @@ class BaseBoard {
   }
   set(x, y, change, rec = false) {
     if (rec) {
-      if (this.pin) {
-        this.pincount += 1;
-        change.pin = this.pincount;
-        this.pin = false;
-      }
-      this.record(x, y, change);
+      this.history.record(x, y, change);
     }
     const index = x + y * width;
     Object.assign(this.data[index], change);
     Vue.set(this.data, index, this.data[index]);
   }
 
-  record(x, y, to) {
-    const current = this.get(x, y);
-    const from = {};
-    for (const key in to) {
-      from[key] = current[key];
-    }
-    this.history.splice(this.historyIndex, 99999, {
-      x: x,
-      y: y,
-      from: from,
-      to: to
-    });
-    this.historyIndex += 1;
-  }
-
   get doUndo() {
-    return this.historyIndex > 0 && !this.history[this.historyIndex - 1].to.pin;
+    return this.history.doUndo;
   }
   get doRedo() {
-    return this.historyIndex < this.history.length;
+    return this.history.doRedo;
   }
   undo() {
-    if (!this.doUndo) {
-      return;
-    }
-    this.historyIndex -= 1;
-    const record = this.history[this.historyIndex];
-    this.set(record.x, record.y, record.from);
+    this.history.undo();
   }
   redo() {
-    if (!this.doRedo) {
-      return;
-    }
-    const record = this.history[this.historyIndex];
-    this.historyIndex += 1;
-    this.set(record.x, record.y, record.to);
+    this.history.redo();
   }
 
-  pin() {
-    if (!this.doRedo) {
-      return;
-    }
-    const record = this.history[this.historyIndex];
-    this.historyIndex += 1;
-    this.set(record.x, record.y, record.to);
+  get pin() {
+    return this.history.pin;
+  }
+  set pin(value) {
+    this.history.pin = value;
   }
   get hasPin() {
-    return this.pincount > 0;
+    return this.history.hasPin;
   }
   dispose() {
-    if (!this.hasPin) {
-      return;
-    }
-    this.historyIndex -= 1;
-    for (; this.historyIndex >= 0; this.historyIndex--) {
-      const record = this.history[this.historyIndex];
-      this.set(record.x, record.y, record.from);
-      if (record.to.pin !== undefined) {
-        break;
-      }
-    }
-    this.history.splice(this.historyIndex, 99999);
-    this.pincount -= 1;
+    this.history.dispose();
   }
   confirm() {
-    if (!this.hasPin) {
-      return;
-    }
-    for (let index = this.historyIndex - 1; index >= 0; index--) {
-      const record = this.history[index];
-      if (record.to.pin !== undefined) {
-        record.to.pin = undefined;
-        this.set(record.x, record.y, { pin: undefined });
-        break;
-      }
-    }
-    this.pincount -= 1;
+    this.history.confirm();
   }
 }
 
@@ -201,6 +143,103 @@ class BaseCell {
 
   update(change) {
     this.board.set(this.x, this.y, change, true);
+  }
+}
+
+class History {
+  constructor(board) {
+    this.board = board;
+    this.value = [];
+    this.index = 0;
+    this.pincount = 0;
+    this.pin = false;
+  }
+
+  record(x, y, to) {
+    const current = this.board.get(x, y);
+
+    if (this.pin) {
+      this.pincount += 1;
+      to.pin = this.pincount;
+      this.pin = false;
+    }
+
+    const from = {};
+    for (const key in to) {
+      from[key] = current[key];
+    }
+
+    this.value.splice(this.index, 99999, {
+      x: x,
+      y: y,
+      from: from,
+      to: to
+    });
+    this.index += 1;
+  }
+
+  get doUndo() {
+    return this.index > 0 && !this.value[this.index - 1].to.pin;
+  }
+  get doRedo() {
+    return this.index < this.value.length;
+  }
+  undo() {
+    if (!this.doUndo) {
+      return;
+    }
+    this.index -= 1;
+    const record = this.value[this.index];
+    this.board.set(record.x, record.y, record.from);
+  }
+  redo() {
+    if (!this.doRedo) {
+      return;
+    }
+    const record = this.value[this.index];
+    this.index += 1;
+    this.board.set(record.x, record.y, record.to);
+  }
+
+  pin() {
+    if (!this.doRedo) {
+      return;
+    }
+    const record = this.value[this.index];
+    this.index += 1;
+    this.board.set(record.x, record.y, record.to);
+  }
+  get hasPin() {
+    return this.pincount > 0;
+  }
+  dispose() {
+    if (!this.hasPin) {
+      return;
+    }
+    this.index -= 1;
+    for (; this.index >= 0; this.index--) {
+      const record = this.value[this.index];
+      this.board.set(record.x, record.y, record.from);
+      if (record.to.pin !== undefined) {
+        break;
+      }
+    }
+    this.value.splice(this.index, 99999);
+    this.pincount -= 1;
+  }
+  confirm() {
+    if (!this.hasPin) {
+      return;
+    }
+    for (let index = this.index - 1; index >= 0; index--) {
+      const record = this.value[index];
+      if (record.to.pin !== undefined) {
+        record.to.pin = undefined;
+        this.board.set(record.x, record.y, { pin: undefined });
+        break;
+      }
+    }
+    this.pincount -= 1;
   }
 }
 
