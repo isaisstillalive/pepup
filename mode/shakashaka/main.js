@@ -39,7 +39,7 @@ define(function() {
       this.update(change);
     }
 
-    images() {
+    images(correction) {
       const images = [];
       if (this.wall) {
         images.push({
@@ -52,18 +52,11 @@ define(function() {
             class: "bg"
           });
 
-          const arounds = this.arounds();
-          if (arounds.filled) {
-            if (arounds.triangle == this.number) {
-              images.push({
-                src: "img/cell/ruleok.png"
-              });
-            } else {
-              images.push({
-                src: "img/cell/ruleng.png"
-              });
-            }
-          } else if (arounds.triangle > this.number) {
+          if (correction === true) {
+            images.push({
+              src: "img/cell/ruleok.png"
+            });
+          } else if (correction === false) {
             images.push({
               src: "img/cell/ruleng.png"
             });
@@ -132,6 +125,29 @@ define(function() {
           this.number = value;
           break;
       }
+    }
+
+    correction() {
+      // 壁の場合、周囲がすべて埋まり番号と一致していればOK
+      // 番号を超えていたらNG
+      if (this.wall) {
+        if (this.number == null) {
+          return true;
+        }
+        const arounds = this.arounds();
+        if (arounds.filled) {
+          if (arounds.triangle == this.number) {
+            return true;
+          } else {
+            return false;
+          }
+        } else if (arounds.triangle > this.number) {
+          return false;
+        }
+        return null;
+      }
+
+      return null;
     }
   }
 

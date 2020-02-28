@@ -115,6 +115,13 @@ class BaseCell {
   update(change) {
     this.board.set(this.x, this.y, change, true);
   }
+
+  correction() {
+    // そのセルが完成していなければnull
+    // ルールに則っていればtrue
+    // ルールから逸脱していればfalse
+    return true;
+  }
 }
 
 class History {
@@ -233,7 +240,7 @@ requirejs([`../mode/${game}/main`], function(game) {
         return this.board.get(this.x, this.y);
       },
       images() {
-        if (this.current) return this.current.images();
+        if (this.current) return this.current.images(this.current.correction());
       }
     }
   });

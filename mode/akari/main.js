@@ -25,8 +25,9 @@ define(function() {
       this.update(change);
     }
 
-    images() {
+    images(correction) {
       const images = [];
+
       if (this.wall) {
         images.push({
           src: "img/cell/wall.png",
@@ -37,21 +38,9 @@ define(function() {
             src: `img/cell/n${this.number}w.png`,
             class: "bg"
           });
-
-          const arounds = this.arounds();
-          if (arounds.filled) {
-            if (arounds.light == this.number) {
-              images.push({
-                src: "img/cell/ruleok.png"
-              });
-            } else {
-              images.push({
-                src: "img/cell/ruleng.png"
-              });
-            }
-          } else if (arounds.light > this.number) {
+          if (correction === true) {
             images.push({
-              src: "img/cell/ruleng.png"
+              src: "img/cell/ruleok.png"
             });
           }
         }
@@ -82,6 +71,13 @@ define(function() {
           });
         }
       }
+
+      if (correction === false) {
+        images.push({
+          src: "img/cell/ruleng.png"
+        });
+      }
+
       return images;
     }
 
@@ -131,6 +127,41 @@ define(function() {
           this.number = value;
           break;
       }
+    }
+
+    correction() {
+      // 壁の場合、周囲がすべて埋まり番号と一致していればOK
+      // 番号を超えていたらNG
+      if (this.wall) {
+        if (this.number == null) {
+          return true;
+        }
+        const arounds = this.arounds();
+        if (arounds.filled) {
+          if (arounds.light == this.number) {
+            return true;
+          } else {
+            return false;
+          }
+        } else if (arounds.light > this.number) {
+          return false;
+        }
+        return null;
+      }
+
+      // 明かりの場合、床が2回光っていればNG
+      if (this.light) {
+        if (this.bright >= 2) {
+          return false;
+        }
+        return true;
+      }
+
+      // 床の場合、1回以上光っていればOK
+      if (this.bright >= 1) {
+        return true;
+      }
+      return null;
     }
 
     set light(value) {

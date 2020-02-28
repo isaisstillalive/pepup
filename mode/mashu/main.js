@@ -40,7 +40,7 @@ define(function() {
       this.update(change);
     }
 
-    images() {
+    images(correction) {
       const images = [];
       images.push({
         src: "img/cell/floor.png",
@@ -51,27 +51,11 @@ define(function() {
           src: "mode/mashu/img/white.png",
           class: "bg"
         });
-        if (this.whiteng) {
-          images.push({
-            src: "img/cell/ruleng.png"
-          });
-        }
       } else if (this.circle === false) {
         images.push({
           src: "mode/mashu/img/black.png",
           class: "bg"
         });
-        if (this.blackng) {
-          images.push({
-            src: "img/cell/ruleng.png"
-          });
-        }
-      } else {
-        if (this.lines >= 3) {
-          images.push({
-            src: "img/cell/ruleng.png"
-          });
-        }
       }
       if (this.right >= 1) {
         images.push({
@@ -85,6 +69,13 @@ define(function() {
           class: "link"
         });
       }
+
+      if (correction === false) {
+        images.push({
+          src: "img/cell/ruleng.png"
+        });
+      }
+
       return images;
     }
 
@@ -104,49 +95,91 @@ define(function() {
       return this.top == 1 || this.bottom == 1;
     }
 
-    get whiteng() {
-      if (this.horizontal && this.vertical) {
-        return true;
-      }
-      if (this.left == 1 && this.right == 1) {
-        if (this.cell(-1, 0).left == 1 && this.cell(1, 0).right == 1) {
-          return true;
-        }
-      }
-      if (this.top == 1 && this.bottom == 1) {
-        if (this.cell(0, -1).top == 1 && this.cell(0, 1).bottom == 1) {
-          return true;
-        }
-      }
-    }
-
-    get blackng() {
-      if (
-        (this.top == 1 && this.bottom == 1) ||
-        (this.right == 1 && this.left == 1)
-      ) {
-        return true;
-      }
-      if (this.left == 1 && this.cell(-1, 0).vertical) {
-        return true;
-      }
-      if (this.right == 1 && this.cell(1, 0).vertical) {
-        return true;
-      }
-      if (this.top == 1 && this.cell(0, -1).horizontal) {
-        return true;
-      }
-      if (this.bottom == 1 && this.cell(0, 1).horizontal) {
-        return true;
-      }
-    }
-
     set qnum(value) {
       if (value >= 1) {
         this.circle = value == 1;
       }
       this.right = 0;
       this.bottom = 0;
+    }
+
+    correction() {
+      // 白丸なら
+      if (this.circle === true) {
+        return this.correctionWhite();
+      } else if (this.circle === false) {
+        return this.correctionBlack();
+      } else {
+        const lines = this.lines;
+        if (lines == 2) {
+          return true;
+        } else if (lines >= 3) {
+          return false;
+        }
+      }
+      return null;
+    }
+    correctionWhite() {
+      // 曲がっていればNG
+      if (this.horizontal && this.vertical) {
+        return false;
+      }
+      // 隣のセルが両方直進していればNG
+      // どちらかが曲がっていればOK
+      const arounds = this.arounds();
+      if (arounds.straight == 2) {
+        return false;
+      } else if (arounds.turn >= 1) {
+        return true;
+      }
+      return null;
+    }
+
+    correctionBlack() {
+      // 直線ならNG
+      if (
+        (this.top == 1 && this.bottom == 1) ||
+        (this.right == 1 && this.left == 1)
+      ) {
+        return false;
+      }
+
+      // 隣のセルが両方直進していればOK
+      // どちらかが曲がっていればNG
+      const arounds = this.arounds();
+      if (arounds.turn >= 1) {
+        return false;
+      } else if (arounds.straight == 2) {
+        return true;
+      }
+      return null;
+    }
+
+    arounds() {
+      let result = {
+        straight: 0,
+        turn: 0
+      };
+
+      const arounds = [
+        ["left", [-1, 0], "vertical"],
+        ["right", [1, 0], "vertical"],
+        ["top", [0, -1], "horizontal"],
+        ["bottom", [0, 1], "horizontal"]
+      ];
+      for (const around of arounds) {
+        if (this[around[0]] == 1) {
+          const cell = this.cell(...around[1]);
+          if (cell[around[0]] == 1) {
+            result.straight += 1;
+          }
+          if (cell[around[2]]) {
+            result.turn += 1;
+          }
+        }
+      }
+
+      return result;
     }
 
     set left(value) {
