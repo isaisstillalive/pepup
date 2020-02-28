@@ -99,35 +99,6 @@ class BaseBoard {
     Object.assign(this.data[index], change);
     Vue.set(this.data, index, this.data[index]);
   }
-
-  get doUndo() {
-    return this.history.doUndo;
-  }
-  get doRedo() {
-    return this.history.doRedo;
-  }
-  undo() {
-    this.history.undo();
-  }
-  redo() {
-    this.history.redo();
-  }
-
-  get pin() {
-    return this.history.pin;
-  }
-  set pin(value) {
-    this.history.pin = value;
-  }
-  get hasPin() {
-    return this.history.hasPin;
-  }
-  dispose() {
-    this.history.dispose();
-  }
-  confirm() {
-    this.history.confirm();
-  }
 }
 
 class BaseCell {
@@ -289,16 +260,16 @@ requirejs([`../mode/${game}/main`], function(game) {
           .click(touchX / clientRect.width, touchY / clientRect.height);
       },
       undo() {
-        this.board.undo();
+        this.board.history.undo();
       },
       redo() {
-        this.board.redo();
+        this.board.history.redo();
       },
       dispose() {
-        this.board.dispose();
+        this.board.history.dispose();
       },
       confirm() {
-        this.board.confirm();
+        this.board.history.confirm();
       },
       touchstart(event) {
         this.touch = {
@@ -340,20 +311,20 @@ requirejs([`../mode/${game}/main`], function(game) {
         return this.board.height;
       },
       doUndo() {
-        return this.board.doUndo;
+        return this.board.history.doUndo;
       },
       doRedo() {
-        return this.board.doRedo;
+        return this.board.history.doRedo;
       },
       hasPin() {
-        return this.board.hasPin;
+        return this.board.history.hasPin;
       },
       pin: {
         get() {
-          return this.board.pin;
+          return this.board.history.pin;
         },
         set(value) {
-          this.board.pin = value;
+          this.board.history.pin = value;
         }
       },
       cellsize() {
