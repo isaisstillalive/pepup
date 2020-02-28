@@ -243,8 +243,7 @@ requirejs([`../mode/${game}/main`], function(game) {
     data: {
       board: new game.board(width, height, source, game.cell),
       cursor: { x: 0, y: 0 },
-      touch: {},
-      border: 1
+      touch: {}
     },
     methods: {
       setCursor(x, y) {
@@ -328,19 +327,12 @@ requirejs([`../mode/${game}/main`], function(game) {
         }
       },
       cellsize() {
-        return Math.floor(
-          Math.min(
-            (320 - this.border) / this.width,
-            (430 - this.border) / this.height
-          ) - this.border
-        );
+        return Math.floor(Math.min(320 / this.width, 430 / this.height));
       },
       boardsize() {
         return {
-          width:
-            (this.cellsize + this.border) * this.width + 3 * this.border + "px",
-          height:
-            (this.cellsize + this.border) * this.height + 3 * this.border + "px"
+          width: this.cellsize * this.width + "px",
+          height: this.cellsize * this.height + "px"
         };
       }
     }

@@ -19,42 +19,37 @@
         @touchmove="touchmove"
         @touchend="touchend"
       >
-        <table :style="boardsize">
-          <tbody>
-            <tr v-for="y in height">
-              <td
-                v-for="x in width"
-                :style="{ width: cellsize + 'px', height: cellsize + 'px' }"
+        <div class="inner" :style="boardsize">
+          <template v-for="y in height">
+            <template v-for="x in width">
+              <cell
+                :style="{ width: (cellsize - 1) + 'px', height: (cellsize - 1) + 'px' }"
+                :board="board"
+                :x="x-1"
+                :y="y-1"
+                @click="setCursor(x-1, y-1)"
               >
-                <cell
-                  :board="board"
-                  :x="x-1"
-                  :y="y-1"
-                  @click="setCursor(x-1, y-1)"
-                ></cell>
                 <img
                   v-if="cursor.x == x-1 && cursor.y == y-1"
                   src="img/cursor.png"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                  class="cursor"
+              /></cell>
+            </template>
+          </template>
+        </div>
       </div>
       <div id="control" @touchend="clickCell(cursor.x, cursor.y, $event)">
-        <table>
-          <tbody>
-            <tr v-for="addy in 3">
-              <td v-for="addx in 3">
-                <cell
-                  :board="board"
-                  :x="cursor.x + addx - 2"
-                  :y="cursor.y + addy - 2"
-                ></cell>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="inner">
+          <template v-for="addy in 3">
+            <template v-for="addx in 3">
+              <cell
+                :board="board"
+                :x="cursor.x + addx - 2"
+                :y="cursor.y + addy - 2"
+              ></cell>
+            </template>
+          </template>
+        </div>
       </div>
       <div id="undo" @click="undo">
         <img v-if="doUndo" src="img/undo.png" />
@@ -78,13 +73,14 @@
       </div>
     </div>
     <template id="cell">
-      <div @click="$emit('click', $event)">
+      <div @click="$emit('click', $event)" class="cell">
         <!-- <object type="image/svg+xml" data="mode/akari/cell.svg"></object> -->
-        <img v-for="image in images" :src="image.src" />
+        <img v-for="image in images" :src="image.src" :class="image.class" />
         <img
           v-if="current !== undefined && current.pin !== undefined"
           :src="`img/pin${current.pin}.png`"
         />
+        <slot></slot>
       </div>
     </template>
     <script

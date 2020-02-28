@@ -22,38 +22,56 @@ html {
   overflow: hidden;
 }
 
-#control table {
+#control .inner {
   width: calc(70px * 3 + 3px);
   height: calc(70px * 3 + 3px);
 }
-#control table td {
+#control .inner .cell {
   width: calc(70px - 1px);
   height: calc(70px - 1px);
 }
 
-#board table,
-#control table {
-  /* background-color: black; */
+#board .inner,
+#control .inner {
   position: absolute;
   top: 50%;
   left: 50%;
   -webkit-transform: translateY(-50%) translateX(-50%);
   transform: translateY(-50%) translateX(-50%);
-  border-collapse: collapse;
+  background-color: #aaa;
   border: solid 2px #aaa;
+  border-right: solid 1px #aaa;
+  border-bottom: solid 1px #aaa;
+}
+#control .inner {
+  background-color: black;
 }
 
-#board table td,
-#control table td {
+.cell {
+  display: inline-block;
   position: relative;
-  border: solid 1px #aaa;
+  padding-right: 1px;
+  padding-bottom: 1px;
+  vertical-align: top;
 }
 
-#board table td img,
-#control table td img {
-  vertical-align: top;
+.cell img {
   width: 100%;
   position: absolute;
+  z-index: 0;
+}
+.cell img.bg {
+  width: calc(100% - 1px);
+  position: absolute;
+  z-index: 0;
+}
+.cell img.link {
+  width: 200%;
+  z-index: 1;
+}
+.cell img.cursor {
+  width: calc(100% - 1px);
+  z-index: 2;
 }
 
 #undo,
