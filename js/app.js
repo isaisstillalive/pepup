@@ -99,6 +99,10 @@ class BaseBoard {
     Object.assign(this.data[index], change);
     Vue.set(this.data, index, this.data[index]);
   }
+
+  judgment() {
+    return this.data.every(cell => cell.correction());
+  }
 }
 
 class BaseCell {
@@ -276,6 +280,13 @@ requirejs([`../mode/${game}/main`], function(game) {
       },
       confirm() {
         this.board.history.confirm();
+      },
+      judgment() {
+        if (this.board.judgment()) {
+          alert("完成");
+        } else {
+          alert("未完成");
+        }
       },
       touchstart(event) {
         this.touch = {

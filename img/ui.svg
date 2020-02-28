@@ -28,9 +28,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="-34.96681"
-     inkscape:cy="-7.1883406"
+     inkscape:zoom="2.8"
+     inkscape:cx="51.4296"
+     inkscape:cy="31.184618"
      inkscape:document-units="px"
      inkscape:current-layer="layer2"
      showgrid="true"
@@ -61,7 +61,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -405,6 +405,39 @@
            x="6.3728199"
            id="tspan1791"
            sodipodi:role="line">C</tspan></text>
+    </g>
+    <g
+       inkscape:export-ydpi="96.000008"
+       inkscape:export-xdpi="96.000008"
+       inkscape:export-filename="judgment.png"
+       id="g67"
+       style="display:inline"
+       transform="translate(39.6875,-270.54166)">
+      <rect
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:0.3;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         id="rect59"
+         width="13.229166"
+         height="13.229171"
+         x="0"
+         y="270.54166" />
+      <rect
+         y="270.80624"
+         x="0.26458332"
+         height="12.700012"
+         width="12.699999"
+         id="rect61"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.9375;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      <text
+         id="text65"
+         y="282.47614"
+         x="6.3728199"
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:14.11111164px;line-height:100%;font-family:'FOT-RaglanPunch Std';-inkscape-font-specification:'FOT-RaglanPunch Std, Heavy';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:center;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:14.11111164px;font-family:'FOT-RaglanPunch Std';-inkscape-font-specification:'FOT-RaglanPunch Std, Heavy';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#ffffff;stroke-width:0.26458332px"
+           y="282.47614"
+           x="6.3728199"
+           id="tspan63"
+           sodipodi:role="line">J</tspan></text>
     </g>
   </g>
 </svg>

@@ -71,6 +71,9 @@
         <img v-if="hasPin" src="img/confirm.png" />
         <img v-else src="img/confirm_disable.png" />
       </div>
+      <div id="judgment" @click="judgment">
+        <img src="img/judgment.png" />
+      </div>
     </div>
     <template id="cell">
       <div @click="$emit('click', $event)" class="cell">
