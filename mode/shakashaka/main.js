@@ -15,24 +15,17 @@ define(function() {
 
       const dist = Math.sqrt((x - 0.5) ** 2 + (y - 0.5) ** 2);
       if (dist <= 0.25) {
-        change.triangle = 0;
-        change.none = this.triangle == 0 && !this.none;
+        change.triangle = undefined;
+        change.none = !this.none;
       } else {
         let triangle = 0;
-        if (y < 0.5) {
-          if (x < 0.5) {
-            triangle = 1;
-          } else {
-            triangle = 2;
+        if (x >= 0.5) {
+          triangle += 1;
           }
-        } else {
-          if (x < 0.5) {
-            triangle = 4;
-          } else {
-            triangle = 3;
-          }
+        if (y >= 0.5) {
+          triangle += 2;
         }
-        change.triangle = this.triangle == triangle ? 0 : triangle;
+        change.triangle = this.triangle == triangle ? undefined : triangle;
         change.none = false;
       }
 
@@ -67,7 +60,7 @@ define(function() {
           src: "img/cell/floor.png",
           class: "bg"
         });
-        if (this.triangle >= 1) {
+        if (this.triangle !== undefined) {
           images.push({
             src: `mode/shakashaka/img/triangle${this.triangle}.png`
           });
@@ -97,7 +90,7 @@ define(function() {
         const cell = this.cell(around[0], around[1]);
         if (cell == undefined || cell.wall || cell.none) {
           result.filled += 1;
-        } else if (cell.triangle >= 1) {
+        } else if (cell.triangle !== undefined) {
           result.filled += 1;
           result.triangle += 1;
         }
@@ -112,7 +105,7 @@ define(function() {
       switch (value) {
         case -1:
           this.wall = false;
-          this.triangle = 0;
+          this.triangle = undefined;
           this.none = false;
           break;
 
