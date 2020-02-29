@@ -40,14 +40,8 @@
       </div>
       <div id="control" @touchend="clickCell(cursor.x, cursor.y, $event)">
         <div class="inner">
-          <template v-for="addy in 3">
-            <template v-for="addx in 3">
-              <cell
-                :board="board"
-                :x="cursor.x + addx - 2"
-                :y="cursor.y + addy - 2"
-              ></cell>
-            </template>
+          <template v-for="cell in controlcells">
+            <cell :board="board" :x="cell.x" :y="cell.y"></cell>
           </template>
         </div>
       </div>

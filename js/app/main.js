@@ -133,6 +133,18 @@ define(function(require) {
             width: this.cellsize * this.width + "px",
             height: this.cellsize * this.height + "px"
           };
+        },
+        controlcells() {
+          const result = [];
+          for (let y = this.cursor.y - 1; y <= this.cursor.y + 1; y++) {
+            for (let x = this.cursor.x - 1; x <= this.cursor.x + 1; x++) {
+              result.push({
+                x: x,
+                y: y
+              });
+            }
+          }
+          return result;
         }
       }
     });
