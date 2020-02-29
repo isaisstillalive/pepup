@@ -10,6 +10,7 @@ html {
   height: 430px;
   position: absolute;
   background-color: black;
+  overflow: hidden;
 }
 
 #control {
