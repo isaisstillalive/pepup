@@ -7,16 +7,15 @@ define(function(require) {
       this.width = width;
       this.height = height;
 
-      this.cells = new Array(width * height);
-      for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-          const i = x + y * width;
-          this.cells[i] = new cell(this, x, y);
-        }
-      }
-
-      const transcoder = new Transcoder(source, this.cells);
+      const transcoder = new Transcoder(
+        source,
+        width,
+        height,
+        (x, y) => new cell(this, x, y)
+      );
       this.decode(transcoder);
+      this.cells = transcoder.cells;
+      this.rooms = transcoder.rooms;
 
       this.history = new History(this);
     }

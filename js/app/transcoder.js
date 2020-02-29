@@ -1,8 +1,19 @@
 define(function(require) {
   class Transcoder {
-    constructor(source, cells) {
+    constructor(source, width, height, cell) {
       this.source = source;
-      this.cells = cells;
+      this.width = width;
+      this.height = height;
+
+      this.cells = new Array(width * height);
+      for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+          const i = x + y * width;
+          this.cells[i] = cell(x, y);
+        }
+      }
+
+      this.rooms = [];
     }
 
     *decodeIterator() {
