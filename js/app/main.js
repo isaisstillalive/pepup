@@ -140,7 +140,8 @@ define(function(require) {
             for (let x = this.cursor.x - 1; x <= this.cursor.x + 1; x++) {
               result.push({
                 x: x,
-                y: y
+                y: y,
+                out: x < 0 || x >= this.width || y < 0 || y >= this.height
               });
             }
           }

@@ -41,7 +41,8 @@
       <div id="control" @touchend="clickCell(cursor.x, cursor.y, $event)">
         <div class="inner">
           <template v-for="cell in controlcells">
-            <cell :board="board" :x="cell.x" :y="cell.y"></cell>
+            <div v-if="cell.out" class="cell out"></div>
+            <cell v-else :board="board" :x="cell.x" :y="cell.y"></cell>
           </template>
         </div>
       </div>

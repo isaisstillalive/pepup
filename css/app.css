@@ -44,9 +44,6 @@ html {
   border-right: solid 1px #aaa;
   border-bottom: solid 1px #aaa;
 }
-#control .inner {
-  background-color: black;
-}
 
 .cell {
   display: inline-block;
@@ -54,6 +51,9 @@ html {
   padding-right: 1px;
   padding-bottom: 1px;
   vertical-align: top;
+}
+.cell.out {
+  background-color: black;
 }
 
 .cell img {
