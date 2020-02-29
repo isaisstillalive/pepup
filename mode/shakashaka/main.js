@@ -1,11 +1,11 @@
-define(function() {
-  class Board extends BaseBoard {
+define(function(require) {
+  class Board extends require("app/board") {
     decode(transcoder) {
       transcoder.decode4Cell();
     }
   }
 
-  class Cell extends BaseCell {
+  class Cell extends require("app/cell") {
     click(x, y) {
       if (this.wall) {
         return;
