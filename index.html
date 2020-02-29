@@ -81,7 +81,7 @@
         <img v-for="image in images" :src="image.src" :class="image.class" />
         <img
           v-if="current !== undefined && current.pin !== undefined"
-          :src="`img/pin${current.pin}.png`"
+          :src="`img/cell/pin${current.pin}.png`"
         />
         <slot></slot>
       </div>
