@@ -91,7 +91,7 @@ define(function(require) {
       ];
       for (const around of arounds) {
         const cell = this.cell(around[0], around[1]);
-        if (cell == undefined || cell.wall || cell.none) {
+        if (cell.wall || cell.none) {
           result.filled += 1;
         } else if (cell.triangle !== undefined) {
           result.filled += 1;
@@ -152,7 +152,7 @@ define(function(require) {
       for (const around of arounds) {
         if (this[around[0]]) {
           const cell = this.cell(...around[1]);
-          if (cell == null || cell.wall || cell[around[0]]) {
+          if (cell.wall || cell[around[0]]) {
             return false;
           }
         }

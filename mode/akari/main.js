@@ -95,7 +95,7 @@ define(function(require) {
       ];
       for (const around of arounds) {
         const cell = this.cell(around[0], around[1]);
-        if (cell == undefined || cell.wall || cell.none) {
+        if (cell.wall || cell.none) {
           result.filled += 1;
         } else if (cell.bright >= 1) {
           result.filled += 1;
@@ -185,7 +185,7 @@ define(function(require) {
       let y = addy;
       while (true) {
         const cell = this.cell(x, y);
-        if (cell == undefined || cell.wall) {
+        if (cell.wall) {
           break;
         }
         Vue.set(cell, "bright", cell.bright + (value ? 1 : -1));

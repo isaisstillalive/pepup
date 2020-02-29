@@ -26,9 +26,9 @@ define(function(require) {
 
     get(x, y) {
       if (this.width <= x || x < 0) {
-        return undefined;
+        return { wall: true };
       }
-      return this.data[x + y * this.width];
+      return this.data[x + y * this.width] || { wall: true };
     }
     set(x, y, change, rec = false) {
       if (rec) {
