@@ -1,7 +1,7 @@
 define(function() {
   class Board extends BaseBoard {
-    decode(source) {
-      this.decode4Cell(source);
+    decode(transcoder) {
+      transcoder.decode4Cell();
     }
   }
 
@@ -21,7 +21,7 @@ define(function() {
         let triangle = 0;
         if (x >= 0.5) {
           triangle += 1;
-          }
+        }
         if (y >= 0.5) {
           triangle += 2;
         }
@@ -49,10 +49,6 @@ define(function() {
             images.push({
               src: "img/cell/ruleok.png"
             });
-          } else if (correction === false) {
-            images.push({
-              src: "img/cell/ruleng.png"
-            });
           }
         }
       } else {
@@ -71,6 +67,13 @@ define(function() {
           });
         }
       }
+
+      if (correction === false) {
+        images.push({
+          src: "img/cell/ruleng.png"
+        });
+      }
+
       return images;
     }
 
@@ -140,7 +143,35 @@ define(function() {
         return null;
       }
 
+      const arounds = [
+        ["left", [1, 0]],
+        ["right", [-1, 0]],
+        ["top", [0, 1]],
+        ["bottom", [0, -1]]
+      ];
+      for (const around of arounds) {
+        if (this[around[0]]) {
+          const cell = this.cell(...around[1]);
+          if (cell == null || cell.wall || cell[around[0]]) {
+            return false;
+          }
+        }
+      }
+
       return null;
+    }
+
+    get left() {
+      return this.triangle !== undefined && this.triangle % 2 == 0;
+    }
+    get right() {
+      return this.triangle !== undefined && this.triangle % 2 == 1;
+    }
+    get top() {
+      return this.triangle !== undefined && this.triangle < 2;
+    }
+    get bottom() {
+      return this.triangle !== undefined && this.triangle >= 2;
     }
   }
 

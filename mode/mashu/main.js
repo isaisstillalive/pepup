@@ -1,7 +1,7 @@
 define(function() {
   class Board extends BaseBoard {
-    decode(source) {
-      this.decodeCircle(source);
+    decode(transcoder) {
+      transcoder.decodeCircle();
     }
   }
 
