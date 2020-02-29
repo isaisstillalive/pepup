@@ -76,7 +76,8 @@
       </div>
     </div>
     <template id="cell">
-      <div @click="$emit('click', $event)" class="cell">
+      <div class="cell">
+        <div @click="$emit('click', $event)" class="clicker"></div>
         <!-- <object type="image/svg+xml" data="mode/akari/cell.svg"></object> -->
         <img v-for="image in images" :src="image.src" :class="image.class" />
         <img
