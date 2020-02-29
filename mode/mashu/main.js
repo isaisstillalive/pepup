@@ -40,12 +40,12 @@ define(function(require) {
       this.update(change);
     }
 
-    images(correction) {
-      const images = [];
+    images(images) {
       images.push({
         src: "img/cell/floor.png",
         class: "bg"
       });
+
       if (this.circle === true) {
         images.push({
           src: "mode/mashu/img/white.png",
@@ -70,13 +70,7 @@ define(function(require) {
         });
       }
 
-      if (correction === false) {
-        images.push({
-          src: "img/cell/ruleng.png"
-        });
-      }
-
-      return images;
+      this.correctionimages(images);
     }
 
     get lines() {

@@ -25,60 +25,33 @@ define(function(require) {
       this.update(change);
     }
 
-    images(correction) {
-      const images = [];
-
-      if (this.wall) {
-        images.push({
-          src: "img/cell/wall.png",
-          class: "bg"
-        });
-        if (this.number != null) {
-          images.push({
-            src: `img/cell/n${this.number}w.png`,
-            class: "bg"
-          });
-          if (correction === true) {
-            images.push({
-              src: "img/cell/ruleok.png"
-            });
-          }
-        }
-      } else {
-        images.push({
-          src: "img/cell/floor.png",
-          class: "bg"
-        });
-        if (this.bright >= 1) {
-          images.push({
-            src: "mode/akari/img/bright.png",
-            class: "bg"
-          });
-        }
-        if (this.light) {
-          images.push({
-            src: "mode/akari/img/light.png"
-          });
-          if (this.bright >= 2) {
-            images.push({
-              src: "img/cell/ruleng.png"
-            });
-          }
-        }
-        if (this.none) {
-          images.push({
-            src: "img/cell/none.png"
-          });
-        }
+    images(images) {
+      if (this.wallimages(images)) {
+        return;
       }
 
-      if (correction === false) {
+      images.push({
+        src: "img/cell/floor.png",
+        class: "bg"
+      });
+
+      if (this.bright >= 1) {
         images.push({
-          src: "img/cell/ruleng.png"
+          src: "mode/akari/img/bright.png",
+          class: "bg"
         });
       }
 
-      return images;
+      if (this.light) {
+        images.push({
+          src: "mode/akari/img/light.png"
+        });
+        this.correctionimages(images);
+      } else if (this.none) {
+        images.push({
+          src: "img/cell/none.png"
+        });
+      }
     }
 
     arounds() {
