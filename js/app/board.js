@@ -40,6 +40,32 @@ define(function(require) {
     judgment() {
       return this.cells.every(cell => cell.correction());
     }
+
+    *recursion(x, y, checked) {
+      const i = x + y * this.height;
+      if (checked == undefined) {
+        checked = new Array(this.width * this.height);
+      } else if (checked[i]) {
+        return;
+      }
+      const dirs = yield this.get(x, y);
+      checked[i] = true;
+
+      const arounds = [
+        [-1, 0],
+        [1, 0],
+        [0, -1],
+        [0, 1]
+      ].filter((val, index) => dirs[index]);
+      for (const around of arounds) {
+        const nx = x + around[0];
+        const ny = y + around[1];
+        if (nx == -1 || nx == this.width || ny == -1 || ny == this.height) {
+          continue;
+        }
+        yield* this.recursion(nx, ny, checked);
+      }
+    }
   }
 
   return Board;

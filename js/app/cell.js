@@ -60,6 +60,13 @@ define(function(require) {
       // ルールから逸脱していればfalse
       return true;
     }
+
+    get wright() {
+      return this.board.get(this.x + 1, this.y).wleft;
+    }
+    get wbottom() {
+      return this.board.get(this.x, this.y + 1).wtop;
+    }
   }
   return Cell;
 });

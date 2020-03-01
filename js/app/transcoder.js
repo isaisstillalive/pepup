@@ -163,33 +163,25 @@ define(function(require) {
     setRooms() {
       for (let y = 0; y < this.height; y++) {
         for (let x = 0; x < this.width; x++) {
-          this.setRoom(this.board.get(x, y));
+          this.setRoom(x, y);
         }
       }
     }
-    setRoom(cell, room) {
-      if (cell.wall || cell.room !== undefined) {
+    setRoom(x, y) {
+      const it = this.board.recursion(x, y);
+      let result = it.next();
+      if (result.value.room !== undefined) {
         return;
       }
-      if (room === undefined) {
-        room = this.newRoom();
-      }
-      room.addCell(cell);
 
-      if (!cell.wleft) {
-        this.setRoom(this.board.get(cell.x - 1, cell.y), room);
-      }
-      const right = this.board.get(cell.x + 1, cell.y);
-      if (!right.wleft) {
-        this.setRoom(right, room);
-      }
+      const room = this.newRoom();
+      while (!result.done) {
+        const cell = result.value;
+        const dirs = [!cell.wleft, !cell.wright, !cell.wtop, !cell.wbottom];
 
-      if (!cell.wtop) {
-        this.setRoom(this.board.get(cell.x, cell.y - 1), room);
-      }
-      const bottom = this.board.get(cell.x, cell.y + 1);
-      if (!bottom.wtop) {
-        this.setRoom(bottom, room);
+        room.addCell(cell);
+
+        result = it.next(dirs);
       }
     }
   }
