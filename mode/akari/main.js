@@ -60,14 +60,7 @@ define(function(require) {
         filled: 0
       };
 
-      const arounds = [
-        [-1, 0],
-        [1, 0],
-        [0, -1],
-        [0, 1]
-      ];
-      for (const around of arounds) {
-        const cell = this.cell(around[0], around[1]);
+      for (const cell of this.board.around(this.x, this.y)) {
         if (cell.wall || cell.none) {
           result.filled += 1;
         } else if (cell.bright >= 1) {

@@ -70,6 +70,20 @@ define(function(require) {
         yield* this.recursion(nx, ny, checked);
       }
     }
+
+    *around(x, y) {
+      const arounds = [
+        [-1, 0],
+        [1, 0],
+        [0, -1],
+        [0, 1]
+      ];
+      for (const around of arounds) {
+        const nx = x + around[0];
+        const ny = y + around[1];
+        yield this.get(nx, ny);
+      }
+    }
   }
 
   return Board;

@@ -68,14 +68,8 @@ define(function(require) {
     correction(strict) {
       if (this.paint) {
         // 塗りが2マス連続していたらNG
-        const arounds = [
-          [-1, 0],
-          [1, 0],
-          [0, -1],
-          [0, 1]
-        ];
-        for (const around of arounds) {
-          if (this.cell(...around).paint) {
+        for (const cell of this.board.around(this.x, this.y)) {
+          if (cell.paint) {
             return false;
           }
         }
