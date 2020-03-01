@@ -40,14 +40,14 @@ define(function(require) {
           src: "mode/heyawake/img/paint.png",
           class: "bg"
         });
-        this.correctionimages(images);
       } else if (this.none) {
         images.push({
           src: "mode/heyawake/img/none.png",
           class: "bg"
         });
-        this.correctionimages(images);
       }
+
+      this.correctionimages(images);
 
       if (this.wleft) {
         images.push({
@@ -79,7 +79,10 @@ define(function(require) {
             return false;
           }
         }
-      } else if (strict || this.none) {
+        return true;
+      }
+
+      if (strict || this.none) {
         // 非塗りが3部屋連続していたらNG
         if (this.isTreeWhiteRoom(1, 0, strict)) {
           return false;
@@ -87,6 +90,11 @@ define(function(require) {
         if (this.isTreeWhiteRoom(0, 1, strict)) {
           return false;
         }
+      }
+
+      // 塗りの中に非塗があればNG
+      if (this.isBlocked()) {
+        return false;
       }
 
       return null;
@@ -110,6 +118,38 @@ define(function(require) {
           }
         }
       }
+    }
+    isBlocked() {
+      const walls = [true, true, true, true];
+
+      const on = [true, true, true, true];
+      const off = [false, false, false, false];
+
+      // すべての壁に接していればOK、それ以外はNG
+      const it = this.board.recursion(this.x, this.y);
+      let result = it.next();
+      while (!result.done) {
+        const cell = result.value;
+        if (cell.paint) {
+          result = it.next(off);
+          continue;
+        }
+
+        if (cell.x == 0) {
+          walls[0] = false;
+        } else if (cell.x == this.board.width - 1) {
+          walls[1] = false;
+        }
+        if (cell.y == 0) {
+          walls[2] = false;
+        } else if (cell.y == this.board.height - 1) {
+          walls[3] = false;
+        }
+
+        result = it.next(on);
+      }
+
+      return walls.some(value => value);
     }
 
     set qnum(value) {
