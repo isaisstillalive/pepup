@@ -30,13 +30,18 @@ define(function(require) {
           src: "img/cell/wall.png",
           class: "bg"
         });
-        if (this.number != null) {
-          images.push({
-            src: `img/cell/n${this.number}w.png`,
-            class: "bg"
-          });
+        if (this.numberimage(images)) {
           this.correctionimages(images, true);
         }
+        return true;
+      }
+    }
+    numberimage(images) {
+      if (this.number != null) {
+        images.push({
+          src: `img/cell/n${this.number}w.png`,
+          class: "bg"
+        });
         return true;
       }
     }
