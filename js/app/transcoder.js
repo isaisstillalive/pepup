@@ -1,19 +1,28 @@
 define(function(require) {
   class Transcoder {
-    constructor(source, width, height, cell) {
+    constructor(board, source, width, height, cell) {
+      this.board = board;
       this.source = source;
       this.width = width;
       this.height = height;
 
-      this.cells = new Array(width * height);
+      this.board.cells = new Array(width * height);
       for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
           const i = x + y * width;
-          this.cells[i] = cell(x, y);
+          this.board.cells[i] = new cell(board, x, y);
         }
       }
 
-      this.rooms = [];
+      this.board.rooms = [];
+    }
+
+    get cells() {
+      return this.board.cells;
+    }
+
+    get rooms() {
+      return this.board.rooms;
     }
 
     *decodeIterator() {

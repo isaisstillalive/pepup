@@ -7,15 +7,8 @@ define(function(require) {
       this.width = width;
       this.height = height;
 
-      const transcoder = new Transcoder(
-        source,
-        width,
-        height,
-        (x, y) => new cell(this, x, y)
-      );
+      const transcoder = new Transcoder(this, source, width, height, cell);
       this.decode(transcoder);
-      this.cells = transcoder.cells;
-      this.rooms = transcoder.rooms;
 
       this.history = new History(this);
     }
