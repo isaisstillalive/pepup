@@ -123,7 +123,6 @@ define(function(require) {
       const walls = [true, true, true, true];
 
       const on = [true, true, true, true];
-      const off = [false, false, false, false];
 
       // すべての壁に接していればOK、それ以外はNG
       const it = this.board.recursion(this.x, this.y);
@@ -131,7 +130,7 @@ define(function(require) {
       while (!result.done) {
         const cell = result.value;
         if (cell.paint) {
-          result = it.next(off);
+          result = it.next();
           continue;
         }
 

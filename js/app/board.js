@@ -51,6 +51,10 @@ define(function(require) {
       const dirs = yield this.get(x, y);
       checked[i] = true;
 
+      if (!dirs) {
+        return;
+      }
+
       const arounds = [
         [-1, 0],
         [1, 0],
