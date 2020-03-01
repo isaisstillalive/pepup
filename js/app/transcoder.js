@@ -25,24 +25,24 @@ define(function(require) {
       return this.board.rooms;
     }
 
-    *decodeIterator() {
+    *decodeIterator(source, target) {
       let c = 0;
-      for (let i = 0; i < this.source.length && c < this.cells.length; i++) {
-        const cell = this.cells[c];
+      for (let i = 0; i < source.length && c < this.cells.length; i++) {
+        const cell = target[c];
 
         const char = this.source.charAt(i);
         let skip = yield [char, cell];
 
         c += 1;
-        for (let i = 0; i < skip && c < this.cells.length; i++) {
-          this.cells[c].qnum = -1;
+        for (let i = 0; i < skip && c < target.length; i++) {
+          target[c].qnum = -1;
           c += 1;
         }
       }
     }
 
     decode4Cell() {
-      const it = this.decodeIterator(this.source);
+      const it = this.decodeIterator(this.source, this.cells);
       let result = it.next();
       while (!result.done) {
         const char = result.value[0];
@@ -69,6 +69,7 @@ define(function(require) {
         result = it.next(skip);
       }
     }
+
     decodeCircle() {
       const tri = [9, 3, 1];
 
@@ -85,46 +86,107 @@ define(function(require) {
         }
       }
     }
+
     decodeBorder() {
-      // 	var pos1,
-      //   pos2,
-      //   bstr = this.outbstr,
-      //   id,
-      //   twi = [16, 8, 4, 2, 1];
-      // var bd = this.board;
-      // if (bstr) {
-      //   pos1 = Math.min((((bd.cols - 1) * bd.rows + 4) / 5) | 0, bstr.length);
-      //   pos2 = Math.min(
-      //     (((bd.cols * (bd.rows - 1) + 4) / 5) | 0) + pos1,
-      //     bstr.length
-      //   );
-      // } else {
-      //   pos1 = 0;
-      //   pos2 = 0;
-      // }
-      // id = 0;
-      // for (var i = 0; i < pos1; i++) {
-      //   var ca = parseInt(bstr.charAt(i), 32);
-      //   for (var w = 0; w < 5; w++) {
-      //     if (id < (bd.cols - 1) * bd.rows) {
-      //       bd.border[id].ques = ca & twi[w] ? 1 : 0;
-      //       id++;
-      //     }
-      //   }
-      // }
-      // id = (bd.cols - 1) * bd.rows;
-      // for (var i = pos1; i < pos2; i++) {
-      //   var ca = parseInt(bstr.charAt(i), 32);
-      //   for (var w = 0; w < 5; w++) {
-      //     var border = bd.border[id];
-      //     if (!!border && border.inside) {
-      //       border.ques = ca & twi[w] ? 1 : 0;
-      //       id++;
-      //     }
-      //   }
-      // }
-      // bd.roommgr.rebuild();
-      // this.outbstr = bstr.substr(pos2);
+      const twi = [16, 8, 4, 2, 1];
+
+      let i = 0;
+      let c = 1;
+      for (; i < this.source.length && c < this.cells.length; i++) {
+        const char = this.source.charAt(i);
+        const ca = parseInt(char, 32);
+
+        for (var w = 0; w < 5 && c < this.cells.length; w++) {
+          if ((ca & twi[w]) == twi[w]) {
+            this.cells[c].wleft = true;
+          }
+          c += 1;
+          if (c % this.width == 0) {
+            c += 1;
+          }
+        }
+      }
+      c = this.width;
+      for (; i < this.source.length && c < this.cells.length; i++) {
+        const char = this.source.charAt(i);
+        const ca = parseInt(char, 32);
+
+        for (var w = 0; w < 5 && c < this.cells.length; w++) {
+          if ((ca & twi[w]) == twi[w]) {
+            this.cells[c].wtop = true;
+          }
+          c += 1;
+        }
+      }
+
+      this.source = this.source.substr(i);
+
+      this.setRooms();
+    }
+
+    decodeRoomNumber16() {
+      const it = this.decodeIterator(this.source, this.rooms);
+      let result = it.next();
+      while (!result.done) {
+        const char = result.value[0];
+        const room = result.value[1];
+
+        let skip;
+        if (char === ".") {
+          room[0].qnum = -2;
+        } else {
+          const number = parseInt(char, 36);
+          if (number <= 4) {
+            room[0].qnum = number;
+          } else if (number <= 9) {
+            room[0].qnum = number - 5;
+            skip = 1;
+          } else if (number <= 15) {
+            room[0].qnum = number - 10;
+            skip = 2;
+          } else {
+            room[0].qnum = -1;
+            skip = number - 16;
+          }
+        }
+        result = it.next(skip);
+      }
+    }
+
+    setRooms() {
+      for (let y = 0; y < this.height; y++) {
+        for (let x = 0; x < this.width; x++) {
+          this.setRoom(this.board.get(x, y));
+        }
+      }
+    }
+    setRoom(cell, room, rooms) {
+      if (cell.wall || cell.room !== undefined) {
+        return;
+      }
+      if (room === undefined) {
+        rooms = [];
+        this.rooms.push(rooms);
+        room = this.rooms.length;
+      }
+      cell.room = room;
+      rooms.push(cell);
+
+      if (!cell.wleft) {
+        this.setRoom(this.board.get(cell.x - 1, cell.y), room, rooms);
+      }
+      const right = this.board.get(cell.x + 1, cell.y);
+      if (!right.wleft) {
+        this.setRoom(right, room, rooms);
+      }
+
+      if (!cell.wtop) {
+        this.setRoom(this.board.get(cell.x, cell.y - 1), room, rooms);
+      }
+      const bottom = this.board.get(cell.x, cell.y + 1);
+      if (!bottom.wtop) {
+        this.setRoom(bottom, room, rooms);
+      }
     }
   }
 
