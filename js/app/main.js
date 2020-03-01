@@ -32,7 +32,7 @@ define(function(require) {
     const app = new Vue({
       el: "#app",
       data: {
-        board: new game.board(width, height, source, game.cell),
+        board: new game.board(width, height, source, game.cell, game.room),
         cursor: { x: 0, y: 0 },
         touch: {}
       },

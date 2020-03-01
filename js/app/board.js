@@ -3,11 +3,18 @@ define(function(require) {
   const Transcoder = require("app/transcoder");
 
   class Board {
-    constructor(width, height, source, cell) {
+    constructor(width, height, source, cell, room) {
       this.width = width;
       this.height = height;
 
-      const transcoder = new Transcoder(this, source, width, height, cell);
+      const transcoder = new Transcoder(
+        this,
+        source,
+        width,
+        height,
+        cell,
+        room
+      );
       this.decode(transcoder);
 
       this.history = new History(this);

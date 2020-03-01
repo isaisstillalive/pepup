@@ -1,6 +1,6 @@
 define(function(require) {
   class Transcoder {
-    constructor(board, source, width, height, cell) {
+    constructor(board, source, width, height, cell, room) {
       this.board = board;
       this.source = source;
       this.width = width;
@@ -14,6 +14,7 @@ define(function(require) {
         }
       }
 
+      this.room = room;
       this.board.rooms = [];
     }
 
@@ -23,6 +24,12 @@ define(function(require) {
 
     get rooms() {
       return this.board.rooms;
+    }
+
+    newRoom() {
+      const room = new this.room(this, this.rooms.length);
+      this.rooms.push(room);
+      return room;
     }
 
     *decodeIterator(source, target) {
@@ -133,19 +140,19 @@ define(function(require) {
 
         let skip;
         if (char === ".") {
-          room[0].qnum = -2;
+          room.qnum = -2;
         } else {
           const number = parseInt(char, 36);
           if (number <= 4) {
-            room[0].qnum = number;
+            room.qnum = number;
           } else if (number <= 9) {
-            room[0].qnum = number - 5;
+            room.qnum = number - 5;
             skip = 1;
           } else if (number <= 15) {
-            room[0].qnum = number - 10;
+            room.qnum = number - 10;
             skip = 2;
           } else {
-            room[0].qnum = -1;
+            room.qnum = -1;
             skip = number - 16;
           }
         }
@@ -160,32 +167,29 @@ define(function(require) {
         }
       }
     }
-    setRoom(cell, room, rooms) {
+    setRoom(cell, room) {
       if (cell.wall || cell.room !== undefined) {
         return;
       }
       if (room === undefined) {
-        rooms = [];
-        this.rooms.push(rooms);
-        room = this.rooms.length;
+        room = this.newRoom();
       }
-      cell.room = room;
-      rooms.push(cell);
+      room.addCell(cell);
 
       if (!cell.wleft) {
-        this.setRoom(this.board.get(cell.x - 1, cell.y), room, rooms);
+        this.setRoom(this.board.get(cell.x - 1, cell.y), room);
       }
       const right = this.board.get(cell.x + 1, cell.y);
       if (!right.wleft) {
-        this.setRoom(right, room, rooms);
+        this.setRoom(right, room);
       }
 
       if (!cell.wtop) {
-        this.setRoom(this.board.get(cell.x, cell.y - 1), room, rooms);
+        this.setRoom(this.board.get(cell.x, cell.y - 1), room);
       }
       const bottom = this.board.get(cell.x, cell.y + 1);
       if (!bottom.wtop) {
-        this.setRoom(bottom, room, rooms);
+        this.setRoom(bottom, room);
       }
     }
   }
