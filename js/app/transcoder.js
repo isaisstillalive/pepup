@@ -33,18 +33,19 @@ define(function(require) {
     }
 
     *decodeIterator(source, target) {
-      let c = 0;
-      for (let i = 0; i < source.length && c < this.cells.length; i++) {
-        const cell = target[c];
+      this.cursor = 0;
+      for (let i = 0; i < source.length && this.cursor < target.length; i++) {
+        const cell = target[this.cursor];
 
         const number = this.parse(i);
-        let skip = yield [number, cell];
+        const current = this.cursor;
+        yield [number, cell];
 
-        c += 1;
-        for (let i = 0; i < skip && c < target.length; i++) {
+        const max = Math.min(this.cursor, target.length);
+        for (let c = current+1; c < max; c++) {
           target[c].qnum = -1;
-          c += 1;
         }
+        this.cursor += 1;
       }
     }
 
@@ -60,28 +61,24 @@ define(function(require) {
     }
 
     decode4Cell() {
-      const it = this.decodeIterator(this.source, this.cells);
-      let result = it.next();
-      while (!result.done) {
-        const number = result.value[0];
-        const cell = result.value[1];
+      for (const result of this.decodeIterator(this.source, this.cells)) {
+        const number = result[0];
+        const cell = result[1];
 
-        let skip;
         if (number == -2) {
           cell.qnum = -2;
         } else if (number <= 4) {
           cell.qnum = number;
         } else if (number <= 9) {
           cell.qnum = number - 5;
-          skip = 1;
+          this.cursor += 1;
         } else if (number <= 15) {
           cell.qnum = number - 10;
-          skip = 2;
+          this.cursor += 2;
         } else {
           cell.qnum = -1;
-          skip = number - 16;
+          this.cursor += number - 16;
         }
-        result = it.next(skip);
       }
     }
 
@@ -140,28 +137,24 @@ define(function(require) {
     }
 
     decodeRoomNumber16() {
-      const it = this.decodeIterator(this.source, this.rooms);
-      let result = it.next();
-      while (!result.done) {
-        const number = result.value[0];
-        const room = result.value[1];
+      for (const result of this.decodeIterator(this.source, this.rooms)) {
+        const number = result[0];
+        const room = result[1];
 
-        let skip;
         if (number == -2) {
           room.qnum = -2;
         } else if (number <= 4) {
           room.qnum = number;
         } else if (number <= 9) {
           room.qnum = number - 5;
-          skip = 1;
+          this.cursor += 1;
         } else if (number <= 15) {
           room.qnum = number - 10;
-          skip = 2;
+          this.cursor += 2;
         } else {
           room.qnum = -1;
-          skip = number - 16;
+          this.cursor += number - 16;
         }
-        result = it.next(skip);
       }
     }
 
