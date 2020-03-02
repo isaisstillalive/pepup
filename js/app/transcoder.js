@@ -2,6 +2,7 @@ define(function(require) {
   class Transcoder {
     constructor(board, source, width, height, cell, room) {
       this.board = board;
+      this.position = 0;
       this.source = source;
       this.width = width;
       this.height = height;
@@ -32,12 +33,12 @@ define(function(require) {
       return room;
     }
 
-    *decodeIterator(source, target) {
+    *decodeIterator(target) {
       this.cursor = 0;
-      for (let i = 0; i < source.length && this.cursor < target.length; i++) {
+      for (; this.position < this.source.length && this.cursor < target.length; this.position++) {
         const cell = target[this.cursor];
 
-        const number = this.parse(i);
+        const number = this.read();
         const current = this.cursor;
         yield [number, cell];
 
@@ -49,8 +50,8 @@ define(function(require) {
       }
     }
 
-    parse(i){
-      const char = this.source.charAt(i);
+    read(){
+      const char = this.source.charAt(this.position);
       switch (char) {
         case ".":
           return -2;
@@ -61,7 +62,7 @@ define(function(require) {
     }
 
     decode4Cell() {
-      for (const result of this.decodeIterator(this.source, this.cells)) {
+      for (const result of this.decodeIterator(this.cells)) {
         const number = result[0];
         const cell = result[1];
 
@@ -137,7 +138,7 @@ define(function(require) {
     }
 
     decodeRoomNumber16() {
-      for (const result of this.decodeIterator(this.source, this.rooms)) {
+      for (const result of this.decodeIterator(this.rooms)) {
         const number = result[0];
         const room = result[1];
 
