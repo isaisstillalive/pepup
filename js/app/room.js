@@ -16,7 +16,7 @@ define(function(require) {
       if (this.cells[0] != cell) {
         return;
       }
-      if (this.qnum > 0) {
+      if (this.qnum >= 0) {
         images.push({
           src: `img/cell/n${this.qnum}w.png`,
           class: "bg"
