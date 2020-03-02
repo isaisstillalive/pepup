@@ -19,7 +19,7 @@ define(function(require) {
       } else if (this.none) {
         change.none = false;
       } else {
-        if (this.number > 0) {
+        if (this.circle) {
           change.none = true;
         } else {
           change.paint = true;
