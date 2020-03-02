@@ -38,9 +38,8 @@ define(function(require) {
       for (; this.position < this.source.length && this.cursor < target.length; this.position++) {
         const cell = target[this.cursor];
 
-        const number = this.read();
         const current = this.cursor;
-        yield [number, cell];
+        yield cell;
 
         const max = Math.min(this.cursor, target.length);
         for (let c = current+1; c < max; c++) {
@@ -52,9 +51,42 @@ define(function(require) {
 
     read(){
       const char = this.source.charAt(this.position);
+
+      let number;
+
       switch (char) {
         case ".":
           return -2;
+
+        case "-":
+          number = parseInt(this.source.substr(this.position+1, 2), 16);
+          this.position += 2;
+          return number;
+
+        case "+":
+          number = parseInt(this.source.substr(this.position+1, 3), 16);
+          this.position += 3;
+          return number;
+
+        case "=":
+          number = parseInt(this.source.substr(this.position+1, 3), 16) + 4096;
+          this.position += 3;
+          return number;
+
+        case "%":
+          number = parseInt(this.source.substr(this.position+1, 3), 16) + 8192;
+          this.position += 3;
+          return number;
+
+        case "*":
+          number = parseInt(this.source.substr(this.position+1, 4), 16) + 12240;
+          this.position += 4;
+          return number;
+
+        case "$":
+          number = parseInt(this.source.substr(this.position+1, 5), 16) + 77776;
+          this.position += 5;
+          return number;
 
         default:
           return parseInt(char, 36);
@@ -62,9 +94,8 @@ define(function(require) {
     }
 
     decode4Cell() {
-      for (const result of this.decodeIterator(this.cells)) {
-        const number = result[0];
-        const cell = result[1];
+      for (const cell of this.decodeIterator(this.cells)) {
+        const number = this.read();
 
         if (number == -2) {
           cell.qnum = -2;
@@ -138,9 +169,8 @@ define(function(require) {
     }
 
     decodeRoomNumber16() {
-      for (const result of this.decodeIterator(this.rooms)) {
-        const number = result[0];
-        const room = result[1];
+      for (const room of this.decodeIterator(this.rooms)) {
+        const number = this.read();
 
         if (number == -2) {
           room.qnum = -2;
