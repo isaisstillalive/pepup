@@ -24,7 +24,6 @@
             <template v-for="x in width">
               <cell
                 :style="{ width: (cellsize - 1) + 'px', height: (cellsize - 1) + 'px' }"
-                :board="board"
                 :x="x-1"
                 :y="y-1"
                 @click="setCursor(x-1, y-1)"
@@ -42,7 +41,7 @@
         <div class="inner">
           <template v-for="cell in controlcells">
             <div v-if="cell.out" class="cell out"></div>
-            <cell v-else :board="board" :x="cell.x" :y="cell.y"></cell>
+            <cell v-else :x="cell.x" :y="cell.y"></cell>
           </template>
         </div>
       </div>

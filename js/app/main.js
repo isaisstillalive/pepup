@@ -6,12 +6,11 @@ define(function(require) {
   const source = query[3];
 
   requirejs([`../mode/${game}/main`], function(game) {
+    const board = new game.board(width, height, source, game.cell, game.room);
+
     Vue.component("cell", {
       template: "#cell",
       props: {
-        board: {
-          type: game.board
-        },
         x: {
           type: Number
         },
@@ -21,7 +20,7 @@ define(function(require) {
       },
       computed: {
         current() {
-          return this.board.get(this.x, this.y);
+          return board.get(this.x, this.y);
         },
         images() {
           if (this.current) return this.current.allimages();
@@ -32,7 +31,6 @@ define(function(require) {
     const app = new Vue({
       el: "#app",
       data: {
-        board: new game.board(width, height, source, game.cell, game.room),
         cursor: { x: 0, y: 0 },
         touch: {}
       },
@@ -45,29 +43,29 @@ define(function(require) {
           const clientRect = event.currentTarget.getBoundingClientRect();
           const touchX = event.changedTouches[0].clientX - clientRect.left;
           const touchY = event.changedTouches[0].clientY - clientRect.top;
-          this.board
+          board
             .get(x, y)
             .click(touchX / clientRect.width, touchY / clientRect.height);
         },
         undo() {
-          this.board.history.undo();
+          board.history.undo();
         },
         redo() {
-          this.board.history.redo();
+          board.history.redo();
         },
         dispose() {
-          this.board.history.dispose();
+          board.history.dispose();
           this.pin = false;
         },
         confirm() {
-          this.board.history.confirm();
+          board.history.confirm();
           this.pin = false;
         },
         judge() {
           if (this.judgment === null) {
-            this.board.judge();
+            board.judge();
           } else {
-            this.board.resetjudgment();
+            board.resetjudgment();
           }
         },
         touchstart(event) {
@@ -104,26 +102,26 @@ define(function(require) {
       },
       computed: {
         width() {
-          return this.board.width;
+          return board.width;
         },
         height() {
-          return this.board.height;
+          return board.height;
         },
         doUndo() {
-          return this.board.history.doUndo;
+          return board.history.doUndo;
         },
         doRedo() {
-          return this.board.history.doRedo;
+          return board.history.doRedo;
         },
         hasPin() {
-          return this.board.history.hasPin;
+          return board.history.hasPin;
         },
         pin: {
           get() {
-            return this.board.history.pin;
+            return board.history.pin;
           },
           set(value) {
-            this.board.history.pin = value;
+            board.history.pin = value;
           }
         },
         cellsize() {
@@ -149,7 +147,7 @@ define(function(require) {
           return result;
         },
         judgment() {
-          return this.board.judgment;
+          return board.judgment;
         }
       }
     });
