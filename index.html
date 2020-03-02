@@ -86,8 +86,10 @@
           <img src="img/next-button.svg" />
         </div>
       </template>
-      <div id="judgment" class="button" @click="judgment">
-        <img src="img/judgment.png" />
+      <div id="judgment" class="button" @click="judge">
+        <img v-if="judgment === true" src="img/thumb-up.svg" />
+        <img v-else-if="judgment === false" src="img/thumb-down.svg" />
+        <img v-else src="img/inspiration.svg" />
       </div>
     </div>
     <template id="cell">

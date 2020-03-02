@@ -63,11 +63,11 @@ define(function(require) {
           this.board.history.confirm();
           this.pin = false;
         },
-        judgment() {
-          if (this.board.judgment()) {
-            alert("完成");
+        judge() {
+          if (this.judgment === null) {
+            this.board.judge();
           } else {
-            alert("未完成");
+            this.board.resetjudgment();
           }
         },
         touchstart(event) {
@@ -147,6 +147,9 @@ define(function(require) {
             }
           }
           return result;
+        },
+        judgment() {
+          return this.board.judgment;
         }
       }
     });

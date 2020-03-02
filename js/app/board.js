@@ -19,6 +19,8 @@ define(function(require) {
       this.decode(transcoder);
 
       this.history = new History(this);
+
+      this.judgment = null;
     }
 
     decode(transcoder) {}
@@ -30,7 +32,7 @@ define(function(require) {
       return this.cells[x + y * this.width] || { wall: true };
     }
     set(x, y, change, rec = false) {
-      this.strict = false;
+      this.resetjudgment();
       if (rec) {
         this.history.record(x, y, change);
       }
@@ -39,13 +41,17 @@ define(function(require) {
       Vue.set(this.cells, index, this.cells[index]);
     }
 
-    judgment() {
+    judge() {
       this.strict = true;
 
-      return (
+      const judgment =
         this.cells.every(cell => cell.correction()) &&
-        this.rooms.every(room => room.correction())
-      );
+        this.rooms.every(room => room.correction());
+      Vue.set(this, "judgment", judgment);
+    }
+    resetjudgment() {
+      this.strict = false;
+      this.judgment = null;
     }
 
     *recursion(x, y, checked) {
