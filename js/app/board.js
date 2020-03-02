@@ -6,6 +6,7 @@ define(function(require) {
     constructor(width, height, source, cell, room) {
       this.width = width;
       this.height = height;
+      this.strict = false;
 
       const transcoder = new Transcoder(
         this,
@@ -29,6 +30,7 @@ define(function(require) {
       return this.cells[x + y * this.width] || { wall: true };
     }
     set(x, y, change, rec = false) {
+      this.strict = false;
       if (rec) {
         this.history.record(x, y, change);
       }
@@ -38,6 +40,7 @@ define(function(require) {
     }
 
     judgment() {
+      this.strict = true;
       return this.cells.every(cell => cell.correction());
     }
 

@@ -47,7 +47,10 @@ define(function(require) {
     }
 
     correctionimages(images, showok = false) {
-      const correction = this.correction();
+      let correction = this.correction();
+      if (this.board.strict) {
+        correction = !!correction;
+      }
       if (correction === false) {
         images.push({
           src: "img/cell/ruleng.png"
