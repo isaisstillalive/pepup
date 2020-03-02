@@ -41,11 +41,11 @@ define(function(require) {
         const current = this.cursor;
         yield cell;
 
+        this.cursor += 1;
         const max = Math.min(this.cursor, target.length);
         for (let c = current+1; c < max; c++) {
           target[c].qnum = -1;
         }
-        this.cursor += 1;
       }
     }
 
@@ -173,6 +173,7 @@ define(function(require) {
         const number = this.read();
 
         if (number >= 16 && number <= 35) {
+          room.qnum = -1;
           this.cursor += number - 16;
         } else {
           room.qnum = number;
