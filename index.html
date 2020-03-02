@@ -46,27 +46,47 @@
           </template>
         </div>
       </div>
-      <div id="undo" @click="undo">
-        <img v-if="doUndo" src="img/undo.png" />
-        <img v-else src="img/undo_disable.png" />
+      <div id="pin" class="button" @click="pin = !pin">
+        <img v-if="pin" src="img/pin-on.svg" />
+        <img v-else src="img/pin-off.svg" />
       </div>
-      <div id="redo" @click="redo">
-        <img v-if="doRedo" src="img/redo.png" />
-        <img v-else src="img/redo_disable.png" />
-      </div>
-      <div id="pin" @click="pin = !pin">
-        <img v-if="pin" src="img/pin_on.png" />
-        <img v-else src="img/pin_off.png" />
-      </div>
-      <div id="dispose" @click="dispose">
-        <img v-if="hasPin" src="img/dispose.png" />
-        <img v-else src="img/dispose_disable.png" />
-      </div>
-      <div id="confirm" @click="confirm">
-        <img v-if="hasPin" src="img/confirm.png" />
-        <img v-else src="img/confirm_disable.png" />
-      </div>
-      <div id="judgment" @click="judgment">
+      <template v-if="pin">
+        <div
+          id="dispose"
+          class="button"
+          :class="{ disable: !hasPin }"
+          @click="dispose"
+        >
+          <img src="img/cancel.svg" />
+        </div>
+        <div
+          id="confirm"
+          class="button"
+          :class="{ disable: !hasPin }"
+          @click="confirm"
+        >
+          <img src="img/confirmed.svg" />
+        </div>
+      </template>
+      <template v-else>
+        <div
+          id="undo"
+          class="button"
+          :class="{ disable: !doUndo }"
+          @click="undo"
+        >
+          <img src="img/previous-button.svg" />
+        </div>
+        <div
+          id="redo"
+          class="button"
+          :class="{ disable: !doRedo }"
+          @click="redo"
+        >
+          <img src="img/next-button.svg" />
+        </div>
+      </template>
+      <div id="judgment" class="button" @click="judgment">
         <img src="img/judgment.png" />
       </div>
     </div>

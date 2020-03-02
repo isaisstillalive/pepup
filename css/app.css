@@ -84,35 +84,41 @@ html {
   z-index: 3;
 }
 
+.button {
+  width: 48px;
+  height: 48px;
+  margin: 1px;
+}
+.button.disable {
+  background-color: #666;
+}
 #undo,
 #redo,
 #pin,
 #dispose,
 #confirm,
 #judgment {
-  width: 50px;
-  height: 50px;
   position: absolute;
 }
 #undo {
-  left: 170px;
-  top: 430px;
-}
-#redo {
   left: 220px;
   top: 430px;
 }
+#redo {
+  left: 270px;
+  top: 430px;
+}
 #pin {
-  left: 170px;
+  left: 270px;
   top: 480px;
 }
 #dispose {
   left: 220px;
-  top: 480px;
+  top: 430px;
 }
 #confirm {
   left: 270px;
-  top: 480px;
+  top: 430px;
 }
 #judgment {
   left: 110px;

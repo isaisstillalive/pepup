@@ -57,9 +57,11 @@ define(function(require) {
         },
         dispose() {
           this.board.history.dispose();
+          this.pin = false;
         },
         confirm() {
           this.board.history.confirm();
+          this.pin = false;
         },
         judgment() {
           if (this.board.judgment()) {
