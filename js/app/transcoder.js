@@ -37,8 +37,8 @@ define(function(require) {
       for (let i = 0; i < source.length && c < this.cells.length; i++) {
         const cell = target[c];
 
-        const char = this.source.charAt(i);
-        let skip = yield [char, cell];
+        const number = this.parse(i);
+        let skip = yield [number, cell];
 
         c += 1;
         for (let i = 0; i < skip && c < target.length; i++) {
@@ -48,30 +48,38 @@ define(function(require) {
       }
     }
 
+    parse(i){
+      const char = this.source.charAt(i);
+      switch (char) {
+        case ".":
+          return -2;
+
+        default:
+          return parseInt(char, 36);
+      }
+    }
+
     decode4Cell() {
       const it = this.decodeIterator(this.source, this.cells);
       let result = it.next();
       while (!result.done) {
-        const char = result.value[0];
+        const number = result.value[0];
         const cell = result.value[1];
 
         let skip;
-        if (char === ".") {
+        if (number == -2) {
           cell.qnum = -2;
+        } else if (number <= 4) {
+          cell.qnum = number;
+        } else if (number <= 9) {
+          cell.qnum = number - 5;
+          skip = 1;
+        } else if (number <= 15) {
+          cell.qnum = number - 10;
+          skip = 2;
         } else {
-          const number = parseInt(char, 36);
-          if (number <= 4) {
-            cell.qnum = number;
-          } else if (number <= 9) {
-            cell.qnum = number - 5;
-            skip = 1;
-          } else if (number <= 15) {
-            cell.qnum = number - 10;
-            skip = 2;
-          } else {
-            cell.qnum = -1;
-            skip = number - 16;
-          }
+          cell.qnum = -1;
+          skip = number - 16;
         }
         result = it.next(skip);
       }
@@ -135,26 +143,23 @@ define(function(require) {
       const it = this.decodeIterator(this.source, this.rooms);
       let result = it.next();
       while (!result.done) {
-        const char = result.value[0];
+        const number = result.value[0];
         const room = result.value[1];
 
         let skip;
-        if (char === ".") {
+        if (number == -2) {
           room.qnum = -2;
+        } else if (number <= 4) {
+          room.qnum = number;
+        } else if (number <= 9) {
+          room.qnum = number - 5;
+          skip = 1;
+        } else if (number <= 15) {
+          room.qnum = number - 10;
+          skip = 2;
         } else {
-          const number = parseInt(char, 36);
-          if (number <= 4) {
-            room.qnum = number;
-          } else if (number <= 9) {
-            room.qnum = number - 5;
-            skip = 1;
-          } else if (number <= 15) {
-            room.qnum = number - 10;
-            skip = 2;
-          } else {
-            room.qnum = -1;
-            skip = number - 16;
-          }
+          room.qnum = -1;
+          skip = number - 16;
         }
         result = it.next(skip);
       }
