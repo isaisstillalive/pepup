@@ -18,9 +18,12 @@ define(function(require) {
           type: Number
         }
       },
+      data() {
+        return { board: board };
+      },
       computed: {
         current() {
-          return board.get(this.x, this.y);
+          return this.board.get(this.x, this.y);
         },
         images() {
           if (this.current) return this.current.allimages();
@@ -31,6 +34,7 @@ define(function(require) {
     const app = new Vue({
       el: "#app",
       data: {
+        board: board,
         cursor: { x: 0, y: 0 },
         touch: {}
       },
@@ -43,29 +47,29 @@ define(function(require) {
           const clientRect = event.currentTarget.getBoundingClientRect();
           const touchX = event.changedTouches[0].clientX - clientRect.left;
           const touchY = event.changedTouches[0].clientY - clientRect.top;
-          board
+          this.board
             .get(x, y)
             .click(touchX / clientRect.width, touchY / clientRect.height);
         },
         undo() {
-          board.history.undo();
+          this.board.history.undo();
         },
         redo() {
-          board.history.redo();
+          this.board.history.redo();
         },
         dispose() {
-          board.history.dispose();
+          this.board.history.dispose();
           this.pin = false;
         },
         confirm() {
-          board.history.confirm();
+          this.board.history.confirm();
           this.pin = false;
         },
         judge() {
           if (this.judgment === null) {
-            board.judge();
+            this.board.judge();
           } else {
-            board.resetjudgment();
+            this.board.resetjudgment();
           }
         },
         touchstart(event) {
@@ -102,26 +106,26 @@ define(function(require) {
       },
       computed: {
         width() {
-          return board.width;
+          return this.board.width;
         },
         height() {
-          return board.height;
+          return this.board.height;
         },
         doUndo() {
-          return board.history.doUndo;
+          return this.board.history.doUndo;
         },
         doRedo() {
-          return board.history.doRedo;
+          return this.board.history.doRedo;
         },
         hasPin() {
-          return board.history.hasPin;
+          return this.board.history.hasPin;
         },
         pin: {
           get() {
-            return board.history.pin;
+            return this.board.history.pin;
           },
           set(value) {
-            board.history.pin = value;
+            this.board.history.pin = value;
           }
         },
         cellsize() {
@@ -147,7 +151,7 @@ define(function(require) {
           return result;
         },
         judgment() {
-          return board.judgment;
+          return this.board.judgment;
         }
       }
     });
