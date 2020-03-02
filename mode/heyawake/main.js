@@ -4,13 +4,6 @@ define(function(require) {
       transcoder.decodeBorder();
       transcoder.decodeRoomNumber16();
     }
-
-    judgment() {
-      return (
-        this.cells.every(cell => cell.correction(true) !== false) &&
-        this.rooms.every(room => room.correction())
-      );
-    }
   }
 
   class Cell extends require("app/cell") {
@@ -65,7 +58,7 @@ define(function(require) {
       return false;
     }
 
-    correction(strict) {
+    correction() {
       if (this.paint) {
         // 塗りが2マス連続していたらNG
         for (const cell of this.board.around(this.x, this.y)) {
@@ -76,12 +69,12 @@ define(function(require) {
         return true;
       }
 
-      if (strict || this.none) {
+      if (this.board.strict || this.none) {
         // 非塗りが3部屋連続していたらNG
-        if (this.isTreeWhiteRoom(1, 0, strict)) {
+        if (this.isTreeWhiteRoom(1, 0)) {
           return false;
         }
-        if (this.isTreeWhiteRoom(0, 1, strict)) {
+        if (this.isTreeWhiteRoom(0, 1)) {
           return false;
         }
       }
@@ -91,15 +84,19 @@ define(function(require) {
         return false;
       }
 
-      return null;
+      if (this.board.strict) {
+        return true;
+      } else {
+        return null;
+      }
     }
-    isTreeWhiteRoom(addx, addy, strict) {
+    isTreeWhiteRoom(addx, addy) {
       const rooms = [];
       rooms.push(this.room.index);
       for (let s = -1; s <= 1; s += 2) {
         for (let c = 1; true; c++) {
           const cell = this.cell(addx * c * s, addy * c * s);
-          if (cell.wall || (strict ? cell.paint : !cell.none)) {
+          if (cell.wall || (this.board.strict ? cell.paint : !cell.none)) {
             break;
           }
           if (rooms.includes(cell.room.index)) {

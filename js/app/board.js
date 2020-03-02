@@ -41,7 +41,11 @@ define(function(require) {
 
     judgment() {
       this.strict = true;
-      return this.cells.every(cell => cell.correction());
+
+      return (
+        this.cells.every(cell => cell.correction()) &&
+        this.rooms.every(room => room.correction())
+      );
     }
 
     *recursion(x, y, checked) {
