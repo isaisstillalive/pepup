@@ -70,7 +70,7 @@ define(function(require) {
         });
       }
 
-      this.correctionimages(images);
+      return false;
     }
 
     get lines() {

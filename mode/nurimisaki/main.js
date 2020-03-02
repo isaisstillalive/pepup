@@ -53,8 +53,9 @@ define(function(require) {
           class: "bg"
         });
         this.numberimage(images);
-        this.correctionimages(images);
       }
+
+      return false;
     }
 
     set qnum(value) {

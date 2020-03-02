@@ -47,8 +47,6 @@ define(function(require) {
         });
       }
 
-      this.correctionimages(images);
-
       if (this.wleft) {
         images.push({
           src: "img/cell/wallleft.png",
@@ -63,6 +61,8 @@ define(function(require) {
       }
 
       this.room.images(this, images);
+
+      return false;
     }
 
     correction(strict) {

@@ -26,10 +26,6 @@ define(function(require) {
     }
 
     images(images) {
-      if (this.wallimages(images)) {
-        return;
-      }
-
       images.push({
         src: "img/cell/floor.png",
         class: "bg"
@@ -46,12 +42,13 @@ define(function(require) {
         images.push({
           src: "mode/akari/img/light.png"
         });
-        this.correctionimages(images);
       } else if (this.none) {
         images.push({
           src: "img/cell/none.png"
         });
       }
+
+      return false;
     }
 
     arounds() {

@@ -19,7 +19,12 @@ define(function(require) {
     allimages() {
       const images = [];
 
-      this.images(images);
+      if (!this.wallimages(images)) {
+        const showok = this.images(images);
+        if (showok !== null){
+          this.correctionimages(images, showok);
+        }
+      }
 
       return images;
     }
