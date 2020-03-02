@@ -172,19 +172,10 @@ define(function(require) {
       for (const room of this.decodeIterator(this.rooms)) {
         const number = this.read();
 
-        if (number == -2) {
-          room.qnum = -2;
-        } else if (number <= 4) {
-          room.qnum = number;
-        } else if (number <= 9) {
-          room.qnum = number - 5;
-          this.cursor += 1;
-        } else if (number <= 15) {
-          room.qnum = number - 10;
-          this.cursor += 2;
-        } else {
-          room.qnum = -1;
+        if (number >= 16 && number <= 35) {
           this.cursor += number - 16;
+        } else {
+          room.qnum = number;
         }
       }
     }
