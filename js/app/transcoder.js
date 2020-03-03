@@ -168,6 +168,19 @@ define(function(require) {
       this.setRooms();
     }
 
+    decodeNumber16() {
+      for (const room of this.decodeIterator(this.cells)) {
+        const number = this.read();
+
+        if (number >= 16 && number <= 35) {
+          room.qnum = -1;
+          this.cursor += number - 16;
+        } else {
+          room.qnum = number;
+        }
+      }
+    }
+
     decodeRoomNumber16() {
       for (const room of this.decodeIterator(this.rooms)) {
         const number = this.read();

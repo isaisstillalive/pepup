@@ -1,7 +1,7 @@
 define(function(require) {
   class Board extends require("app/board") {
     decode(transcoder) {
-      transcoder.decode4Cell();
+      transcoder.decodeNumber16();
     }
   }
 
