@@ -16,7 +16,7 @@ define(function(require) {
       return true;
     }
 
-    leave(x, y, change) {
+    enter(x, y, change) {
       return;
     }
 

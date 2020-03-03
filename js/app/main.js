@@ -40,12 +40,10 @@ define(function(require) {
       },
       methods: {
         setCursor(x, y) {
-          this.markleave(x, y);
+          this.markenter(x, y);
 
           this.cursor.x = x;
           this.cursor.y = y;
-
-          this.markupdate();
         },
         clickCell(x, y, event) {
           const clientRect = event.currentTarget.getBoundingClientRect();
@@ -111,61 +109,34 @@ define(function(require) {
 
         markstart(event) {
           this.mark = {
-            id: event.changedTouches[0].identifier,
-            pageX: event.changedTouches[0].pageX,
-            pageY: event.changedTouches[0].pageY,
             multicell: false,
-            freeze: false,
             change: {}
           };
-          this.markmove(event);
-        },
-        markmove(event) {
-          if (this.mark.freeze) {
-            return;
-          }
 
-          const touch = Array.from(event.changedTouches).find(
-            touch => touch.identifier == this.mark.id
-          );
-          if (touch === undefined) {
-            return;
-          }
+          const clientRect = event.currentTarget.getBoundingClientRect();
 
           const position = {
-            x: touch.pageX - this.mark.pageX,
-            y: touch.pageY - this.mark.pageY,
+            x: event.changedTouches[0].pageX - (clientRect.x + clientRect.width / 2),
+            y: event.changedTouches[0].pageY - (clientRect.y + clientRect.height / 2),
             get distance() { return Math.sqrt((this.x - 0.5) ** 2 + (this.y - 0.5) ** 2) },
             get degree() { return Math.atan2(this.y, this.x) * 180 / Math.PI; }
           };
 
           const cell = this.board.get(this.cursor.x, this.cursor.y);
           this.mark.multicell = cell.touch(position, this.mark.change);
-        },
-        markend(event) {
-          if (!this.mark.freeze) {
-            this.mark.multicell = true;
-            this.markupdate();
-          }
-          this.mark = undefined;
-        },
-        markleave(x, y) {
-          if (!this.mark || this.mark.freeze) {
-            return;
-          }
 
-          this.mark.freeze = true;
-
-          const cell = this.board.get(this.cursor.x, this.cursor.y);
-          cell.leave(x-this.cursor.x, y-this.cursor.y, this.mark.change);
           cell.update(this.mark.change);
         },
-        markupdate() {
+        markend(event) {
+          this.mark = undefined;
+        },
+        markenter(x, y) {
           if (!this.mark || !this.mark.multicell) {
             return;
           }
 
-          const cell = this.board.get(this.cursor.x, this.cursor.y);
+          const cell = this.board.get(x, y);
+          cell.enter(x-this.cursor.x, y-this.cursor.y, this.mark.change);
           cell.update(this.mark.change);
         }
       },
