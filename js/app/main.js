@@ -40,6 +40,10 @@ define(function(require) {
       },
       methods: {
         setCursor(x, y) {
+          if (this.cursor.x == x && this.cursor.y == y) {
+            return;
+          }
+
           this.markenter(x, y);
 
           this.cursor.x = x;
