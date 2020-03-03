@@ -23,11 +23,6 @@ define(function(require) {
     }
 
     images(images) {
-      images.push({
-        src: "img/cell/floor.png",
-        class: "bg"
-      });
-
       if (this.paint) {
         images.push({
           src: "mode/heyawake/img/paint.png",
@@ -36,6 +31,11 @@ define(function(require) {
       } else if (this.none) {
         images.push({
           src: "mode/heyawake/img/none.png",
+          class: "bg"
+        });
+      } else {
+        images.push({
+          src: "img/cell/floor.png",
           class: "bg"
         });
       }
