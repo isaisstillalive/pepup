@@ -98,6 +98,7 @@ define(function(require) {
           this.wall = false;
           this.none = false;
           this.bright = 0;
+          this.dlight = false;
           break;
 
         case -2:
@@ -147,6 +148,9 @@ define(function(require) {
     }
 
     set light(value) {
+      if (value == this.dlight) {
+        return;
+      }
       this.dlight = value;
       this.ray(value);
     }
