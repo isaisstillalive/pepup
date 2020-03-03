@@ -33,17 +33,17 @@ define(function(require) {
       return room;
     }
 
-    *decodeIterator(target) {
+    *decodeIterator(target, skip = 1) {
       this.cursor = 0;
       for (; this.position < this.source.length && this.cursor < target.length; this.position++) {
         const cell = target[this.cursor];
 
-        const current = this.cursor;
+        const current = this.cursor + skip;
         yield cell;
 
-        this.cursor += 1;
+        this.cursor += skip;
         const max = Math.min(this.cursor, target.length);
-        for (let c = current+1; c < max; c++) {
+        for (let c = current; c < max; c++) {
           target[c].qnum = -1;
         }
       }
@@ -132,16 +132,13 @@ define(function(require) {
     decodeCircle() {
       const tri = [9, 3, 1];
 
-      let c = 0;
-      for (let i = 0; i < this.source.length; i++) {
-        const char = this.source.charAt(i);
-
-        const ca = parseInt(char, 27);
-        for (let w = 0; w < 3 && c < this.cells.length; w++) {
-          const cell = this.cells[c];
-          const val = ((ca / tri[w]) | 0) % 3;
+      for (const cell of this.decodeIterator(this.cells, 3)) {
+        const number = this.read();
+        for (let w = 0; w < 3; w++) {
+          const cell = this.cells[this.cursor+w];
+          if (!cell) break;
+          const val = ((number / tri[w]) | 0) % 3;
           cell.qnum = val;
-          c += 1;
         }
       }
     }
