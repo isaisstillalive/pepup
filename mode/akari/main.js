@@ -7,7 +7,7 @@ define(function(require) {
 
   class Cell extends require("app/cell") {
     touch(position, change) {
-      if (position.x < 0) {
+      if (position.distance <= 25) {
         if (!this.none) {
           change.light = false;
           change.none = true;
