@@ -93,6 +93,25 @@ define(function(require) {
       }
     }
 
+    read4() {
+      const number = this.read();
+
+      if (number == -2) {
+        return -2;
+      } else if (number <= 4) {
+        return number;
+      } else if (number <= 9) {
+        this.cursor += 1;
+        return number - 5;
+      } else if (number <= 15) {
+        this.cursor += 2;
+        return number - 10;
+      } else {
+        this.cursor += number - 16;
+        return -1;
+      }
+    }
+
     readNumber16() {
       const number = this.read();
 
@@ -106,22 +125,7 @@ define(function(require) {
 
     decode4Cell() {
       for (const cell of this.decodeIterator(this.cells)) {
-        const number = this.read();
-
-        if (number == -2) {
-          cell.qnum = -2;
-        } else if (number <= 4) {
-          cell.qnum = number;
-        } else if (number <= 9) {
-          cell.qnum = number - 5;
-          this.cursor += 1;
-        } else if (number <= 15) {
-          cell.qnum = number - 10;
-          this.cursor += 2;
-        } else {
-          cell.qnum = -1;
-          this.cursor += number - 16;
-        }
+        cell.qnum = this.read4();
       }
     }
 
