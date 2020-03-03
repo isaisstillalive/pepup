@@ -6,27 +6,20 @@ define(function(require) {
   }
 
   class Cell extends require("app/cell") {
-    click(x, y) {
-      if (this.wall) {
-        return;
-      }
-
-      const change = {};
-
-      if (this.paint) {
+    touch(position, change) {
+      const white = this.circle || position.y <= 0;
+      if (white && !this.none) {
         change.paint = false;
         change.none = true;
-      } else if (this.none) {
+      } else if (!white && !this.paint) {
+        change.paint = true;
         change.none = false;
       } else {
-        if (this.circle) {
-          change.none = true;
-        } else {
-          change.paint = true;
-        }
+        change.paint = false;
+        change.none = false;
       }
 
-      this.update(change);
+      return true;
     }
 
     images(images) {
@@ -63,25 +56,26 @@ define(function(require) {
         case -1:
           this.circle = false;
           this.none = false;
-          this.bright = 0;
           break;
 
         case -2:
           this.circle = true;
+          this.none = false;
           break;
 
         default:
           this.circle = true;
+          this.none = false;
           this.number = value;
           break;
       }
     }
 
-    white(strict) {
-      return strict ? this.none : !this.paint;
+    white() {
+      return this.board.strict ? this.none : !this.paint;
     }
 
-    correction(strict) {
+    correction() {
       // 岬の場合、1方のみが白ならOK
       // それ以外ならNG
       if (this.circle) {
@@ -93,7 +87,7 @@ define(function(require) {
           [0, 1]
         ];
         for (const around of arounds) {
-          whites.push(this.countwhite(around[0], around[1], strict));
+          whites.push(this.countwhite(...around));
         }
         const open = whites.filter(white => white >= 2);
         if (open.length == 1) {
@@ -102,55 +96,55 @@ define(function(require) {
           }
           if (this.number == open[0]) {
             return true;
-          } else if (this.number > open[0]) {
+          } else if (this.number > open[0] || this.board.strict) {
             return false;
           }
-          return true;
-        } else if (open.length == 0) {
+          return null;
+        } else if (open.length == 0 || this.board.strict) {
           return false;
         }
       }
 
-      return null;
+      // 2*2の塊ができたらNG
+      if (
+        this.board.strict &&
+        (
+          this.isCluster(0, 0) ||
+          this.isCluster(0, -1) ||
+          this.isCluster(-1, 0) ||
+          this.isCluster(-1, -1)
+        )
+      ) {
+        return false;
+      }
+
+      return true;
     }
 
-    countwhite(addx, addy, strict) {
+    countwhite(addx, addy) {
       for (let count = 0; true; count++) {
         const cell = this.cell(addx * count, addy * count);
-        if (cell.wall || !cell.white(strict)) {
+        if (cell.wall || !cell.white()) {
           return count;
         }
       }
     }
 
-    set light(value) {
-      this.dlight = value;
-      this.ray(value);
-    }
-    get light() {
-      return this.dlight;
-    }
-
-    ray(value) {
-      Vue.set(this, "bright", this.bright + (value ? 1 : -1));
-      this.setBrights(1, 0, value);
-      this.setBrights(-1, 0, value);
-      this.setBrights(0, 1, value);
-      this.setBrights(0, -1, value);
-    }
-
-    setBrights(addx, addy, value) {
-      let x = addx;
-      let y = addy;
-      while (true) {
-        const cell = this.cell(x, y);
-        if (cell.wall) {
-          break;
-        }
-        Vue.set(cell, "bright", cell.bright + (value ? 1 : -1));
-        x += addx;
-        y += addy;
+    isCluster(addx, addy) {
+      const cell = this.cell(addx, addy);
+      if (cell.wall) {
+        return false;
       }
+      const base = cell.white();
+
+      const arounds = [[1,0],[0,1],[1,1]];
+      for (const around of arounds) {
+        const cell = this.cell(addx+around[0], addy+around[1]);
+        if (cell.wall || cell.white() != base) {
+          return false;
+        }
+      }
+      return true;
     }
   }
 
