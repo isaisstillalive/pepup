@@ -7,19 +7,19 @@ define(function(require) {
   }
 
   class Cell extends require("app/cell") {
-    click(x, y) {
-      const change = {};
-
-      if (this.paint) {
+    touch(position, change) {
+      if (position.y <= 0 && !this.none) {
         change.paint = false;
         change.none = true;
-      } else if (this.none) {
+      } else if (position.y > 0 && !this.paint) {
+        change.paint = true;
         change.none = false;
       } else {
-        change.paint = true;
+        change.paint = false;
+        change.none = false;
       }
 
-      this.update(change);
+      return true;
     }
 
     images(images) {
