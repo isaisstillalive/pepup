@@ -93,6 +93,17 @@ define(function(require) {
       }
     }
 
+    readNumber16() {
+      const number = this.read();
+
+      if (number >= 16 && number <= 35) {
+        this.cursor += number - 16;
+        return -1;
+      } else {
+        return number;
+      }
+    }
+
     decode4Cell() {
       for (const cell of this.decodeIterator(this.cells)) {
         const number = this.read();
@@ -169,28 +180,14 @@ define(function(require) {
     }
 
     decodeNumber16() {
-      for (const room of this.decodeIterator(this.cells)) {
-        const number = this.read();
-
-        if (number >= 16 && number <= 35) {
-          room.qnum = -1;
-          this.cursor += number - 16;
-        } else {
-          room.qnum = number;
-        }
+      for (const cell of this.decodeIterator(this.cells)) {
+        cell.qnum = this.readNumber16();
       }
     }
 
     decodeRoomNumber16() {
       for (const room of this.decodeIterator(this.rooms)) {
-        const number = this.read();
-
-        if (number >= 16 && number <= 35) {
-          room.qnum = -1;
-          this.cursor += number - 16;
-        } else {
-          room.qnum = number;
-        }
+        room.qnum = this.readNumber16();
       }
     }
 
