@@ -12,6 +12,7 @@ define(function(require) {
       const current = this.board.get(x, y);
 
       if (this.pin) {
+        to = Object.assign({}, to);
         this.pincount += 1;
         to.pin = this.pincount;
         this.pin = false;
@@ -29,6 +30,8 @@ define(function(require) {
         to: to
       });
       this.index += 1;
+
+      return to;
     }
 
     get doUndo() {

@@ -34,7 +34,7 @@ define(function(require) {
     set(x, y, change, rec = false) {
       this.resetjudgment();
       if (rec) {
-        this.history.record(x, y, change);
+        change = this.history.record(x, y, change);
       }
       const index = x + y * this.width;
       Object.assign(this.cells[index], change);
