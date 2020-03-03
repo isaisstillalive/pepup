@@ -115,7 +115,7 @@ define(function(require) {
             x: (event.changedTouches[0].pageX - (clientRect.x + clientRect.width / 2)) / clientRect.width,
             y: (event.changedTouches[0].pageY - (clientRect.y + clientRect.height / 2)) / clientRect.height,
             get distance() { return Math.sqrt(this.x ** 2 + this.y ** 2) },
-            get degree() { return Math.atan2(this.y, this.x) * 180 / Math.PI; }
+            get angle() { return Math.atan2(this.y, this.x) / Math.PI; }
           };
 
           const cell = this.board.get(this.cursor.x, this.cursor.y);
