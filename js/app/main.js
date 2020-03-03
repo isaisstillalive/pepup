@@ -119,7 +119,7 @@ define(function(require) {
           };
 
           const cell = this.board.get(this.cursor.x, this.cursor.y);
-          this.mark.multicell = cell.touch(position, this.mark.change);
+          this.mark.multicell = cell.touch(position, this.mark.change, this.mark);
 
           cell.update(this.mark.change);
         },
@@ -132,8 +132,9 @@ define(function(require) {
           }
 
           const cell = this.board.get(x, y);
-          cell.enter(x-this.cursor.x, y-this.cursor.y, this.mark.change);
-          cell.update(this.mark.change);
+          const change = Object.assign({}, this.mark.change);
+          cell.enter(this.cursor.x - x, this.cursor.y - y, change, this.mark);
+          cell.update(change);
         }
       },
       computed: {
