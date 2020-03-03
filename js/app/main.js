@@ -45,14 +45,6 @@ define(function(require) {
           this.cursor.x = x;
           this.cursor.y = y;
         },
-        clickCell(x, y, event) {
-          const clientRect = event.currentTarget.getBoundingClientRect();
-          const touchX = event.changedTouches[0].clientX - clientRect.left;
-          const touchY = event.changedTouches[0].clientY - clientRect.top;
-          this.board
-            .get(x, y)
-            .click(touchX / clientRect.width, touchY / clientRect.height);
-        },
         undo() {
           this.board.history.undo();
         },

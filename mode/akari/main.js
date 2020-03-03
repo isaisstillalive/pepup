@@ -26,25 +26,6 @@ define(function(require) {
       return true;
     }
 
-    click(x, y) {
-      if (this.wall) {
-        return;
-      }
-
-      const change = {};
-
-      if (this.light) {
-        change.light = false;
-        change.none = true;
-      } else if (this.none) {
-        change.none = false;
-      } else {
-        change.light = true;
-      }
-
-      this.update(change);
-    }
-
     images(images) {
       images.push({
         src: "img/cell/floor.png",

@@ -33,32 +33,6 @@ define(function(require) {
       return true;
     }
 
-    click(x, y) {
-      if (this.wall) {
-        return;
-      }
-
-      const change = {};
-
-      const dist = Math.sqrt((x - 0.5) ** 2 + (y - 0.5) ** 2);
-      if (dist <= 0.25) {
-        change.triangle = undefined;
-        change.none = !this.none;
-      } else {
-        let triangle = 0;
-        if (x >= 0.5) {
-          triangle += 1;
-        }
-        if (y >= 0.5) {
-          triangle += 2;
-        }
-        change.triangle = this.triangle == triangle ? undefined : triangle;
-        change.none = false;
-      }
-
-      this.update(change);
-    }
-
     images(images) {
       images.push({
         src: "img/cell/floor.png",
