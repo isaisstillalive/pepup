@@ -116,9 +116,9 @@ define(function(require) {
           const clientRect = event.currentTarget.getBoundingClientRect();
 
           const position = {
-            x: event.changedTouches[0].pageX - (clientRect.x + clientRect.width / 2),
-            y: event.changedTouches[0].pageY - (clientRect.y + clientRect.height / 2),
-            get distance() { return Math.sqrt((this.x - 0.5) ** 2 + (this.y - 0.5) ** 2) },
+            x: (event.changedTouches[0].pageX - (clientRect.x + clientRect.width / 2)) / clientRect.width,
+            y: (event.changedTouches[0].pageY - (clientRect.y + clientRect.height / 2)) / clientRect.height,
+            get distance() { return Math.sqrt(this.x ** 2 + this.y ** 2) },
             get degree() { return Math.atan2(this.y, this.x) * 180 / Math.PI; }
           };
 
