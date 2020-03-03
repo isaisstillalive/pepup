@@ -11,18 +11,19 @@ define(function(require) {
         if (!this.none) {
           change.light = false;
           change.none = true;
-          return;
+          return true;
         }
       } else {
         if (!this.light) {
           change.light = true;
           change.none = false;
-          return;
+          return false;
         }
       }
 
       change.light = false;
       change.none = false;
+      return true;
     }
 
     click(x, y) {

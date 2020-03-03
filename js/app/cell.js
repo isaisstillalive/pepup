@@ -12,6 +12,14 @@ define(function(require) {
       return this.board.get(this.x + addx, this.y + addy);
     }
 
+    touch(position, change) {
+      return true;
+    }
+
+    leave(x, y, change) {
+      return;
+    }
+
     update(change) {
       if (this.wall) {
         return;
