@@ -146,36 +146,37 @@ define(function(require) {
     decodeBorder() {
       const twi = [16, 8, 4, 2, 1];
 
-      let i = 0;
-      let c = 1;
-      for (; i < this.source.length && c < this.cells.length; i++) {
-        const char = this.source.charAt(i);
-        const ca = parseInt(char, 32);
+      for (const cell of this.decodeIterator(this.cells, 5)) {
+        const number = this.read();
 
-        for (var w = 0; w < 5 && c < this.cells.length; w++) {
-          if ((ca & twi[w]) == twi[w]) {
-            this.cells[c].wleft = true;
+        for (var w = 0; w < 5; w++) {
+          // 一番左の列は使わない
+          if ((this.cursor + w) % this.width == 0) {
+            this.cursor += 1;
           }
-          c += 1;
-          if (c % this.width == 0) {
-            c += 1;
+          if ((number & twi[w]) == twi[w]) {
+            const cell = this.cells[this.cursor + w];
+            if (!cell) break;
+            cell.wleft = true;
           }
         }
       }
-      c = this.width;
-      for (; i < this.source.length && c < this.cells.length; i++) {
-        const char = this.source.charAt(i);
-        const ca = parseInt(char, 32);
 
-        for (var w = 0; w < 5 && c < this.cells.length; w++) {
-          if ((ca & twi[w]) == twi[w]) {
-            this.cells[c].wtop = true;
+      for (const cell of this.decodeIterator(this.cells, 5)) {
+        const number = this.read();
+
+        // 一番上の段は使わない
+        if (this.cursor == 0) {
+          this.cursor += this.width;
+        }
+        for (var w = 0; w < 5; w++) {
+          if ((number & twi[w]) == twi[w]) {
+            const cell = this.cells[this.cursor + w];
+            if (!cell) break;
+            cell.wtop = true;
           }
-          c += 1;
         }
       }
-
-      this.source = this.source.substr(i);
 
       this.setRooms();
     }
