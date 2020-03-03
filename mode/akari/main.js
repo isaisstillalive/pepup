@@ -6,6 +6,25 @@ define(function(require) {
   }
 
   class Cell extends require("app/cell") {
+    touch(position, change) {
+      if (position.x < 0) {
+        if (!this.none) {
+          change.light = false;
+          change.none = true;
+          return;
+        }
+      } else {
+        if (!this.light) {
+          change.light = true;
+          change.none = false;
+          return;
+        }
+      }
+
+      change.light = false;
+      change.none = false;
+    }
+
     click(x, y) {
       if (this.wall) {
         return;

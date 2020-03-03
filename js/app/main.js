@@ -102,6 +102,42 @@ define(function(require) {
         },
         touchend(event) {
           this.touch = {};
+        },
+
+        markstart(event) {
+          this.mark = {
+            id: event.changedTouches[0].identifier,
+            pageX: event.changedTouches[0].pageX,
+            pageY: event.changedTouches[0].pageY,
+            freeze: false,
+            change: {}
+          };
+          this.markmove(event);
+        },
+        markmove(event) {
+          const touch = Array.from(event.changedTouches).find(
+            touch => touch.identifier == this.mark.id
+          );
+          if (touch === undefined) {
+            return;
+          }
+
+          const position = {
+            x: touch.pageX - this.mark.pageX,
+            y: touch.pageY - this.mark.pageY,
+            get distance() { return Math.sqrt((this.x - 0.5) ** 2 + (this.y - 0.5) ** 2) },
+            get degree() { return Math.atan2(this.y, this.x) * 180 / Math.PI; }
+          };
+
+          const cell = this.board.get(this.cursor.x, this.cursor.y);
+          cell.touch(position, this.mark.change);
+        },
+        markend(event) {
+          if (!this.mark.freeze) {
+            const cell = this.board.get(this.cursor.x, this.cursor.y);
+            cell.update(this.mark.change);
+          }
+          this.mark = {};
         }
       },
       computed: {
