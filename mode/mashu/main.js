@@ -6,38 +6,42 @@ define(function(require) {
   }
 
   class Cell extends require("app/cell") {
-    click(x, y) {
-      let property;
-      const change = {};
-
-      if (y <= 1 - x) {
-        if (y <= 0.5 - Math.abs(0.5 - x)) {
-          if (this.y == 0) {
-            return;
-          }
-          property = "top";
-        } else {
-          if (this.x == 0) {
-            return;
-          }
-          property = "left";
-        }
-      } else {
-        if (y <= x) {
-          if (this.x == this.board.width - 1) {
-            return;
-          }
-          property = "right";
-        } else {
-          if (this.y == this.board.height - 1) {
-            return;
-          }
-          property = "bottom";
-        }
+    touch(position, change, mark) {
+      if (position.distance <= 0.25) {
+        mark.line = undefined;
+        return true;
       }
 
-      change[property] = (this[property] + 1) % 3;
-      this.update(change);
+      let property;
+      if (position.angle <= -0.75 || position.angle > 0.75) {
+        property = "left";
+      } else if (position.angle <= -0.25) {
+        property = "top";
+      } else if (position.angle <= 0.25) {
+        property = "right";
+      } else {
+        property = "bottom";
+      }
+      change[property] = (this[property] == 2) ? 0 : 2;
+      return false;
+    }
+
+    enter(x, y, change, mark) {
+      let property;
+      if (x <= -1) {
+        property = "left";
+      } else if (y <= -1) {
+        property = "top";
+      } else if (x >= 1) {
+        property = "right";
+      } else {
+        property = "bottom";
+      }
+      if (mark.line === undefined) {
+        mark.line = (this[property] == 0) ? 1 : 0;
+      }
+      change[property] = mark.line;
+      return true;
     }
 
     images(images) {
