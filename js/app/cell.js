@@ -13,7 +13,18 @@ define(function(require) {
     }
 
     update(change) {
-      this.board.set(this.x, this.y, change, true);
+      if (this.wall) {
+        return;
+      }
+      let same = true;
+      for (const key in change) {
+        if (change[key] != this[key]) {
+          same = false;
+        }
+      }
+      if (!same) {
+        this.board.set(this.x, this.y, change, true);
+      }
     }
 
     allimages() {
