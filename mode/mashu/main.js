@@ -22,7 +22,7 @@ define(function(require) {
       } else {
         property = "bottom";
       }
-      change[property] = (this[property] == 2) ? 0 : 2;
+      change[property] = this[property] == 2 ? 0 : 2;
       return false;
     }
 
@@ -38,7 +38,7 @@ define(function(require) {
         property = "bottom";
       }
       if (mark.line === undefined) {
-        mark.line = (this[property] == 0) ? 1 : 0;
+        mark.line = this[property] == 0 ? 1 : 0;
       }
       change[property] = mark.line;
       return true;

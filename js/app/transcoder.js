@@ -35,7 +35,11 @@ define(function(require) {
 
     *decodeIterator(target, skip = 1) {
       this.cursor = 0;
-      for (; this.position < this.source.length && this.cursor < target.length; this.position++) {
+      for (
+        ;
+        this.position < this.source.length && this.cursor < target.length;
+        this.position++
+      ) {
         const cell = target[this.cursor];
 
         const current = this.cursor + skip;
@@ -49,7 +53,7 @@ define(function(require) {
       }
     }
 
-    read(){
+    read() {
       const char = this.source.charAt(this.position);
 
       let number;
@@ -59,32 +63,36 @@ define(function(require) {
           return -2;
 
         case "-":
-          number = parseInt(this.source.substr(this.position+1, 2), 16);
+          number = parseInt(this.source.substr(this.position + 1, 2), 16);
           this.position += 2;
           return number;
 
         case "+":
-          number = parseInt(this.source.substr(this.position+1, 3), 16);
+          number = parseInt(this.source.substr(this.position + 1, 3), 16);
           this.position += 3;
           return number;
 
         case "=":
-          number = parseInt(this.source.substr(this.position+1, 3), 16) + 4096;
+          number =
+            parseInt(this.source.substr(this.position + 1, 3), 16) + 4096;
           this.position += 3;
           return number;
 
         case "%":
-          number = parseInt(this.source.substr(this.position+1, 3), 16) + 8192;
+          number =
+            parseInt(this.source.substr(this.position + 1, 3), 16) + 8192;
           this.position += 3;
           return number;
 
         case "*":
-          number = parseInt(this.source.substr(this.position+1, 4), 16) + 12240;
+          number =
+            parseInt(this.source.substr(this.position + 1, 4), 16) + 12240;
           this.position += 4;
           return number;
 
         case "$":
-          number = parseInt(this.source.substr(this.position+1, 5), 16) + 77776;
+          number =
+            parseInt(this.source.substr(this.position + 1, 5), 16) + 77776;
           this.position += 5;
           return number;
 
@@ -135,7 +143,7 @@ define(function(require) {
       for (const cell of this.decodeIterator(this.cells, 3)) {
         const number = this.read();
         for (let w = 0; w < 3; w++) {
-          const cell = this.cells[this.cursor+w];
+          const cell = this.cells[this.cursor + w];
           if (!cell) break;
           const val = ((number / tri[w]) | 0) % 3;
           cell.qnum = val;

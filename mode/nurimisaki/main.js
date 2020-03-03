@@ -108,12 +108,10 @@ define(function(require) {
       // 2*2の塊ができたらNG
       if (
         this.board.strict &&
-        (
-          this.isCluster(0, 0) ||
+        (this.isCluster(0, 0) ||
           this.isCluster(0, -1) ||
           this.isCluster(-1, 0) ||
-          this.isCluster(-1, -1)
-        )
+          this.isCluster(-1, -1))
       ) {
         return false;
       }
@@ -137,9 +135,13 @@ define(function(require) {
       }
       const base = cell.white();
 
-      const arounds = [[1,0],[0,1],[1,1]];
+      const arounds = [
+        [1, 0],
+        [0, 1],
+        [1, 1]
+      ];
       for (const around of arounds) {
-        const cell = this.cell(addx+around[0], addy+around[1]);
+        const cell = this.cell(addx + around[0], addy + around[1]);
         if (cell.wall || cell.white() != base) {
           return false;
         }

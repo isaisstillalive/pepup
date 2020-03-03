@@ -40,7 +40,7 @@ define(function(require) {
 
       if (!this.wallimages(images)) {
         const showok = this.images(images);
-        if (showok !== null){
+        if (showok !== null) {
           this.correctionimages(images, showok);
         }
       }
