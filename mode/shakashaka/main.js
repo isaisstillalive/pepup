@@ -6,6 +6,31 @@ define(function(require) {
   }
 
   class Cell extends require("app/cell") {
+    touch(position, change) {
+      if (position.distance <= 25) {
+        if (!this.none) {
+          change.triangle = undefined;
+          change.none = true;
+          return true;
+        }
+      } else {
+        let triangle = 0;
+        if (position.x >= 0) {
+          triangle += 1;
+        }
+        if (position.y >= 0) {
+          triangle += 2;
+        }
+        change.triangle = triangle;
+        change.none = false;
+        return false;
+      }
+
+      change.triangle = undefined;
+      change.none = false;
+      return true;
+    }
+
     click(x, y) {
       if (this.wall) {
         return;
