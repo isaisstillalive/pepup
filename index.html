@@ -37,7 +37,7 @@
           </template>
         </div>
       </div>
-      <div id="control" @touchstart="markstart" @touchmove="markmove" @touchend="markend">
+      <div id="control" @touchstart="markstart" @touchend="markend">
         <div class="inner">
           <template v-for="cell in controlcells">
             <div v-if="cell.out" class="cell out"></div>
