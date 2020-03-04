@@ -86,7 +86,7 @@ define(function(require) {
         }
       }
 
-      result.filled = result.filled == 4;
+      result.filled = this.board.strict || result.filled == 4;
 
       return result;
     }
@@ -132,6 +132,7 @@ define(function(require) {
 
       // 隣と斜めが合ってるか確認する
       // 左上のとき、右が右上ならOK
+      // 右が未決定なら未決定
       // 右が空なら、右上が左上ならOK、未定以外ならNG
       // 右がそれ以外ならNG
       const arounds = [
@@ -161,6 +162,7 @@ define(function(require) {
             return false;
           } else if (cell.triangle === around[1]) {
             result = result && true;
+          } else if (cell.undecided) {
           } else if (cell.open) {
             cell = this.cell(...around[2]);
             if (cell.triangle == this.triangle) {
