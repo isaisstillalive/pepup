@@ -17,7 +17,7 @@ define(function(require) {
       },
       data() {
         return {
-          data: `../mode/${mode}/cell.svg`
+          data: `mode/${mode}/cell.svg`
         };
       },
       mounted() {
