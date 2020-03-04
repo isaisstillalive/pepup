@@ -22,40 +22,37 @@ define(function(require) {
       return true;
     }
 
-    images(images) {
+    images() {
+      const images = [];
+
       if (this.paint) {
-        images.push({
-          src: "mode/heyawake/img/paint.png",
-          class: "bg"
-        });
+        images.push("black");
       } else if (this.none) {
-        images.push({
-          src: "mode/heyawake/img/none.png",
-          class: "bg"
-        });
+        images.push("white");
       } else {
-        images.push({
-          src: "img/cell/floor.png",
-          class: "bg"
-        });
+        images.push("floor");
       }
 
       if (this.wleft) {
-        images.push({
-          src: "img/cell/wallleft.png",
-          class: "link"
-        });
+        images.push("lborder");
       }
       if (this.wtop) {
-        images.push({
-          src: "img/cell/walltop.png",
-          class: "link"
-        });
+        images.push("tborder");
       }
 
-      this.room.images(this, images);
+      if (this == this.room.cells[0] && this.room.qnum >= 0) {
+        images.push(`number${this.room.qnum}`);
+      }
 
-      return false;
+      let correction = this.correction();
+      if (this.board.strict) {
+        correction = !!correction;
+      }
+      if (correction === false) {
+        images.push("ng");
+      }
+
+      return images;
     }
 
     correction() {
