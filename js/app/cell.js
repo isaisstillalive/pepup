@@ -6,7 +6,6 @@ define(function(require) {
       this.y = y;
 
       this.wall = false;
-      this.cellimages = [];
     }
 
     cell(addx, addy) {
@@ -33,19 +32,20 @@ define(function(require) {
       }
       if (!same) {
         this.board.set(this.x, this.y, change, true);
-        this.refresh();
       }
     }
 
-    refresh() {
-      this.cellimages.length = 0;
+    allimages() {
+      const images = [];
 
-      if (!this.wallimages(this.cellimages)) {
-        const showok = this.images(this.cellimages);
+      if (!this.wallimages(images)) {
+        const showok = this.images(images);
         if (showok !== null) {
-          this.correctionimages(this.cellimages, showok);
+          this.correctionimages(images, showok);
         }
       }
+
+      return images;
     }
 
     wallimages(images) {
