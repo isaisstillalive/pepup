@@ -39,6 +39,12 @@ define(function(require) {
       if (this.wtop) {
         images.push("tborder");
       }
+      if (this.wright) {
+        images.push("rborder");
+      }
+      if (this.wbottom) {
+        images.push("bborder");
+      }
 
       if (this == this.room.cells[0] && this.room.qnum >= 0) {
         images.push(`number${this.room.qnum}`);
