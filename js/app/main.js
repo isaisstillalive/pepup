@@ -56,6 +56,10 @@ define(function(require) {
         },
         y: {
           type: Number
+        },
+        visibled: {
+          type: Boolean,
+          default: true
         }
       },
       data() {
@@ -66,6 +70,10 @@ define(function(require) {
           return this.board.get(this.x, this.y);
         },
         images() {
+          if (!this.visibled) {
+            return ["wall"];
+          }
+
           return this.current.images();
         }
       }
@@ -231,7 +239,7 @@ define(function(require) {
               result.push({
                 x: x,
                 y: y,
-                out: x < 0 || x >= this.width || y < 0 || y >= this.height
+                visibled: x >= 0 && x < this.width && y >= 0 && y < this.height
               });
             }
           }
