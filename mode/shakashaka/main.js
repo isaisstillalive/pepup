@@ -130,22 +130,63 @@ define(function(require) {
         return null;
       }
 
+      // 隣と斜めが合ってるか確認する
+      // 左上のとき、右が右上ならOK
+      // 右が空なら、右上が左上ならOK、未定以外ならNG
+      // 右がそれ以外ならNG
       const arounds = [
-        ["left", [1, 0]],
-        ["right", [-1, 0]],
-        ["top", [0, 1]],
-        ["bottom", [0, -1]]
+        [
+          [[1, 0], 1, [1, -1]],
+          [[0, 1], 3, [-1, 1]]
+        ],
+        [
+          [[-1, 0], 0, [-1, -1]],
+          [[0, 1], 2, [1, 1]]
+        ],
+        [
+          [[-1, 0], 3, [-1, 1]],
+          [[0, -1], 1, [1, -1]]
+        ],
+        [
+          [[0, -1], 0, [-1, -1]],
+          [[1, 0], 2, [1, 1]]
+        ]
       ];
-      for (const around of arounds) {
-        if (this[around[0]]) {
-          const cell = this.cell(...around[1]);
-          if (cell.wall || cell[around[0]]) {
+      let cell;
+      let result = true;
+      if (this.triangle !== undefined) {
+        for (const around of arounds[this.triangle]) {
+          cell = this.cell(...around[0]);
+          if (cell.wall) {
+            return false;
+          } else if (cell.triangle === around[1]) {
+            result = result && true;
+          } else if (cell.open) {
+            cell = this.cell(...around[2]);
+            if (cell.triangle == this.triangle) {
+              result = result && true;
+            } else if (!cell.wall && !cell.undecided) {
+              return false;
+            }
+          } else {
             return false;
           }
         }
       }
 
+      if (result) {
+        return true;
+      }
+
       return null;
+    }
+
+    get undecided() {
+      return !this.board.strict && !this.none && this.triangle === undefined;
+    }
+
+    get open() {
+      return !this.wall && (this.none || this.triangle === undefined);
     }
 
     get left() {
