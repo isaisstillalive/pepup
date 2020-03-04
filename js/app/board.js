@@ -17,6 +17,9 @@ define(function(require) {
         room
       );
       this.decode(transcoder);
+      for (const cell of this.cells) {
+        cell.refresh();
+      }
 
       this.history = new History(this);
 

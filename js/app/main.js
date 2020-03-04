@@ -26,7 +26,7 @@ define(function(require) {
           return this.board.get(this.x, this.y);
         },
         images() {
-          if (this.current) return this.current.allimages();
+          return this.current.cellimages;
         }
       }
     });
