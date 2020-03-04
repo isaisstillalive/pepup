@@ -26,13 +26,9 @@
                 :style="{ width: (cellsize - 1) + 'px', height: (cellsize - 1) + 'px' }"
                 :x="x-1"
                 :y="y-1"
+                :cursor="cursor.x == x-1 && cursor.y == y-1"
                 @click="setCursor(x-1, y-1)"
-              >
-                <img
-                  v-if="cursor.x == x-1 && cursor.y == y-1"
-                  src="img/cursor.png"
-                  class="cursor"
-              /></cell>
+              ></cell>
             </template>
           </template>
         </div>

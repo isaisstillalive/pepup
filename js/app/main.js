@@ -57,6 +57,10 @@ define(function(require) {
         y: {
           type: Number
         },
+        cursor: {
+          type: Boolean,
+          default: false
+        },
         visibled: {
           type: Boolean,
           default: true
@@ -74,7 +78,11 @@ define(function(require) {
             return ["wall"];
           }
 
-          return this.current.images();
+          const images = this.current.images();
+          if (this.cursor) {
+            images.push("cursor");
+          }
+          return images;
         }
       }
     });
