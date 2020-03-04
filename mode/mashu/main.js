@@ -44,37 +44,36 @@ define(function(require) {
       return true;
     }
 
-    images(images) {
-      images.push({
-        src: "img/cell/floor.png",
-        class: "bg"
-      });
+    images() {
+      const images = [];
+
+      images.push("floor");
 
       if (this.circle === true) {
-        images.push({
-          src: "mode/mashu/img/white.png",
-          class: "bg"
-        });
+        images.push("wcircle");
       } else if (this.circle === false) {
-        images.push({
-          src: "mode/mashu/img/black.png",
-          class: "bg"
-        });
+        images.push("bcircle");
       }
-      if (this.right >= 1) {
-        images.push({
-          src: `mode/mashu/img/right${this.right}.png`,
-          class: "link"
-        });
+      if (this.left == 1) {
+        images.push("lline");
+      } else if (this.left == 2) {
+        images.push("lnone");
       }
-      if (this.bottom >= 1) {
-        images.push({
-          src: `mode/mashu/img/bottom${this.bottom}.png`,
-          class: "link"
-        });
+      if (this.top == 1) {
+        images.push("tline");
+      } else if (this.top == 2) {
+        images.push("tnone");
       }
 
-      return false;
+      let correction = this.correction();
+      if (this.board.strict) {
+        correction = !!correction;
+      }
+      if (correction === false) {
+        images.push("ng");
+      }
+
+      return images;
     }
 
     get lines() {
@@ -181,26 +180,26 @@ define(function(require) {
       return result;
     }
 
-    set left(value) {
-      if (this.x > 0) {
-        this.cell(-1, 0).right = value;
+    set right(value) {
+      if (this.x < this.board.width - 1) {
+        this.cell(1, 0).left = value;
       }
     }
-    get left() {
-      if (this.x > 0) {
-        return this.cell(-1, 0).right;
+    get right() {
+      if (this.x < this.board.width - 1) {
+        return this.cell(1, 0).left;
       }
       return 0;
     }
 
-    set top(value) {
-      if (this.y > 0) {
-        this.cell(0, -1).bottom = value;
+    set bottom(value) {
+      if (this.y < this.board.height - 1) {
+        this.cell(0, 1).top = value;
       }
     }
-    get top() {
-      if (this.y > 0) {
-        return this.cell(0, -1).bottom;
+    get bottom() {
+      if (this.y < this.board.height - 1) {
+        return this.cell(0, 1).top;
       }
       return 0;
     }
