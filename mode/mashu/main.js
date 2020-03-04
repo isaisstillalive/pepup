@@ -7,7 +7,7 @@ define(function(require) {
 
   class Cell extends require("app/cell") {
     touch(position, change, mark) {
-      if (position.distance <= 0.4) {
+      if (position.distance <= 0.3) {
         mark.line = undefined;
         return true;
       }

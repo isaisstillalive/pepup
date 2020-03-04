@@ -7,7 +7,7 @@ define(function(require) {
 
   class Cell extends require("app/cell") {
     touch(position, change) {
-      if (position.distance <= 0.4) {
+      if (position.distance <= 0.3) {
         if (!this.none) {
           change.triangle = undefined;
           change.none = true;
