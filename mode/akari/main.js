@@ -141,7 +141,7 @@ define(function(require) {
     }
 
     ray(value) {
-      Vue.set(this, "bright", this.bright + (value ? 1 : -1));
+      this.bright += (value ? 1 : -1);
       this.setBrights(1, 0, value);
       this.setBrights(-1, 0, value);
       this.setBrights(0, 1, value);
@@ -149,17 +149,12 @@ define(function(require) {
     }
 
     setBrights(addx, addy, value) {
-      let x = addx;
-      let y = addy;
-      while (true) {
-        const cell = this.cell(x, y);
-        if (cell.wall) {
-          break;
-        }
-        Vue.set(cell, "bright", cell.bright + (value ? 1 : -1));
-        x += addx;
-        y += addy;
+      const cell = this.cell(addx, addy);
+      if (cell.wall) {
+        return;
       }
+      cell.bright += (value ? 1 : -1);
+      cell.setBrights(addx, addy, value);
     }
   }
 
