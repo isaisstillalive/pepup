@@ -178,7 +178,7 @@ define(function(require) {
           cell.update(this.mark.change);
         },
         markend(event) {
-          //   this.mark = undefined;
+          this.mark = undefined;
         },
         markenter(x, y) {
           if (!this.mark || !this.mark.multicell) {
