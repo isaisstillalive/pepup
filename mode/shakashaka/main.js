@@ -14,13 +14,7 @@ define(function(require) {
           return true;
         }
       } else {
-        let triangle = 0;
-        if (position.x >= 0) {
-          triangle += 1;
-        }
-        if (position.y >= 0) {
-          triangle += 2;
-        }
+        let triangle = Math.floor(((position.angle + 1) % 2) / 0.5);
         if (this.triangle != triangle) {
           change.triangle = triangle;
           change.none = false;
@@ -33,23 +27,48 @@ define(function(require) {
       return true;
     }
 
-    images(images) {
-      images.push({
-        src: "img/cell/floor.png",
-        class: "bg"
-      });
+    images() {
+      const images = [];
 
-      if (this.triangle !== undefined) {
-        images.push({
-          src: `mode/shakashaka/img/triangle${this.triangle}.png`
-        });
-      } else if (this.none) {
-        images.push({
-          src: "img/cell/none.png"
-        });
+      if (this.wall) {
+        images.push("wall");
+        if (this.number != null) {
+          images.push(`number${this.number}w`);
+        }
+
+        let correction = this.correction();
+        if (this.board.strict) {
+          correction = !!correction;
+        }
+        if (correction === false) {
+          images.push("ng");
+        } else if (correction === true) {
+          images.push("ok");
+        }
+        return images;
       }
 
-      return false;
+      images.push("floor");
+
+      if (this.bright >= 1) {
+        images.push("bright");
+      }
+
+      if (this.triangle >= 0) {
+        images.push(`paint${this.triangle}`);
+      } else if (this.none) {
+        images.push("none");
+      }
+
+      let correction = this.correction();
+      if (this.board.strict) {
+        correction = !!correction;
+      }
+      if (correction === false) {
+        images.push("ng");
+      }
+
+      return images;
     }
 
     arounds() {
