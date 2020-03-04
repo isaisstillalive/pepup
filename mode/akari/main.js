@@ -34,6 +34,16 @@ define(function(require) {
         if (this.number != null) {
           images.push(`number${this.number}w`);
         }
+
+        let correction = this.correction();
+        if (this.board.strict) {
+          correction = !!correction;
+        }
+        if (correction === false) {
+          images.push("ng");
+        } else if (correction === true) {
+          images.push("ok");
+        }
         return images;
       }
 
@@ -47,6 +57,14 @@ define(function(require) {
         images.push("light");
       } else if (this.none) {
         images.push("none");
+      }
+
+      let correction = this.correction();
+      if (this.board.strict) {
+        correction = !!correction;
+      }
+      if (correction === false) {
+        images.push("ng");
       }
 
       return images;
