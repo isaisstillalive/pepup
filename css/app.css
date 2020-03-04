@@ -43,6 +43,7 @@ html {
   border: solid 2px #aaa;
   border-right: solid 1px #aaa;
   border-bottom: solid 1px #aaa;
+  overflow: hidden;
 }
 
 .cell {
