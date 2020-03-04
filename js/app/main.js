@@ -1,12 +1,52 @@
 define(function(require) {
   const query = location.search.slice(1).split("/");
-  const game = query[0];
+  const mode = query[0];
   const width = Number.parseInt(query[1]);
   const height = Number.parseInt(query[2]);
   const source = query[3];
 
-  requirejs([`../mode/${game}/main`], function(game) {
+  requirejs([`../mode/${mode}/main`], function(game) {
     const board = new game.board(width, height, source, game.cell, game.room);
+
+    Vue.component("svg-img", {
+      template: "#svg",
+      props: {
+        visibles: {
+          type: Array
+        }
+      },
+      data() {
+        return {
+          data: `../mode/${mode}/cell.svg`
+        };
+      },
+      mounted() {
+        this.layers = {};
+        const svg = this.$refs.svg;
+        svg.onload = () => {
+          const layers = svg.contentDocument.querySelectorAll("svg > g");
+          for (const layer of layers) {
+            this.layers[layer.id] = layer;
+          }
+          this.refresh();
+        };
+      },
+      watch: {
+        visibles() {
+          this.refresh();
+        }
+      },
+      methods: {
+        refresh() {
+          for (const layer in this.layers) {
+            this.layers[layer].style.display = "none";
+          }
+          for (const layer of this.visibles) {
+            this.layers[layer].style.display = "block";
+          }
+        }
+      },
+    });
 
     Vue.component("cell", {
       template: "#cell",
@@ -26,7 +66,7 @@ define(function(require) {
           return this.board.get(this.x, this.y);
         },
         images() {
-          if (this.current) return this.current.allimages();
+          return this.current.images();
         }
       }
     });
@@ -138,7 +178,7 @@ define(function(require) {
           cell.update(this.mark.change);
         },
         markend(event) {
-          this.mark = undefined;
+          //   this.mark = undefined;
         },
         markenter(x, y) {
           if (!this.mark || !this.mark.multicell) {

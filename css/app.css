@@ -77,6 +77,14 @@ html {
   z-index: 2;
 }
 
+.cell object {
+  margin-left: calc(-100% + 1px);
+  margin-top: calc(-100% + 1px);
+  width: calc(300% - 3px);
+  position: absolute;
+  z-index: 0;
+}
+
 .cell .clicker {
   width: 100%;
   height: 100%;

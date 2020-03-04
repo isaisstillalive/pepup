@@ -26,30 +26,30 @@ define(function(require) {
       return true;
     }
 
-    images(images) {
-      images.push({
-        src: "img/cell/floor.png",
-        class: "bg"
-      });
+    images() {
+      const images = [];
+
+      if (this.wall) {
+        images.push("wall");
+        if (this.number != null) {
+          images.push(`number${this.number}w`);
+        }
+        return images;
+      }
+
+      images.push("floor");
 
       if (this.bright >= 1) {
-        images.push({
-          src: "mode/akari/img/bright.png",
-          class: "bg"
-        });
+        images.push("bright");
       }
 
       if (this.light) {
-        images.push({
-          src: "mode/akari/img/light.png"
-        });
+        images.push("light");
       } else if (this.none) {
-        images.push({
-          src: "img/cell/none.png"
-        });
+        images.push("none");
       }
 
-      return false;
+      return images;
     }
 
     arounds() {

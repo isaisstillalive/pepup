@@ -94,14 +94,20 @@
     <template id="cell">
       <div class="cell">
         <div @click="$emit('click', $event)" class="clicker"></div>
-        <!-- <object type="image/svg+xml" data="mode/akari/cell.svg"></object> -->
-        <img v-for="image in images" :src="image.src" :class="image.class" />
+        <svg-img :visibles="images"></svg-img>
         <img
           v-if="current !== undefined && current.pin !== undefined"
           :src="`img/cell/pin${current.pin}.png`"
         />
         <slot></slot>
       </div>
+    </template>
+    <template id="svg">
+      <object
+        ref="svg"
+        :data="data"
+        type="image/svg+xml"
+      ></object>
     </template>
     <script
       type="application/javascript"
