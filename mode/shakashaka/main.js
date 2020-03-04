@@ -149,16 +149,16 @@ define(function(require) {
     }
 
     get left() {
-      return this.triangle !== undefined && this.triangle % 2 == 0;
-    }
-    get right() {
-      return this.triangle !== undefined && this.triangle % 2 == 1;
+      return this.triangle === 3 || this.triangle === 0;
     }
     get top() {
-      return this.triangle !== undefined && this.triangle < 2;
+      return this.triangle === 0 || this.triangle === 1;
+    }
+    get right() {
+      return this.triangle === 1 || this.triangle === 2;
     }
     get bottom() {
-      return this.triangle !== undefined && this.triangle >= 2;
+      return this.triangle === 2 || this.triangle === 3;
     }
   }
 
