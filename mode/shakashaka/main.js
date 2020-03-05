@@ -144,6 +144,12 @@ define(function(require) {
         }
       }
 
+      if (this.jnone) {
+        if (this.openCorrection() === false) {
+          return false;
+        }
+      }
+
       return null;
     }
 
@@ -211,6 +217,47 @@ define(function(require) {
       }
 
       return null;
+    }
+
+    openCorrection() {
+      const arounds = [
+        [-1, 0],
+        [0, -1],
+        [1, 0],
+        [0, 1]
+      ];
+      const opens = [false, false, false, false, false];
+
+      // 四方の空きを確認
+      let index = 0;
+      for (const around of arounds) {
+        const cell = this.cell(...around);
+        opens[index] = !cell.wall && cell.jnone;
+        index += 1;
+      }
+      opens[4] = opens[0];
+
+      // 左と上が空いている場合、左上も空いていなければNG
+      const diagonals = [
+        [-1, -1],
+        [1, -1],
+        [1, 1],
+        [-1, 1]
+      ];
+      index = 0;
+      for (const diagonal of diagonals) {
+        if (opens[index] && opens[index+1]) {
+          const cell = this.cell(...diagonal);
+          if (!cell.open) {
+            return false;
+          }
+        }
+        index += 1;
+      }
+    }
+
+    get jnone() {
+      return this.none || (this.board.strict && this.triangle === undefined);
     }
 
     get undecided() {
