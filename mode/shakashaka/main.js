@@ -165,9 +165,11 @@ define(function(require) {
           } else if (cell.undecided) {
           } else if (cell.open) {
             cell = this.cell(...around[2]);
-            if (cell.triangle == this.triangle) {
+            if (cell.wall) {
+              return false;
+            } else if (cell.triangle == this.triangle) {
               result = result && true;
-            } else if (!cell.wall && !cell.undecided) {
+            } else if (!cell.undecided) {
               return false;
             }
           } else {
