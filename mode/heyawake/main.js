@@ -46,8 +46,8 @@ define(function(require) {
         images.push("bborder");
       }
 
-      if (this == this.room.cells[0] && this.room.qnum >= 0) {
-        images.push(`number${this.room.qnum}`);
+      if (this.number >= 0) {
+        images.push("number");
       }
 
       let correction = this.correction();
@@ -145,18 +145,8 @@ define(function(require) {
       return walls.some(value => value);
     }
 
-    set qnum(value) {
-      switch (value) {
-        case -1:
-          break;
-
-        case -2:
-          break;
-
-        default:
-          this.number = value;
-          break;
-      }
+    get number() {
+      if (this == this.room.cells[0]) return this.room.qnum;
     }
   }
 

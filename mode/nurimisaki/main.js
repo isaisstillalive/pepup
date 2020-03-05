@@ -36,7 +36,7 @@ define(function(require) {
       if (this.circle) {
         images.push("circle");
         if (this.number > 0) {
-          images.push(`number${this.number}`);
+          images.push("number");
         }
       }
 

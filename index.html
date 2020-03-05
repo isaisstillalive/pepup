@@ -89,7 +89,7 @@
     <template id="cell">
       <div class="cell">
         <div @click="$emit('click', $event)" class="clicker"></div>
-        <svg-img :visibles="images"></svg-img>
+        <svg-img :visibles="images" :value="number"></svg-img>
         <img
           v-if="current !== undefined && current.pin !== undefined"
           :src="`img/cell/pin${current.pin}.png`"
@@ -98,11 +98,7 @@
       </div>
     </template>
     <template id="svg">
-      <object
-        ref="svg"
-        :data="data"
-        type="image/svg+xml"
-      ></object>
+      <object ref="svg" :data="data" type="image/svg+xml"></object>
     </template>
     <script
       type="application/javascript"

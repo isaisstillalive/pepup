@@ -13,6 +13,9 @@ define(function(require) {
       props: {
         visibles: {
           type: Array
+        },
+        value: {
+          type: Number
         }
       },
       data() {
@@ -28,16 +31,21 @@ define(function(require) {
           for (const layer of layers) {
             this.layers[layer.id] = layer;
           }
+          this.valuelayer = svg.contentDocument.querySelector("#number-value");
           this.refresh();
         };
       },
       watch: {
         visibles() {
           this.refresh();
+        },
+        value() {
+          this.refresh();
         }
       },
       methods: {
         refresh() {
+          if (this.valuelayer) this.valuelayer.textContent = this.value;
           for (const layer in this.layers) {
             this.layers[layer].style.display = "none";
           }
@@ -45,7 +53,7 @@ define(function(require) {
             this.layers[layer].style.display = "block";
           }
         }
-      },
+      }
     });
 
     Vue.component("cell", {
@@ -72,6 +80,9 @@ define(function(require) {
       computed: {
         current() {
           return this.board.get(this.x, this.y);
+        },
+        number() {
+          return this.current.number;
         },
         images() {
           if (!this.visibled) {

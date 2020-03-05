@@ -33,7 +33,7 @@ define(function(require) {
       if (this.wall) {
         images.push("wall");
         if (this.number != null) {
-          images.push(`number${this.number}w`);
+          images.push("number");
         }
 
         let correction = this.correction();
@@ -164,7 +164,10 @@ define(function(require) {
         [1, -1]
       ];
       const cell = this.cell(...diagonals[this.triangle]);
-      if (cell.wall || (!cell.open && cell.triangle != (this.triangle + 2) % 4)) {
+      if (
+        cell.wall ||
+        (!cell.open && cell.triangle != (this.triangle + 2) % 4)
+      ) {
         return false;
       }
     }
@@ -249,7 +252,7 @@ define(function(require) {
       ];
       index = 0;
       for (const diagonal of diagonals) {
-        if (opens[index] && opens[index+1]) {
+        if (opens[index] && opens[index + 1]) {
           const cell = this.cell(...diagonal);
           if (!cell.open) {
             return false;

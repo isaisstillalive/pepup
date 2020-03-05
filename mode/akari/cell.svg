@@ -80,10 +80,10 @@
        y="26.458336" />
   </g>
   <g
-     id="number0w"
+     id="number"
      style="display:none">
     <text
-       id="number0w-0"
+       id="number-0"
        y="49.529995"
        x="39.692459"
        style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;line-height:0%;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP, Heavy';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.0583334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
@@ -91,63 +91,7 @@
          style="font-size:26.45833397px;line-height:1.25;stroke:none;stroke-width:1.0583334;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
          y="49.529995"
          x="39.692459"
-         id="number0w1">0</tspan></text>
-  </g>
-  <g
-     id="number1w"
-     style="display:none">
-    <text
-       id="number1w-0"
-       y="49.529995"
-       x="39.692459"
-       style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;line-height:0%;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP, Heavy';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.0583334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
-       xml:space="preserve"><tspan
-         style="font-size:26.45833397px;line-height:1.25;stroke:none;stroke-width:1.0583334;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
-         y="49.529995"
-         x="39.692459"
-         id="number1w1">1</tspan></text>
-  </g>
-  <g
-     id="number2w"
-     style="display:none">
-    <text
-       id="number2w-0"
-       y="49.529995"
-       x="39.692459"
-       style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;line-height:0%;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP, Heavy';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.0583334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
-       xml:space="preserve"><tspan
-         style="font-size:26.45833397px;line-height:1.25;stroke:none;stroke-width:1.0583334;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
-         y="49.529995"
-         x="39.692459"
-         id="number2w1">2</tspan></text>
-  </g>
-  <g
-     id="number3w"
-     style="display:none">
-    <text
-       id="number3w-0"
-       y="49.529995"
-       x="39.692459"
-       style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;line-height:0%;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP, Heavy';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.0583334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
-       xml:space="preserve"><tspan
-         style="font-size:26.45833397px;line-height:1.25;stroke:none;stroke-width:1.0583334;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
-         y="49.529995"
-         x="39.692459"
-         id="number3w1">3</tspan></text>
-  </g>
-  <g
-     id="number4w"
-     style="display:none">
-    <text
-       id="number4w-0"
-       y="49.529995"
-       x="39.692459"
-       style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;line-height:0%;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP, Heavy';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.0583334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
-       xml:space="preserve"><tspan
-         style="font-size:26.45833397px;line-height:1.25;stroke:none;stroke-width:1.0583334;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
-         y="49.529995"
-         x="39.692459"
-         id="number4w1">4</tspan></text>
+         id="number-value">0</tspan></text>
   </g>
   <g
      id="ok"

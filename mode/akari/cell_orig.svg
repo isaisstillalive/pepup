@@ -14,6 +14,8 @@
    width="300"
    sodipodi:docname="cell_orig.svg"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <defs
+     id="defs36" />
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -28,12 +30,12 @@
      id="namedview27"
      showgrid="false"
      inkscape:zoom="0.78666667"
-     inkscape:cx="34.957637"
+     inkscape:cx="-113.77118"
      inkscape:cy="150"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="floor" />
+     inkscape:current-layer="number0w" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -42,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -113,83 +115,19 @@
   </g>
   <g
      inkscape:groupmode="layer"
-     inkscape:label="number0w"
+     inkscape:label="number"
      style="display:none"
-     id="number0w">
+     id="number">
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;line-height:0%;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP, Heavy';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.0583334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
        x="39.692459"
        y="49.529995"
-       id="number0w-0"><tspan
-         id="number0w1"
+       id="number-0"><tspan
+         id="number-value"
          x="39.692459"
          y="49.529995"
          style="font-size:26.45833397px;line-height:1.25;stroke:none;stroke-width:1.0583334;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers">0</tspan></text>
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     inkscape:label="number1w"
-     style="display:none"
-     id="number1w">
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;line-height:0%;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP, Heavy';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.0583334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
-       x="39.692459"
-       y="49.529995"
-       id="number1w-0"><tspan
-         id="number1w1"
-         x="39.692459"
-         y="49.529995"
-         style="font-size:26.45833397px;line-height:1.25;stroke:none;stroke-width:1.0583334;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers">1</tspan></text>
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     inkscape:label="number2w"
-     style="display:none"
-     id="number2w">
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;line-height:0%;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP, Heavy';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.0583334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
-       x="39.692459"
-       y="49.529995"
-       id="number2w-0"><tspan
-         id="number2w1"
-         x="39.692459"
-         y="49.529995"
-         style="font-size:26.45833397px;line-height:1.25;stroke:none;stroke-width:1.0583334;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers">2</tspan></text>
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     inkscape:label="number3w"
-     style="display:none"
-     id="number3w">
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;line-height:0%;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP, Heavy';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.0583334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
-       x="39.692459"
-       y="49.529995"
-       id="number3w-0"><tspan
-         id="number3w1"
-         x="39.692459"
-         y="49.529995"
-         style="font-size:26.45833397px;line-height:1.25;stroke:none;stroke-width:1.0583334;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers">3</tspan></text>
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     inkscape:label="number4w"
-     style="display:none"
-     id="number4w">
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;line-height:0%;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP, Heavy';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.0583334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
-       x="39.692459"
-       y="49.529995"
-       id="number4w-0"><tspan
-         id="number4w1"
-         x="39.692459"
-         y="49.529995"
-         style="font-size:26.45833397px;line-height:1.25;stroke:none;stroke-width:1.0583334;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers">4</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"

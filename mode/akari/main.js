@@ -32,7 +32,7 @@ define(function(require) {
       if (this.wall) {
         images.push("wall");
         if (this.number != null) {
-          images.push(`number${this.number}w`);
+          images.push("number");
         }
 
         let correction = this.correction();
@@ -159,7 +159,7 @@ define(function(require) {
     }
 
     ray(value) {
-      this.bright += (value ? 1 : -1);
+      this.bright += value ? 1 : -1;
       this.setBrights(1, 0, value);
       this.setBrights(-1, 0, value);
       this.setBrights(0, 1, value);
@@ -171,7 +171,7 @@ define(function(require) {
       if (cell.wall) {
         return;
       }
-      cell.bright += (value ? 1 : -1);
+      cell.bright += value ? 1 : -1;
       cell.setBrights(addx, addy, value);
     }
   }
