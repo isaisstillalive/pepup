@@ -73,6 +73,31 @@ define(function(require) {
       return true;
     }
 
+    correctionWall() {
+      // 壁の場合、周囲がすべて埋まり番号と一致していればOK
+      // 番号を超えていたらNG
+      if (!this.wall) {
+        return null;
+      }
+
+      if (this.number == null) {
+        return true;
+      }
+
+      const arounds = this.aroundMarks();
+      if (arounds.filled) {
+        if (arounds.marks == this.number) {
+          return true;
+        } else {
+          return false;
+        }
+      } else if (arounds.marks > this.number) {
+        return false;
+      }
+
+      return null;
+    }
+
     aroundMarks() {
       let result = {
         marks: 0,
