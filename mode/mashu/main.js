@@ -44,9 +44,7 @@ define(function(require) {
       return true;
     }
 
-    images() {
-      const images = [];
-
+    images(images) {
       images.push("floor");
 
       if (this.circle === true) {
@@ -64,16 +62,6 @@ define(function(require) {
       } else if (this.top == 2) {
         images.push("tnone");
       }
-
-      let correction = this.correction();
-      if (this.board.strict) {
-        correction = !!correction;
-      }
-      if (correction === false) {
-        images.push("ng");
-      }
-
-      return images;
     }
 
     get lines() {

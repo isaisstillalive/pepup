@@ -89,7 +89,7 @@ define(function(require) {
             return ["wall"];
           }
 
-          const images = this.current.images();
+          const images = this.current.allimages();
           if (this.cursor) {
             images.push("cursor");
           }

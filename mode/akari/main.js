@@ -26,25 +26,9 @@ define(function(require) {
       return true;
     }
 
-    images() {
-      const images = [];
-
-      if (this.wall) {
-        images.push("wall");
-        if (this.number != null) {
-          images.push("number");
-        }
-
-        let correction = this.correction();
-        if (this.board.strict) {
-          correction = !!correction;
-        }
-        if (correction === false) {
-          images.push("ng");
-        } else if (correction === true) {
-          images.push("ok");
-        }
-        return images;
+    images(images) {
+      if (this.wallimages(images)) {
+        return true;
       }
 
       images.push("floor");
@@ -58,16 +42,6 @@ define(function(require) {
       } else if (this.none) {
         images.push("none");
       }
-
-      let correction = this.correction();
-      if (this.board.strict) {
-        correction = !!correction;
-      }
-      if (correction === false) {
-        images.push("ng");
-      }
-
-      return images;
     }
 
     arounds() {

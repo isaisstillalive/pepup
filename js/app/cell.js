@@ -38,34 +38,18 @@ define(function(require) {
     allimages() {
       const images = [];
 
-      if (!this.wallimages(images)) {
-        const showok = this.images(images);
-        if (showok !== null) {
-          this.correctionimages(images, showok);
-        }
-      }
+      const showok = this.images(images);
+      this.correctionimages(images, showok);
 
       return images;
     }
 
     wallimages(images) {
       if (this.wall) {
-        images.push({
-          src: "img/cell/wall.png",
-          class: "bg"
-        });
-        if (this.numberimage(images)) {
-          this.correctionimages(images, true);
+        images.push("wall");
+        if (this.number != null) {
+          images.push("number");
         }
-        return true;
-      }
-    }
-    numberimage(images) {
-      if (this.number != null) {
-        images.push({
-          src: `img/cell/n${this.number}w.png`,
-          class: "bg"
-        });
         return true;
       }
     }
@@ -76,13 +60,9 @@ define(function(require) {
         correction = !!correction;
       }
       if (correction === false) {
-        images.push({
-          src: "img/cell/ruleng.png"
-        });
+        images.push("ng");
       } else if (showok && correction === true) {
-        images.push({
-          src: "img/cell/ruleok.png"
-        });
+        images.push("ok");
       }
     }
 

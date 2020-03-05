@@ -22,9 +22,7 @@ define(function(require) {
       return true;
     }
 
-    images() {
-      const images = [];
-
+    images(images) {
       if (this.paint) {
         images.push("black");
       } else if (this.none) {
@@ -49,16 +47,6 @@ define(function(require) {
       if (this.number >= 0) {
         images.push("number");
       }
-
-      let correction = this.correction();
-      if (this.board.strict) {
-        correction = !!correction;
-      }
-      if (correction === false) {
-        images.push("ng");
-      }
-
-      return images;
     }
 
     correction() {
