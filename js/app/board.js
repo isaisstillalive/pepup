@@ -17,6 +17,8 @@ define(function(require) {
         room
       );
       this.decode(transcoder);
+      this.wall = new cell(this, -1, -1);
+      this.wall.wall = true;
 
       this.history = new History(this);
 
@@ -27,9 +29,9 @@ define(function(require) {
 
     get(x, y) {
       if (this.width <= x || x < 0) {
-        return { wall: true };
+        return this.wall;
       }
-      return this.cells[x + y * this.width] || { wall: true };
+      return this.cells[x + y * this.width] || this.wall;
     }
     set(x, y, change, rec = false) {
       this.resetjudgment();
