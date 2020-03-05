@@ -182,7 +182,7 @@ define(function(require) {
       for (const diagonal of diagonals) {
         if (opens[index] && opens[index + 1]) {
           const cell = this.cell(...diagonal);
-          if (!cell.open) {
+          if (!cell.open && cell.triangle != index) {
             return false;
           }
         }
