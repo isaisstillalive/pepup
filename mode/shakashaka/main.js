@@ -45,45 +45,6 @@ define(function(require) {
       }
     }
 
-    arounds() {
-      let result = {
-        triangle: 0,
-        filled: 0
-      };
-
-      for (const cell of this.board.around(this.x, this.y)) {
-        if (cell.wall || cell.none) {
-          result.filled += 1;
-        } else if (cell.triangle !== undefined) {
-          result.filled += 1;
-          result.triangle += 1;
-        }
-      }
-
-      result.filled = this.board.strict || result.filled == 4;
-
-      return result;
-    }
-
-    set qnum(value) {
-      switch (value) {
-        case -1:
-          this.wall = false;
-          this.triangle = undefined;
-          this.none = false;
-          break;
-
-        case -2:
-          this.wall = true;
-          break;
-
-        default:
-          this.wall = true;
-          this.number = value;
-          break;
-      }
-    }
-
     correction() {
       // 壁の場合、周囲がすべて埋まり番号と一致していればOK
       // 番号を超えていたらNG
@@ -91,14 +52,14 @@ define(function(require) {
         if (this.number == null) {
           return true;
         }
-        const arounds = this.arounds();
+        const arounds = this.aroundMarks();
         if (arounds.filled) {
-          if (arounds.triangle == this.number) {
+          if (arounds.marks == this.number) {
             return true;
           } else {
             return false;
           }
-        } else if (arounds.triangle > this.number) {
+        } else if (arounds.marks > this.number) {
           return false;
         }
         return null;
@@ -128,6 +89,13 @@ define(function(require) {
         return true;
       }
       return null;
+    }
+
+    get marked() {
+      return this.triangle !== undefined;
+    }
+    get filled() {
+      return this.board.strict || this.wall || this.none || cell.marked;
     }
 
     paintDiagonalsCorrection() {
@@ -251,16 +219,35 @@ define(function(require) {
     }
 
     get left() {
-      return this.triangle === 3 || this.triangle === 0;
+      return this.wall || this.triangle === 3 || this.triangle === 0;
     }
     get top() {
-      return this.triangle === 0 || this.triangle === 1;
+      return this.wall || this.triangle === 0 || this.triangle === 1;
     }
     get right() {
-      return this.triangle === 1 || this.triangle === 2;
+      return this.wall || this.triangle === 1 || this.triangle === 2;
     }
     get bottom() {
-      return this.triangle === 2 || this.triangle === 3;
+      return this.wall || this.triangle === 2 || this.triangle === 3;
+    }
+
+    set qnum(value) {
+      switch (value) {
+        case -1:
+          this.wall = false;
+          this.triangle = undefined;
+          this.none = false;
+          break;
+
+        case -2:
+          this.wall = true;
+          break;
+
+        default:
+          this.wall = true;
+          this.number = value;
+          break;
+      }
     }
   }
 
