@@ -95,7 +95,7 @@ define(function(require) {
       return this.triangle !== undefined;
     }
     get filled() {
-      return this.board.strict || this.wall || this.none || cell.marked;
+      return this.board.strict || this.wall || this.none || this.marked;
     }
 
     paintDiagonalsCorrection() {

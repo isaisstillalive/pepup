@@ -86,10 +86,10 @@ define(function(require) {
     get filled() {
       return (
         this.board.strict ||
-        cell.wall ||
-        cell.none ||
-        cell.bright >= 1 ||
-        cell.marked
+        this.wall ||
+        this.none ||
+        this.bright >= 1 ||
+        this.marked
       );
     }
 
