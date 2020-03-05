@@ -131,31 +131,31 @@ define(function(require) {
       }
 
       // 隣と斜めが合ってるか確認する
-      // 左上のとき、右が右上ならOK
-      // 右が未決定なら未決定
-      // 右が空なら、右上が左上ならOK、未定以外ならNG
-      // 右がそれ以外ならNG
-      const arounds = [
-        [
-          [[1, 0], 1, [1, -1]],
-          [[0, 1], 3, [-1, 1]]
-        ],
-        [
-          [[-1, 0], 0, [-1, -1]],
-          [[0, 1], 2, [1, 1]]
-        ],
-        [
-          [[-1, 0], 3, [-1, 1]],
-          [[0, -1], 1, [1, -1]]
-        ],
-        [
-          [[0, -1], 0, [-1, -1]],
-          [[1, 0], 2, [1, 1]]
-        ]
-      ];
-      let cell;
-      let result = true;
       if (this.triangle !== undefined) {
+        // 左上のとき、右が右上ならOK
+        // 右が未決定なら未決定
+        // 右が空なら、右上が左上ならOK、未定以外ならNG
+        // 右がそれ以外ならNG
+        const arounds = [
+          [
+            [[1, 0], 1, [1, -1]],
+            [[0, 1], 3, [-1, 1]]
+          ],
+          [
+            [[-1, 0], 0, [-1, -1]],
+            [[0, 1], 2, [1, 1]]
+          ],
+          [
+            [[-1, 0], 3, [-1, 1]],
+            [[0, -1], 1, [1, -1]]
+          ],
+          [
+            [[0, -1], 0, [-1, -1]],
+            [[1, 0], 2, [1, 1]]
+          ]
+        ];
+        let cell;
+        let result = true;
         for (const around of arounds[this.triangle]) {
           cell = this.cell(...around[0]);
           if (cell.wall) {
@@ -174,10 +174,9 @@ define(function(require) {
             return false;
           }
         }
-      }
-
-      if (result) {
-        return true;
+        if (result) {
+          return true;
+        }
       }
 
       return null;
