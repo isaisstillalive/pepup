@@ -133,64 +133,81 @@ define(function(require) {
       // 塗りの場合
       if (this.triangle !== undefined) {
         // 対角が空か対以外ならNG
-        const diagonals = [
-          [1, 1],
-          [-1, 1],
-          [-1, -1],
-          [1, -1]
-        ];
-        let cell = this.cell(...diagonals[this.triangle]);
-        if (cell.wall || (!cell.open && cell.triangle != (this.triangle + 2) % 4)) {
+        if (this.paintDiagonalsCorrection() === false) {
           return false;
         }
 
-        // 隣と斜めが合ってるか確認する
-        // 左上のとき、右が右上ならOK
-        // 右が未決定なら未決定
-        // 右が空なら、右上が左上ならOK、未定以外ならNG
-        // 右がそれ以外ならNG
-        const arounds = [
-          [
-            [[1, 0], 1, [1, -1]],
-            [[0, 1], 3, [-1, 1]]
-          ],
-          [
-            [[-1, 0], 0, [-1, -1]],
-            [[0, 1], 2, [1, 1]]
-          ],
-          [
-            [[-1, 0], 3, [-1, 1]],
-            [[0, -1], 1, [1, -1]]
-          ],
-          [
-            [[1, 0], 2, [1, 1]],
-            [[0, -1], 0, [-1, -1]]
-          ]
-        ];
-        let result = true;
-        for (const around of arounds[this.triangle]) {
-          cell = this.cell(...around[0]);
+        // 塗りが線か角が繋がっていればOK
+        const correction = this.paintConnectionCorrection();
+        if (correction !== null) {
+          return correction;
+        }
+      }
+
+      return null;
+    }
+
+    paintDiagonalsCorrection() {
+      const diagonals = [
+        [1, 1],
+        [-1, 1],
+        [-1, -1],
+        [1, -1]
+      ];
+      const cell = this.cell(...diagonals[this.triangle]);
+      if (cell.wall || (!cell.open && cell.triangle != (this.triangle + 2) % 4)) {
+        return false;
+      }
+    }
+
+    paintConnectionCorrection() {
+      // 隣と斜めが合ってるか確認する
+      // 左上のとき、右が右上ならOK
+      // 右が未決定なら未決定
+      // 右が空なら、右上が左上ならOK、未定以外ならNG
+      // 右がそれ以外ならNG
+      const arounds = [
+        [
+          [[1, 0], 1, [1, -1]],
+          [[0, 1], 3, [-1, 1]]
+        ],
+        [
+          [[-1, 0], 0, [-1, -1]],
+          [[0, 1], 2, [1, 1]]
+        ],
+        [
+          [[-1, 0], 3, [-1, 1]],
+          [[0, -1], 1, [1, -1]]
+        ],
+        [
+          [[1, 0], 2, [1, 1]],
+          [[0, -1], 0, [-1, -1]]
+        ]
+      ];
+      let cell;
+      let result = true;
+      for (const around of arounds[this.triangle]) {
+        cell = this.cell(...around[0]);
+        if (cell.wall) {
+          return false;
+        } else if (cell.triangle === around[1]) {
+          result = result && true;
+        } else if (cell.undecided) {
+        } else if (cell.open) {
+          cell = this.cell(...around[2]);
           if (cell.wall) {
             return false;
-          } else if (cell.triangle === around[1]) {
+          } else if (cell.triangle == this.triangle) {
             result = result && true;
-          } else if (cell.undecided) {
-          } else if (cell.open) {
-            cell = this.cell(...around[2]);
-            if (cell.wall) {
-              return false;
-            } else if (cell.triangle == this.triangle) {
-              result = result && true;
-            } else if (!cell.undecided) {
-              return false;
-            }
-          } else {
+          } else if (!cell.undecided) {
             return false;
           }
+        } else {
+          return false;
         }
-        if (result) {
-          return true;
-        }
+      }
+      if (result) {
+        return true;
       }
 
       return null;
