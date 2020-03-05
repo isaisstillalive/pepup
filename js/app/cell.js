@@ -73,6 +73,26 @@ define(function(require) {
       return true;
     }
 
+    aroundMarks() {
+      let result = {
+        marks: 0,
+        filled: 0
+      };
+
+      for (const cell of this.board.around(this.x, this.y)) {
+        if (cell.marked) {
+          result.marks += 1;
+          result.filled += 1;
+        } else if (cell.filled) {
+          result.filled += 1;
+        }
+      }
+
+      result.filled = result.filled == 4;
+
+      return result;
+    }
+
     get wright() {
       return this.board.get(this.x + 1, this.y).wleft;
     }

@@ -51,14 +51,14 @@ define(function(require) {
         if (this.number == null) {
           return true;
         }
-        const arounds = this.arounds();
+        const arounds = this.aroundMarks();
         if (arounds.filled) {
-          if (arounds.light == this.number) {
+          if (arounds.marks == this.number) {
             return true;
           } else {
             return false;
           }
-        } else if (arounds.light > this.number) {
+        } else if (arounds.marks > this.number) {
           return false;
         }
         return null;
@@ -79,24 +79,8 @@ define(function(require) {
       return null;
     }
 
-    arounds() {
-      let result = {
-        light: 0,
-        filled: 0
-      };
-
-      for (const cell of this.board.around(this.x, this.y)) {
-        if (cell.filled) {
-          result.filled += 1;
-        }
-        if (cell.light) {
-          result.light += 1;
-        }
-      }
-
-      result.filled = result.filled == 4;
-
-      return result;
+    get marked() {
+      return this.light;
     }
 
     get filled() {
@@ -104,8 +88,8 @@ define(function(require) {
         this.board.strict ||
         cell.wall ||
         cell.none ||
-        cell.light ||
-        cell.bright >= 1
+        cell.bright >= 1 ||
+        cell.marked
       );
     }
 
