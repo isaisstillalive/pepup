@@ -150,6 +150,9 @@ define(function(require) {
         }
       }
 
+      if (this.board.strict) {
+        return true;
+      }
       return null;
     }
 
@@ -254,6 +257,8 @@ define(function(require) {
         }
         index += 1;
       }
+
+      return null;
     }
 
     get jnone() {
