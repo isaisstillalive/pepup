@@ -150,11 +150,10 @@ define(function(require) {
             [[0, -1], 1, [1, -1]]
           ],
           [
-            [[0, -1], 0, [-1, -1]],
-            [[1, 0], 2, [1, 1]]
+            [[1, 0], 2, [1, 1]],
+            [[0, -1], 0, [-1, -1]]
           ]
         ];
-        let cell;
         let result = true;
         for (const around of arounds[this.triangle]) {
           cell = this.cell(...around[0]);
