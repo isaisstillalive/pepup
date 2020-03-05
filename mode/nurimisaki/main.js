@@ -22,33 +22,33 @@ define(function(require) {
       return true;
     }
 
-    images(images) {
+    images() {
+      const images = [];
+
       if (this.paint) {
-        images.push({
-          src: "mode/nurimisaki/img/paint.png",
-          class: "bg"
-        });
+        images.push("black");
       } else if (this.none) {
-        images.push({
-          src: "mode/nurimisaki/img/none.png",
-          class: "bg"
-        });
+        images.push("white");
       } else {
-        images.push({
-          src: "img/cell/floor.png",
-          class: "bg"
-        });
+        images.push("floor");
       }
 
       if (this.circle) {
-        images.push({
-          src: "mode/nurimisaki/img/circle.png",
-          class: "bg"
-        });
-        this.numberimage(images);
+        images.push("circle");
+        if (this.number > 0) {
+          images.push(`number${this.number}`);
+        }
       }
 
-      return false;
+      let correction = this.correction();
+      if (this.board.strict) {
+        correction = !!correction;
+      }
+      if (correction === false) {
+        images.push("ng");
+      }
+
+      return images;
     }
 
     set qnum(value) {
