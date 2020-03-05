@@ -44,48 +44,6 @@ define(function(require) {
       }
     }
 
-    arounds() {
-      let result = {
-        light: 0,
-        filled: 0
-      };
-
-      for (const cell of this.board.around(this.x, this.y)) {
-        if (cell.wall || cell.none) {
-          result.filled += 1;
-        } else if (cell.bright >= 1) {
-          result.filled += 1;
-          if (cell.light) {
-            result.light += 1;
-          }
-        }
-      }
-
-      result.filled = result.filled == 4;
-
-      return result;
-    }
-
-    set qnum(value) {
-      switch (value) {
-        case -1:
-          this.wall = false;
-          this.none = false;
-          this.bright = 0;
-          this.dlight = false;
-          break;
-
-        case -2:
-          this.wall = true;
-          break;
-
-        default:
-          this.wall = true;
-          this.number = value;
-          break;
-      }
-    }
-
     correction() {
       // 壁の場合、周囲がすべて埋まり番号と一致していればOK
       // 番号を超えていたらNG
@@ -121,6 +79,36 @@ define(function(require) {
       return null;
     }
 
+    arounds() {
+      let result = {
+        light: 0,
+        filled: 0
+      };
+
+      for (const cell of this.board.around(this.x, this.y)) {
+        if (cell.filled) {
+          result.filled += 1;
+        }
+        if (cell.light) {
+          result.light += 1;
+        }
+      }
+
+      result.filled = result.filled == 4;
+
+      return result;
+    }
+
+    get filled() {
+      return (
+        this.board.strict ||
+        cell.wall ||
+        cell.none ||
+        cell.light ||
+        cell.bright >= 1
+      );
+    }
+
     set light(value) {
       if (value == this.dlight) {
         return;
@@ -147,6 +135,26 @@ define(function(require) {
       }
       cell.bright += value ? 1 : -1;
       cell.setBrights(addx, addy, value);
+    }
+
+    set qnum(value) {
+      switch (value) {
+        case -1:
+          this.wall = false;
+          this.none = false;
+          this.bright = 0;
+          this.dlight = false;
+          break;
+
+        case -2:
+          this.wall = true;
+          break;
+
+        default:
+          this.wall = true;
+          this.number = value;
+          break;
+      }
     }
   }
 
