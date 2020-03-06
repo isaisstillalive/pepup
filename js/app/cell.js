@@ -10,7 +10,8 @@ define(function(require) {
       // 書き込まれていればtrue
       // 書き込まれないことが確定していればfalse
       // 未決定ならnull
-      this.marked = null;
+      this.mark = null;
+      this.strictDefaultMark = false;
     }
 
     cell(addx, addy) {
@@ -103,8 +104,15 @@ define(function(require) {
       return null;
     }
 
+    get marked() {
+      if (this.mark === null && this.board.strict) {
+        return this.strictDefaultMark;
+      }
+      return this.mark;
+    }
+
     get filled() {
-      return this.board.strict || this.wall || this.marked !== null;
+      return this.wall || this.marked !== null;
     }
 
     aroundMarks() {
