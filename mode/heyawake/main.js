@@ -8,24 +8,21 @@ define(function(require) {
 
   class Cell extends require("app/cell") {
     touch(position, change) {
-      if (position.y <= 0 && !this.none) {
-        change.paint = false;
-        change.none = true;
-      } else if (position.y > 0 && !this.paint) {
-        change.paint = true;
-        change.none = false;
+      if (position.y <= 0 && this.mark !== false) {
+        change.mark = false;
+      } else if (position.y > 0 && this.mark !== true) {
+        change.mark = true;
       } else {
-        change.paint = false;
-        change.none = false;
+        change.mark = null;
       }
 
       return true;
     }
 
     images(images) {
-      if (this.paint) {
+      if (this.marked === true) {
         images.push("black");
-      } else if (this.none) {
+      } else if (this.marked === false) {
         images.push("white");
       } else {
         images.push("floor");
@@ -50,17 +47,17 @@ define(function(require) {
     }
 
     correction() {
-      if (this.paint) {
+      if (this.marked === true) {
         // 塗りが2マス連続していたらNG
         for (const cell of this.board.around(this.x, this.y)) {
-          if (cell.paint) {
+          if (cell.marked === true) {
             return false;
           }
         }
         return true;
       }
 
-      if (this.board.strict || this.none) {
+      if (this.marked === false) {
         // 非塗りが3部屋連続していたらNG
         if (this.isTreeWhiteRoom(1, 0)) {
           return false;
@@ -87,7 +84,7 @@ define(function(require) {
       for (let s = -1; s <= 1; s += 2) {
         for (let c = 1; true; c++) {
           const cell = this.cell(addx * c * s, addy * c * s);
-          if (cell.wall || (this.board.strict ? cell.paint : !cell.none)) {
+          if (cell.wall || cell.marked !== false) {
             break;
           }
           if (rooms.includes(cell.room.index)) {
@@ -111,7 +108,7 @@ define(function(require) {
       let result = it.next();
       while (!result.done) {
         const cell = result.value;
-        if (cell.paint) {
+        if (cell.marked === true) {
           result = it.next();
           continue;
         }
@@ -141,7 +138,9 @@ define(function(require) {
   class Room extends require("app/room") {
     correction() {
       if (this.qnum == -1) return true;
-      return this.qnum == this.cells.filter(cell => cell.paint).length;
+      return (
+        this.qnum == this.cells.filter(cell => cell.marked === true).length
+      );
     }
   }
 
