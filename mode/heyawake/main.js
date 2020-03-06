@@ -131,6 +131,7 @@ define(function(require) {
     }
 
     get number() {
+      if (this.wall) return null;
       if (this == this.room.cells[0]) return this.room.qnum;
     }
   }
