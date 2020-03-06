@@ -6,6 +6,11 @@ define(function(require) {
       this.y = y;
 
       this.wall = false;
+
+      // 書き込まれていればtrue
+      // 書き込まれないことが確定していればfalse
+      // 未決定ならnull
+      this.marked = null;
     }
 
     cell(addx, addy) {
@@ -96,6 +101,10 @@ define(function(require) {
       }
 
       return null;
+    }
+
+    get filled() {
+      return this.board.strict || this.wall || this.marked !== null;
     }
 
     aroundMarks() {
