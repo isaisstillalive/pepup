@@ -20,9 +20,9 @@ define(function(require) {
     }
 
     images(images) {
-      if (this.marked === true) {
+      if (this.mark === true) {
         images.push("black");
-      } else if (this.marked === false) {
+      } else if (this.mark === false) {
         images.push("white");
       } else {
         images.push("floor");

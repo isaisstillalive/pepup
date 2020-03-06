@@ -8,6 +8,8 @@ define(function(require) {
       this.height = height;
       this.strict = false;
 
+      this.wall = new cell(this, -1, -1);
+      this.wall.wall = true;
       const transcoder = new Transcoder(
         this,
         source,
@@ -17,6 +19,8 @@ define(function(require) {
         room
       );
       this.decode(transcoder);
+
+      this.history = new History(this);
 
       this.judgment = null;
     }
