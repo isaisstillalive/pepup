@@ -9,21 +9,19 @@ define(function(require) {
     touch(position, change) {
       if (position.distance <= 0.3) {
         if (!this.none) {
-          change.triangle = undefined;
-          change.none = true;
+          change.mark = false;
           return true;
         }
       } else {
         let triangle = Math.floor(((position.angle + 1) % 2) / 0.5);
         if (this.triangle != triangle) {
+          change.mark = true;
           change.triangle = triangle;
-          change.none = false;
           return false;
         }
       }
 
-      change.triangle = undefined;
-      change.none = false;
+      change.mark = null;
       return true;
     }
 
@@ -38,9 +36,9 @@ define(function(require) {
         images.push("bright");
       }
 
-      if (this.triangle >= 0) {
+      if (this.mark === true) {
         images.push(`paint${this.triangle}`);
-      } else if (this.none) {
+      } else if (this.mark === false) {
         images.push("none");
       }
     }
@@ -52,7 +50,7 @@ define(function(require) {
       }
 
       // 塗りの場合
-      if (this.triangle !== undefined) {
+      if (this.marked === true) {
         // 対角が空か対以外ならNG
         if (this.paintDiagonalsCorrection() === false) {
           return false;
@@ -63,25 +61,13 @@ define(function(require) {
         if (correction !== null) {
           return correction;
         }
-      }
-
-      if (this.jnone) {
+      } else if (this.marked === false) {
         if (this.openCorrection() === false) {
           return false;
         }
       }
 
-      if (this.board.strict) {
-        return true;
-      }
       return null;
-    }
-
-    get marked() {
-      return this.triangle !== undefined;
-    }
-    get filled() {
-      return this.board.strict || this.wall || this.none || this.marked;
     }
 
     paintDiagonalsCorrection() {
