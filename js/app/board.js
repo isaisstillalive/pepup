@@ -17,10 +17,6 @@ define(function(require) {
         room
       );
       this.decode(transcoder);
-      this.wall = new cell(this, -1, -1);
-      this.wall.wall = true;
-
-      this.history = new History(this);
 
       this.judgment = null;
     }
