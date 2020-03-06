@@ -154,6 +154,13 @@ define(function(require) {
     decodeBorder() {
       const twi = [16, 8, 4, 2, 1];
 
+      for (let x = 0; x < this.width; x++) {
+        this.board.get(x, 0).wtop = true;
+      }
+      for (let y = 0; y < this.height; y++) {
+        this.board.get(0, y).wleft = true;
+      }
+
       for (const cell of this.decodeIterator(this.cells, 5)) {
         const number = this.read();
 

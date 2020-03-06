@@ -147,10 +147,12 @@ define(function(require) {
     }
 
     get wright() {
-      return this.board.get(this.x + 1, this.y).wleft;
+      const cell = this.board.get(this.x + 1, this.y);
+      return cell.wall || cell.wleft;
     }
     get wbottom() {
-      return this.board.get(this.x, this.y + 1).wtop;
+      const cell = this.board.get(this.x, this.y + 1);
+      return cell.wall || cell.wtop;
     }
   }
   return Cell;
