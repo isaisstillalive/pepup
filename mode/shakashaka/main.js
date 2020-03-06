@@ -8,13 +8,13 @@ define(function(require) {
   class Cell extends require("app/cell") {
     touch(position, change) {
       if (position.distance <= 0.3) {
-        if (!this.none) {
+        if (this.mark !== false) {
           change.mark = false;
           return true;
         }
       } else {
         let triangle = Math.floor(((position.angle + 1) % 2) / 0.5);
-        if (this.triangle != triangle) {
+        if (this.mark !== true || this.triangle != triangle) {
           change.mark = true;
           change.triangle = triangle;
           return false;
