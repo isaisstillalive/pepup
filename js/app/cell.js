@@ -61,15 +61,26 @@ define(function(require) {
     }
 
     correctionimages(images, showok = false) {
-      let correction = this.correction();
-      if (this.board.strict) {
-        correction = !!correction;
-      }
-      if (correction === false) {
+      if (this.corrected === false) {
         images.push("ng");
-      } else if (showok && correction === true) {
+      } else if (showok && this.corrected === true) {
         images.push("ok");
       }
+    }
+
+    refresh() {
+      this._correction = false;
+    }
+
+    get corrected() {
+      if (!this._correction) {
+        this._corrected = this.correction();
+        this._correction = true;
+      }
+      if (this.board.strict) {
+        return !!this._corrected;
+      }
+      return this._corrected;
     }
 
     correction() {

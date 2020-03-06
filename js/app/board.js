@@ -34,26 +34,35 @@ define(function(require) {
       return this.cells[x + y * this.width] || this.wall;
     }
     set(x, y, change, rec = false) {
-      this.resetjudgment();
       if (rec) {
         change = this.history.record(x, y, change);
       }
       const index = x + y * this.width;
       Object.assign(this.cells[index], change);
       Vue.set(this.cells, index, this.cells[index]);
+      this.resetjudgment();
+    }
+
+    refresh() {
+      for (const cell of this.cells) {
+        cell.refresh();
+        cell.corrected;
+      }
     }
 
     judge() {
       this.strict = true;
 
+      this.refresh();
       const judgment =
-        this.cells.every(cell => cell.correction()) &&
+        this.cells.every(cell => cell.corrected) &&
         this.rooms.every(room => room.correction());
       Vue.set(this, "judgment", judgment);
     }
     resetjudgment() {
       this.strict = false;
       this.judgment = null;
+      this.refresh();
     }
 
     *recursion(x, y, checked) {
