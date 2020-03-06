@@ -6,26 +6,32 @@ define(function(require) {
   }
 
   class Cell extends require("app/cell") {
+    constructor(...args) {
+      super(...args);
+      this.strictDefaultMark = true;
+    }
+
     touch(position, change) {
-      const white = this.circle || position.y <= 0;
-      if (white && !this.none) {
-        change.paint = false;
-        change.none = true;
-      } else if (!white && !this.paint) {
-        change.paint = true;
-        change.none = false;
+      if (this.circle || position.y <= 0) {
+        if (this.mark !== false) {
+          change.mark = false;
+          return true;
+        }
       } else {
-        change.paint = false;
-        change.none = false;
+        if (this.mark !== true) {
+          change.mark = true;
+          return false;
+        }
       }
 
+      change.mark = null;
       return true;
     }
 
     images(images) {
-      if (this.paint) {
+      if (this.mark === true) {
         images.push("black");
-      } else if (this.none) {
+      } else if (this.mark === false) {
         images.push("white");
       } else {
         images.push("floor");
