@@ -8,18 +8,18 @@ define(function(require) {
   class Cell extends require("app/cell") {
     touch(position, change) {
       if (position.y <= 0) {
-        if (this.marked !== false) {
-          change.marked = false;
+        if (this.mark !== false) {
+          change.mark = false;
           return true;
         }
       } else {
-        if (this.marked !== true) {
-          change.marked = true;
+        if (this.mark !== true) {
+          change.mark = true;
           return false;
         }
       }
 
-      change.marked = null;
+      change.mark = null;
       return true;
     }
 
@@ -34,9 +34,9 @@ define(function(require) {
         images.push("bright");
       }
 
-      if (this.marked === true) {
+      if (this.mark === true) {
         images.push("light");
-      } else if (this.marked === false) {
+      } else if (this.mark === false) {
         images.push("none");
       }
     }
@@ -48,7 +48,7 @@ define(function(require) {
       }
 
       // 明かりの場合、床が2回光っていればNG
-      if (this.marked === true) {
+      if (this.marked) {
         if (this.bright >= 2) {
           return false;
         }
@@ -66,14 +66,14 @@ define(function(require) {
       return super.filled || this.bright >= 1;
     }
 
-    set marked(value) {
-      if (!!value != !!this._marked) {
+    set mark(value) {
+      if (!!value != !!this._mark) {
         this.ray(value ? 1 : -1);
       }
-      this._marked = value;
+      this._mark = value;
     }
-    get marked() {
-      return this._marked;
+    get mark() {
+      return this._mark;
     }
 
     ray(addbright) {
@@ -96,7 +96,6 @@ define(function(require) {
     set qnum(value) {
       switch (value) {
         case -1:
-          this._marked = null;
           this.bright = 0;
           break;
 
