@@ -8,21 +8,18 @@ define(function(require) {
   class Cell extends require("app/cell") {
     touch(position, change) {
       if (position.y <= 0) {
-        if (!this.none) {
-          change.light = false;
-          change.none = true;
+        if (this.marked !== false) {
+          change.marked = false;
           return true;
         }
       } else {
-        if (!this.light) {
-          change.light = true;
-          change.none = false;
+        if (this.marked !== true) {
+          change.marked = true;
           return false;
         }
       }
 
-      change.light = false;
-      change.none = false;
+      change.marked = null;
       return true;
     }
 
@@ -37,9 +34,9 @@ define(function(require) {
         images.push("bright");
       }
 
-      if (this.light) {
+      if (this.marked === true) {
         images.push("light");
-      } else if (this.none) {
+      } else if (this.marked === false) {
         images.push("none");
       }
     }
@@ -51,7 +48,7 @@ define(function(require) {
       }
 
       // 明かりの場合、床が2回光っていればNG
-      if (this.light) {
+      if (this.marked === true) {
         if (this.bright >= 2) {
           return false;
         }
@@ -65,55 +62,42 @@ define(function(require) {
       return null;
     }
 
-    get marked() {
-      return this.light;
-    }
-
     get filled() {
-      return (
-        this.board.strict ||
-        this.wall ||
-        this.none ||
-        this.bright >= 1 ||
-        this.marked
-      );
+      return super.filled || this.bright >= 1;
     }
 
-    set light(value) {
-      if (value == this.dlight) {
-        return;
+    set marked(value) {
+      if (!!value != !!this._marked) {
+        this.ray(value ? 1 : -1);
       }
-      this.dlight = value;
-      this.ray(value);
+      this._marked = value;
     }
-    get light() {
-      return this.dlight;
-    }
-
-    ray(value) {
-      this.bright += value ? 1 : -1;
-      this.setBrights(1, 0, value);
-      this.setBrights(-1, 0, value);
-      this.setBrights(0, 1, value);
-      this.setBrights(0, -1, value);
+    get marked() {
+      return this._marked;
     }
 
-    setBrights(addx, addy, value) {
+    ray(addbright) {
+      this.bright += addbright;
+      this.setBrights(1, 0, addbright);
+      this.setBrights(-1, 0, addbright);
+      this.setBrights(0, 1, addbright);
+      this.setBrights(0, -1, addbright);
+    }
+
+    setBrights(addx, addy, addbright) {
       const cell = this.cell(addx, addy);
       if (cell.wall) {
         return;
       }
-      cell.bright += value ? 1 : -1;
-      cell.setBrights(addx, addy, value);
+      cell.bright += addbright;
+      cell.setBrights(addx, addy, addbright);
     }
 
     set qnum(value) {
       switch (value) {
         case -1:
-          this.wall = false;
-          this.none = false;
+          this._marked = null;
           this.bright = 0;
-          this.dlight = false;
           break;
 
         case -2:
