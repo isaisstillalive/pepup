@@ -116,16 +116,16 @@ define(function(require) {
         cell = this.cell(...around[0]);
         if (cell.wall) {
           return false;
+        } else if (cell.marked === null) {
         } else if (cell.triangle === around[1]) {
           result = result && true;
-        } else if (cell.undecided) {
         } else if (cell.open) {
           cell = this.cell(...around[2]);
           if (cell.wall) {
             return false;
           } else if (cell.triangle == this.triangle) {
             result = result && true;
-          } else if (!cell.undecided) {
+          } else if (cell.marked !== null) {
             return false;
           }
         } else {
@@ -152,7 +152,7 @@ define(function(require) {
       let index = 0;
       for (const around of arounds) {
         const cell = this.cell(...around);
-        opens[index] = !cell.wall && cell.jnone;
+        opens[index] = cell.open;
         index += 1;
       }
       opens[4] = opens[0];
@@ -178,16 +178,8 @@ define(function(require) {
       return null;
     }
 
-    get jnone() {
-      return this.none || (this.board.strict && this.triangle === undefined);
-    }
-
-    get undecided() {
-      return !this.board.strict && !this.none && this.triangle === undefined;
-    }
-
     get open() {
-      return !this.wall && (this.none || this.triangle === undefined);
+      return !this.wall && this.marked !== true;
     }
 
     get left() {
@@ -206,9 +198,6 @@ define(function(require) {
     set qnum(value) {
       switch (value) {
         case -1:
-          this.wall = false;
-          this.triangle = undefined;
-          this.none = false;
           break;
 
         case -2:
