@@ -45,6 +45,107 @@ define(function(require) {
       }
     }
 
+    correction() {
+      // 4つ固まっていたらNG
+      if (this.isClusters()) {
+        return false;
+      }
+
+      // 塗りなら丸はNG、丸でなければOK
+      if (this.marked === true) {
+        return !this.circle;
+      }
+
+      // 非数字丸の場合、岬ならOK
+      // 数字丸なら、岬で白マス数が正しければOK
+      // 絶対に白マス数が足りなければNG
+      // それ以外なら未決定
+      const cape = this.isCape();
+      if (this.circle) {
+        if (this.number == null) {
+          return cape;
+        }
+        if (cape === false) {
+          return false;
+        }
+
+        let whites = [];
+        const arounds = [
+          [-1, 0],
+          [1, 0],
+          [0, -1],
+          [0, 1]
+        ];
+        for (const around of arounds) {
+          whites.push(this.countwhite(...around));
+        }
+        const length = Math.max(...whites);
+        if (this.number > length) {
+          return false;
+        } else if (this.number == length && cape === true) {
+          return true;
+        }
+        return null;
+      }
+
+      // 丸ではないので岬はNG
+      if (cape === true) {
+        return false;
+      }
+
+      return true;
+    }
+
+    countwhite(addx, addy) {
+      for (let count = 0; true; count++) {
+        if (!this.cell(addx * count, addy * count).open) {
+          return count;
+        }
+      }
+    }
+
+    get open() {
+      return !this.wall && this.marked !== true;
+    }
+
+    isCape() {
+      const aroundMarks = this.aroundMarks();
+      if (aroundMarks.filled) {
+        if (aroundMarks.marks == 3) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+
+      return null;
+    }
+
+    isClusters() {
+      return (this.isCluster() ||
+        this.cell(0, -1).isCluster() ||
+        this.cell(-1, 0).isCluster() ||
+        this.cell(-1, -1).isCluster());
+    }
+
+    isCluster() {
+      if (this.wall || this.marked === null) {
+        return false;
+      }
+      const arounds = [
+        [1, 0],
+        [0, 1],
+        [1, 1]
+      ];
+      for (const around of arounds) {
+        const cell = this.cell(...around);
+        if (cell.wall || cell.marked !== this.marked) {
+          return false;
+        }
+      }
+      return true;
+    }
+
     set qnum(value) {
       switch (value) {
         case -1:
@@ -63,84 +164,6 @@ define(function(require) {
           this.number = value;
           break;
       }
-    }
-
-    white() {
-      return this.board.strict ? this.none : !this.paint;
-    }
-
-    correction() {
-      // 岬の場合、1方のみが白ならOK
-      // それ以外ならNG
-      if (this.circle) {
-        let whites = [];
-        const arounds = [
-          [-1, 0],
-          [1, 0],
-          [0, -1],
-          [0, 1]
-        ];
-        for (const around of arounds) {
-          whites.push(this.countwhite(...around));
-        }
-        const open = whites.filter(white => white >= 2);
-        if (open.length == 1) {
-          if (!this.number) {
-            return true;
-          }
-          if (this.number == open[0]) {
-            return true;
-          } else if (this.number > open[0] || this.board.strict) {
-            return false;
-          }
-          return null;
-        } else if (open.length == 0 || this.board.strict) {
-          return false;
-        }
-      }
-
-      // 2*2の塊ができたらNG
-      if (
-        this.board.strict &&
-        (this.isCluster(0, 0) ||
-          this.isCluster(0, -1) ||
-          this.isCluster(-1, 0) ||
-          this.isCluster(-1, -1))
-      ) {
-        return false;
-      }
-
-      return true;
-    }
-
-    countwhite(addx, addy) {
-      for (let count = 0; true; count++) {
-        const cell = this.cell(addx * count, addy * count);
-        if (cell.wall || !cell.white()) {
-          return count;
-        }
-      }
-    }
-
-    isCluster(addx, addy) {
-      const cell = this.cell(addx, addy);
-      if (cell.wall) {
-        return false;
-      }
-      const base = cell.white();
-
-      const arounds = [
-        [1, 0],
-        [0, 1],
-        [1, 1]
-      ];
-      for (const around of arounds) {
-        const cell = this.cell(addx + around[0], addy + around[1]);
-        if (cell.wall || cell.white() != base) {
-          return false;
-        }
-      }
-      return true;
     }
   }
 
