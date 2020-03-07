@@ -56,6 +56,11 @@ define(function(require) {
         return !this.circle;
       }
 
+      // シマが分断されていればNG
+      if (this.fragment) {
+        return false;
+      }
+
       // 非数字丸の場合、岬ならOK
       // 数字丸なら、岬で白マス数が正しければOK
       // 絶対に白マス数が足りなければNG
