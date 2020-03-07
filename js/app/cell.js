@@ -12,6 +12,8 @@ define(function(require) {
       // 未決定ならnull
       this.mark = null;
       this.strictDefaultMark = false;
+
+      this.fragmentDivideMark = true;
     }
 
     cell(addx, addy) {
@@ -86,7 +88,7 @@ define(function(require) {
 
     get fragment() {
       if (this._fragment === null) {
-        this.board.checkFragment();
+        this.board.checkFragment(this.fragmentDivideMark);
       }
       return this._fragment;
     }

@@ -111,12 +111,12 @@ define(function(require) {
       }
     }
 
-    checkFragment() {
+    checkFragment(divideMark = true) {
       // 塗られていない最大サイズを求める
       const range = [this.width - 1, 0, this.height - 1, 0];
       for (let y = 0; y < this.height; y++) {
         for (let x = 0; x < this.width; x++) {
-          if (this.get(x, y).marked !== true) {
+          if (this.get(x, y).marked !== divideMark) {
             range[0] = Math.min(range[0], x);
             range[1] = Math.max(range[1], x);
             range[2] = Math.min(range[2], y);
@@ -129,13 +129,13 @@ define(function(require) {
       for (let y = 0; y < this.height; y++) {
         for (let x = 0; x < this.width; x++) {
           if (this.get(x, y)._fragment === null) {
-            this.checkFragmentCell(x, y, range);
+            this.checkFragmentCell(x, y, range, divideMark);
           }
         }
       }
     }
 
-    checkFragmentCell(x, y, range) {
+    checkFragmentCell(x, y, range, divideMark) {
       const borders = [false, false, false, false];
       const on = [true, true, true, true];
 
@@ -145,11 +145,11 @@ define(function(require) {
       let result = it.next();
       while (!result.done) {
         const cell = result.value;
-        cells.push(cell);
-        if (cell.marked === true) {
+        if (cell.marked === divideMark) {
           result = it.next();
           continue;
         }
+        cells.push(cell);
 
         if (cell.x == range[0]) {
           borders[0] = true;
