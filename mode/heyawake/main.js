@@ -10,7 +10,7 @@ define(function(require) {
   const fragment = require("app/cell/correction/fragment");
   const contiguous = require("app/cell/correction/contiguous");
 
-  class Cell extends fragment(contiguous(cell)) {
+  class Cell extends cell.mixin(fragment, contiguous) {
     touch(position, change) {
       if (position.y <= 0 && this.mark !== false) {
         change.mark = false;

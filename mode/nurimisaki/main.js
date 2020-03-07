@@ -8,7 +8,7 @@ define(function(require) {
   const cell = require("app/cell");
   const fragment = require("app/cell/correction/fragment");
 
-  class Cell extends fragment(cell) {
+  class Cell extends cell.mixin(fragment) {
     static strictDefaultMark = true;
 
     touch(position, change) {

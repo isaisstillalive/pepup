@@ -13,6 +13,14 @@ define(function(require) {
       this.mark = null;
     }
 
+    static mixin(...modules) {
+      let klass = this;
+      for (const mod of modules) {
+        klass = mod(klass);
+      }
+      return klass;
+    }
+
     static strictDefaultMark = false;
 
     cell(addx, addy) {
