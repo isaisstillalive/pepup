@@ -6,7 +6,10 @@ define(function(require) {
     }
   }
 
-  class Cell extends require("app/cell") {
+  const cell = require("app/cell");
+  const fragment = require("app/cell/correction/fragment");
+
+  class Cell extends fragment(cell) {
     touch(position, change) {
       if (position.y <= 0 && this.mark !== false) {
         change.mark = false;
