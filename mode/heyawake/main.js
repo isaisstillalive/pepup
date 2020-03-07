@@ -68,7 +68,7 @@ define(function(require) {
       }
 
       // 塗りの中に非塗があればNG
-      if (this.isBlocked()) {
+      if (this.fragment) {
         return false;
       }
 
@@ -97,37 +97,6 @@ define(function(require) {
           }
         }
       }
-    }
-    isBlocked() {
-      const walls = [true, true, true, true];
-
-      const on = [true, true, true, true];
-
-      // すべての壁に接していればOK、それ以外はNG
-      const it = this.board.recursion(this.x, this.y);
-      let result = it.next();
-      while (!result.done) {
-        const cell = result.value;
-        if (cell.marked === true) {
-          result = it.next();
-          continue;
-        }
-
-        if (cell.x == 0) {
-          walls[0] = false;
-        } else if (cell.x == this.board.width - 1) {
-          walls[1] = false;
-        }
-        if (cell.y == 0) {
-          walls[2] = false;
-        } else if (cell.y == this.board.height - 1) {
-          walls[3] = false;
-        }
-
-        result = it.next(on);
-      }
-
-      return walls.some(value => value);
     }
 
     get number() {

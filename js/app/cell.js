@@ -70,6 +70,7 @@ define(function(require) {
 
     refresh() {
       this._correction = false;
+      this._fragment = null;
     }
 
     get corrected() {
@@ -81,6 +82,13 @@ define(function(require) {
         return !!this._corrected;
       }
       return this._corrected;
+    }
+
+    get fragment() {
+      if (this._fragment === null) {
+        this.board.checkFragment();
+      }
+      return this._fragment;
     }
 
     correction() {
