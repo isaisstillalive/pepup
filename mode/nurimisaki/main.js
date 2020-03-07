@@ -111,7 +111,7 @@ define(function(require) {
     isCape() {
       const aroundMarks = this.aroundMarks();
       if (aroundMarks.filled) {
-        if (aroundMarks.marks == 3) {
+        if (aroundMarks.opens == 1) {
           return true;
         } else {
           return false;
