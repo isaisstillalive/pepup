@@ -122,10 +122,12 @@ define(function(require) {
     }
 
     isClusters() {
-      return (this.isCluster() ||
+      return (
+        this.isCluster() ||
         this.cell(0, -1).isCluster() ||
         this.cell(-1, 0).isCluster() ||
-        this.cell(-1, -1).isCluster());
+        this.cell(-1, -1).isCluster()
+      );
     }
 
     isCluster() {
