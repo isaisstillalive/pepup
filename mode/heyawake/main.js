@@ -8,8 +8,9 @@ define(function(require) {
 
   const cell = require("app/cell");
   const fragment = require("app/cell/correction/fragment");
+  const contiguous = require("app/cell/correction/contiguous");
 
-  class Cell extends fragment(cell) {
+  class Cell extends fragment(contiguous(cell)) {
     touch(position, change) {
       if (position.y <= 0 && this.mark !== false) {
         change.mark = false;
@@ -51,13 +52,7 @@ define(function(require) {
 
     correction() {
       if (this.marked === true) {
-        // 塗りが2マス連続していたらNG
-        for (const cell of this.board.around(this.x, this.y)) {
-          if (cell.marked === true) {
-            return false;
-          }
-        }
-        return true;
+        return !this.contiguous;
       }
 
       if (this.marked === false) {
