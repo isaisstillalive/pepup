@@ -11,10 +11,10 @@ define(function(require) {
       // 書き込まれないことが確定していればfalse
       // 未決定ならnull
       this.mark = null;
-      this.strictDefaultMark = false;
-
-      this.fragmentDivideMark = true;
     }
+
+    static strictDefaultMark = false;
+    static fragmentDivideMark = true;
 
     cell(addx, addy) {
       return this.board.get(this.x + addx, this.y + addy);
@@ -88,7 +88,7 @@ define(function(require) {
 
     get fragment() {
       if (this._fragment === null) {
-        this.board.checkFragment(this.fragmentDivideMark);
+        this.board.checkFragment(this.constructor.fragmentDivideMark);
       }
       return this._fragment;
     }
@@ -127,7 +127,7 @@ define(function(require) {
 
     get marked() {
       if (this.mark === null && this.board.strict) {
-        return this.strictDefaultMark;
+        return this.constructor.strictDefaultMark;
       }
       return this.mark;
     }

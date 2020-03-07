@@ -6,10 +6,7 @@ define(function(require) {
   }
 
   class Cell extends require("app/cell") {
-    constructor(...args) {
-      super(...args);
-      this.strictDefaultMark = true;
-    }
+    static strictDefaultMark = true;
 
     touch(position, change) {
       if (this.circle || position.y <= 0) {
