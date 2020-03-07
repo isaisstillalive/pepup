@@ -14,7 +14,6 @@ define(function(require) {
     }
 
     static strictDefaultMark = false;
-    static fragmentDivideMark = true;
 
     cell(addx, addy) {
       return this.board.get(this.x + addx, this.y + addy);
