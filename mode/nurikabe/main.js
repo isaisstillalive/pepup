@@ -49,11 +49,19 @@ define(function(require) {
         return !this.cluster && !this.fragment;
       }
 
-      if (this.number !== undefined) {
-        const count = this.count();
-        if (this.number == "?") {
+      const { count, numbers } = this.count();
+      if (this.number === undefined) {
+        if (numbers == 1) {
           return true;
-        } else if (count == this.number) {
+        } else if (this.board.strict || numbers == 0) {
+          return false;
+        } else {
+          return null;
+        }
+      } else {
+        if (this.board.strict && numbers != 1) {
+          return false;
+        } else if (this.number == "?" || count == this.number) {
           return true;
         } else if (this.board.strict || count < this.number) {
           return false;
@@ -73,6 +81,7 @@ define(function(require) {
       const it = this.board.recursion(this.x, this.y);
       let result = it.next();
       let count = 0;
+      let numbers = 0;
       while (!result.done) {
         const cell = result.value;
         if (cell.marked === true) {
@@ -81,10 +90,13 @@ define(function(require) {
         }
 
         count += 1;
+        if (cell.number !== undefined) {
+          numbers += 1;
+        }
         result = it.next(on);
       }
 
-      return count;
+      return { count: count, numbers: numbers };
     }
 
     set qnum(value) {
