@@ -12,14 +12,19 @@ define(function(require) {
 
   class Cell extends cell.mixin(fragment, contiguous) {
     touch(position, change) {
-      if (position.y <= 0 && this.mark !== false) {
-        change.mark = false;
-      } else if (position.y > 0 && this.mark !== true) {
-        change.mark = true;
+      if (position.y <= 0) {
+        if (this.mark !== false) {
+          change.mark = false;
+          return true;
+        }
       } else {
-        change.mark = null;
+        if (this.mark !== true) {
+          change.mark = true;
+          return true;
+        }
       }
 
+      change.mark = null;
       return true;
     }
 
