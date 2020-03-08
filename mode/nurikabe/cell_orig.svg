@@ -30,7 +30,7 @@
      id="namedview30"
      showgrid="false"
      inkscape:zoom="0.78666667"
-     inkscape:cx="-147.45763"
+     inkscape:cx="-296.18644"
      inkscape:cy="150"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
@@ -103,18 +103,18 @@
   <g
      inkscape:groupmode="layer"
      inkscape:label="number"
-     style="display:inline"
+     style="display:none"
      id="number">
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;line-height:0%;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP, Heavy';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.0583334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers;"
+       style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;line-height:0%;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP, Heavy';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.0583334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
        x="39.692459"
        y="49.529995"
        id="number-0"><tspan
          id="number-value"
          x="39.692459"
          y="49.529995"
-         style="font-size:26.45833397px;line-height:1.25;fill:#ffffff;stroke:#000000;stroke-width:1.0583334;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers;">0</tspan></text>
+         style="font-size:26.45833397px;line-height:1.25;fill:#ffffff;stroke:#000000;stroke-width:1.0583334;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers">0</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
