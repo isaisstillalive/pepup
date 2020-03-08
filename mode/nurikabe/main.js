@@ -36,22 +36,24 @@ define(function(require) {
         images.push("floor");
       }
 
-      if (this.number >= 1) {
+      if (this.number !== undefined) {
         images.push("number");
       }
     }
 
     correction() {
       if (this.marked === true) {
-        if (this.number >= 1) {
+        if (this.number !== undefined) {
           return false;
         }
         return !this.cluster && !this.fragment;
       }
 
-      if (this.number >= 1) {
+      if (this.number !== undefined) {
         const count = this.count();
-        if (count == this.number) {
+        if (this.number == "?") {
+          return true;
+        } else if (count == this.number) {
           return true;
         } else if (this.board.strict || count < this.number) {
           return false;
@@ -88,6 +90,10 @@ define(function(require) {
     set qnum(value) {
       switch (value) {
         case -1:
+          break;
+
+        case -2:
+          this.number = "?";
           break;
 
         default:

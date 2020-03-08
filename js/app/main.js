@@ -15,7 +15,7 @@ define(function(require) {
           type: Array
         },
         value: {
-          type: Number
+          type: [Number, String]
         }
       },
       data() {
