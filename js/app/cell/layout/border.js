@@ -1,6 +1,13 @@
 define(function(require) {
   return cell => {
     class Module extends cell {
+      constructor(board, x, y) {
+        super(board, x, y);
+
+        this.wleft = x == 0;
+        this.wtop = y == 0;
+      }
+
       imagesBorder(images) {
         if (this.wleft) {
           images.push("lborder");
