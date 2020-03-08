@@ -10,7 +10,10 @@ define(function(require) {
   const cluster = require("app/cell/correction/cluster");
 
   class Cell extends cell.mixin(fragment, [cluster, [true, false]]) {
-    static strictDefaultMark = true;
+    constructor(...args) {
+      super(...args);
+      this.strictDefaultMark = true;
+    }
 
     touch(position, change) {
       if (this.circle || position.y <= 0) {

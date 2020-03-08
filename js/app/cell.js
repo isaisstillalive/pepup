@@ -11,6 +11,7 @@ define(function(require) {
       // 書き込まれないことが確定していればfalse
       // 未決定ならnull
       this.mark = null;
+      this.strictDefaultMark = false;
     }
 
     static mixin(...modules) {
@@ -26,8 +27,6 @@ define(function(require) {
       }
       return klass;
     }
-
-    static strictDefaultMark = false;
 
     cell(addx, addy) {
       return this.board.get(this.x + addx, this.y + addy);
@@ -132,7 +131,7 @@ define(function(require) {
 
     get marked() {
       if (this.mark === null && this.board.strict) {
-        return this.constructor.strictDefaultMark;
+        return this.strictDefaultMark;
       }
       return this.mark;
     }
