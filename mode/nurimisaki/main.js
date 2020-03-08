@@ -7,8 +7,9 @@ define(function(require) {
 
   const cell = require("app/cell");
   const fragment = require("app/cell/correction/fragment");
+  const cluster = require("app/cell/correction/cluster");
 
-  class Cell extends cell.mixin(fragment) {
+  class Cell extends cell.mixin(fragment, [cluster, [true, false]]) {
     static strictDefaultMark = true;
 
     touch(position, change) {
@@ -47,7 +48,7 @@ define(function(require) {
 
     correction() {
       // 4つ固まっていたらNG
-      if (this.isClusters()) {
+      if (this.cluster) {
         return false;
       }
 
@@ -124,33 +125,6 @@ define(function(require) {
       }
 
       return null;
-    }
-
-    isClusters() {
-      return (
-        this.isCluster() ||
-        this.cell(0, -1).isCluster() ||
-        this.cell(-1, 0).isCluster() ||
-        this.cell(-1, -1).isCluster()
-      );
-    }
-
-    isCluster() {
-      if (this.wall || this.marked === null) {
-        return false;
-      }
-      const arounds = [
-        [1, 0],
-        [0, 1],
-        [1, 1]
-      ];
-      for (const around of arounds) {
-        const cell = this.cell(...around);
-        if (cell.wall || cell.marked !== this.marked) {
-          return false;
-        }
-      }
-      return true;
     }
 
     set qnum(value) {
