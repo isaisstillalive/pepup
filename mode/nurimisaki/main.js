@@ -24,7 +24,7 @@ define(function(require) {
       } else {
         if (this.mark !== true) {
           change.mark = true;
-          return false;
+          return true;
         }
       }
 
