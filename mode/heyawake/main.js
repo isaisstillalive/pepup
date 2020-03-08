@@ -7,10 +7,11 @@ define(function(require) {
   }
 
   const cell = require("app/cell");
+  const border = require("app/cell/layout/border");
   const fragment = require("app/cell/correction/fragment");
   const contiguous = require("app/cell/correction/contiguous");
 
-  class Cell extends cell.mixin(fragment, contiguous) {
+  class Cell extends cell.mixin(border, fragment, contiguous) {
     touch(position, change) {
       if (position.y <= 0) {
         if (this.mark !== false) {
@@ -37,18 +38,7 @@ define(function(require) {
         images.push("floor");
       }
 
-      if (this.wleft) {
-        images.push("lborder");
-      }
-      if (this.wtop) {
-        images.push("tborder");
-      }
-      if (this.wright) {
-        images.push("rborder");
-      }
-      if (this.wbottom) {
-        images.push("bborder");
-      }
+      this.imagesBorder(images);
 
       if (this.number >= 0) {
         images.push("number");

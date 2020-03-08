@@ -163,15 +163,6 @@ define(function(require) {
 
       return result;
     }
-
-    get wright() {
-      const cell = this.board.get(this.x + 1, this.y);
-      return cell.wall || cell.wleft;
-    }
-    get wbottom() {
-      const cell = this.board.get(this.x, this.y + 1);
-      return cell.wall || cell.wtop;
-    }
   }
   return Cell;
 });
