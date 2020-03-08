@@ -11,7 +11,7 @@ define(function(require) {
 
   class Cell extends cell.mixin([fragment, false], cluster) {
     touch(position, change) {
-      if (position.y <= 0) {
+      if (this.number >= 1 || position.y <= 0) {
         if (this.mark !== false) {
           change.mark = false;
           return true;
