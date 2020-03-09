@@ -10,6 +10,12 @@ define(function(require) {
 
       this.wall = new cell(this, -1, -1);
       this.wall.wall = true;
+
+      this.history = new History(this);
+
+      this.judgment = null;
+
+      this.loading = true;
       const transcoder = new Transcoder(
         this,
         source,
@@ -18,13 +24,13 @@ define(function(require) {
         cell,
         room
       );
-      this.decode(transcoder);
-
-      this.history = new History(this);
-
-      this.judgment = null;
+      this.decode_async(transcoder);
     }
 
+    async decode_async(transcoder) {
+      this.decode(transcoder);
+      this.loading = false;
+    }
     decode(transcoder) {}
 
     get(x, y) {
