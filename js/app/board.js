@@ -49,7 +49,7 @@ define(function(require) {
       this.resetjudgment();
     }
 
-    refresh() {
+    async refresh() {
       for (const cell of this.cells) {
         cell.refresh();
       }
@@ -61,11 +61,12 @@ define(function(require) {
     judge() {
       this.strict = true;
 
-      this.refresh();
-      const judgment =
-        this.cells.every(cell => cell.corrected) &&
-        this.rooms.every(room => room.correction());
-      Vue.set(this, "judgment", judgment);
+      this.refresh().then(() => {
+        const judgment =
+          this.cells.every(cell => cell.corrected) &&
+          this.rooms.every(room => room.correction());
+        Vue.set(this, "judgment", judgment);
+      });
     }
     resetjudgment() {
       this.strict = false;
