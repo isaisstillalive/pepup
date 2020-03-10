@@ -75,15 +75,25 @@ define(function(require) {
         }
       },
       data() {
-        return { board: board };
+        const current = board.get(this.x, this.y);
+        return {
+          board: board,
+          current: current,
+          number: current.number
+        };
+      },
+      watch: {
+        x() {
+          this.current = board.get(this.x, this.y);
+        },
+        y() {
+          this.current = board.get(this.x, this.y);
+        },
+        current() {
+          this.number = this.current.number;
+        }
       },
       computed: {
-        current() {
-          return this.board.get(this.x, this.y);
-        },
-        number() {
-          return this.current.number;
-        },
         images() {
           if (!this.visibled) {
             return ["wall"];
