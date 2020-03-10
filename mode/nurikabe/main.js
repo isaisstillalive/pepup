@@ -75,13 +75,23 @@ define(function(require) {
       }
     }
 
+    refresh() {
+      super.refresh();
+      this._count = null;
+    }
+
     count() {
+      if (this._count) {
+        return this._count;
+      }
+
       const on = [true, true, true, true];
 
       const it = this.board.recursion(this.x, this.y);
       let result = it.next();
       let count = 0;
       let numbers = 0;
+      const cells = [];
       while (!result.done) {
         const cell = result.value;
         if (cell.marked === true) {
@@ -89,14 +99,19 @@ define(function(require) {
           continue;
         }
 
+        cells.push(cell);
         count += 1;
         if (cell.number !== undefined) {
           numbers += 1;
         }
         result = it.next(on);
       }
+      const counts = { count: count, numbers: numbers };
+      for (const cell of cells) {
+        cell._count = counts;
+      }
 
-      return { count: count, numbers: numbers };
+      return counts;
     }
 
     set qnum(value) {
