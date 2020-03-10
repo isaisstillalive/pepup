@@ -121,9 +121,12 @@ define(function(require) {
     }
 
     readNumber16() {
+      const pos = this.position;
       const number = this.read();
 
-      if (number >= 16 && number <= 35) {
+      if (this.position != pos) {
+        return number;
+      } else if (number >= 16 && number <= 35) {
         this.cursor += number - 16;
         return -1;
       } else {
