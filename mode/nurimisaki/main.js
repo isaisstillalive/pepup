@@ -8,13 +8,13 @@ define(function(require) {
   const cell = require("app/cell");
   const fragment = require("app/cell/evaluation/fragment");
   const cluster = require("app/cell/evaluation/cluster");
+  const adjacentMarks = require("app/cell/evaluation/adjacent_marks");
 
-  class Cell extends cell.mixin(fragment, [cluster, [true, false]]) {
-    constructor(...args) {
-      super(...args);
-      this.strictDefaultMark = true;
-    }
-
+  class Cell extends cell.mixin(
+    fragment,
+    [cluster, [1, -1]],
+    [adjacentMarks, [-1]]
+  ) {
     touch(position, change) {
       if (this.circle || position.y <= 0) {
         if (this.mark != -1) {
@@ -118,9 +118,9 @@ define(function(require) {
     }
 
     isCape() {
-      const aroundMarks = this.aroundMarks();
-      if (aroundMarks.filled) {
-        if (aroundMarks.opens == 1) {
+      const { filled, marks } = this.getAdjacentMarks();
+      if (filled) {
+        if (marks == 1) {
           return true;
         } else {
           return false;

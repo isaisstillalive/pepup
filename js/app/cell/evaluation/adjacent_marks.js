@@ -27,7 +27,7 @@ define(function(require) {
         };
 
         for (const cell of this.board.around(this.x, this.y)) {
-          if (marks.includes(cell.marked)) {
+          if (!cell.wall && marks.includes(cell.marked)) {
             result.marks += 1;
             result.filled += 1;
           } else if (cell.filled) {
