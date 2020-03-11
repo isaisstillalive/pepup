@@ -5,7 +5,10 @@ define(function(require) {
     }
   }
 
-  class Cell extends require("app/cell") {
+  const cell = require("app/cell");
+  const adjacentMarks = require("app/cell/evaluation/adjacent_marks");
+
+  class Cell extends cell.mixin(adjacentMarks) {
     touch(position, change) {
       if (position.y <= 0) {
         if (this.mark !== false) {
@@ -42,9 +45,8 @@ define(function(require) {
     }
 
     evaluate() {
-      const wall = this.correctionWall();
-      if (wall !== null) {
-        return wall;
+      if (this.wall) {
+        return this.adjacentMarks;
       }
 
       // 明かりの場合、床が2回光っていればNG

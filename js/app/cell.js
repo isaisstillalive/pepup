@@ -69,31 +69,6 @@ define(function(require) {
       }
     }
 
-    correctionWall() {
-      // 壁の場合、周囲がすべて埋まり番号と一致していればOK
-      // 番号を超えていたらNG
-      if (!this.wall) {
-        return null;
-      }
-
-      if (this.number == null) {
-        return true;
-      }
-
-      const arounds = this.aroundMarks();
-      if (arounds.filled) {
-        if (arounds.marks == this.number) {
-          return true;
-        } else {
-          return false;
-        }
-      } else if (arounds.marks > this.number) {
-        return false;
-      }
-
-      return null;
-    }
-
     get marked() {
       if (this.mark === null && this.board.strict) {
         return this.strictDefaultMark;
