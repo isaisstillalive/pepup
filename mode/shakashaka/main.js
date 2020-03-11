@@ -8,24 +8,27 @@ define(function(require) {
   const cell = require("app/cell");
   const adjacentMarks = require("app/cell/evaluation/adjacent_marks");
 
-  class Cell extends cell.mixin(adjacentMarks) {
+  class Cell extends cell.mixin([adjacentMarks, [1, 2, 3, 4]]) {
     touch(position, change) {
       if (position.distance <= 0.3) {
-        if (this.mark !== false) {
-          change.mark = false;
+        if (this.mark != -1) {
+          change.mark = -1;
           return true;
         }
       } else {
-        let triangle = Math.floor(((position.angle + 1) % 2) / 0.5);
-        if (this.mark !== true || this.triangle != triangle) {
-          change.mark = true;
-          change.triangle = triangle;
+        let triangle = 1 + Math.floor(((position.angle + 1) % 2) / 0.5);
+        if (this.mark != triangle) {
+          change.mark = triangle;
           return false;
         }
       }
 
       change.mark = null;
       return true;
+    }
+
+    get triangle() {
+      return this.mark - 1;
     }
 
     images(images) {
@@ -39,9 +42,9 @@ define(function(require) {
         images.push("bright");
       }
 
-      if (this.mark === true) {
+      if (this.mark >= 1) {
         images.push(`paint${this.triangle}`);
-      } else if (this.mark === false) {
+      } else if (this.mark == -1) {
         images.push("none");
       }
     }
@@ -52,7 +55,7 @@ define(function(require) {
       }
 
       // 塗りの場合
-      if (this.marked === true) {
+      if (this.marked >= 1) {
         // 対角が空か対以外ならNG
         if (this.paintDiagonalsCorrection() === false) {
           return false;
@@ -63,7 +66,7 @@ define(function(require) {
         if (correction !== null) {
           return correction;
         }
-      } else if (this.marked === false) {
+      } else if (this.marked == -1) {
         if (this.openCorrection() === false) {
           return false;
         }
@@ -118,7 +121,7 @@ define(function(require) {
         cell = this.cell(...around[0]);
         if (cell.wall) {
           return false;
-        } else if (cell.marked === null) {
+        } else if (cell.marked == null) {
         } else if (cell.triangle === around[1]) {
           result = result && true;
         } else if (cell.open) {
@@ -127,7 +130,7 @@ define(function(require) {
             return false;
           } else if (cell.triangle == this.triangle) {
             result = result && true;
-          } else if (cell.marked !== null) {
+          } else if (cell.marked != null) {
             return false;
           }
         } else {
@@ -181,7 +184,7 @@ define(function(require) {
     }
 
     get open() {
-      return !this.wall && this.marked !== true;
+      return !this.wall && !(this.marked >= 1);
     }
 
     get left() {
