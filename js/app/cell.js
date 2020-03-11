@@ -85,16 +85,17 @@ define(function(require) {
     refresh() {
       this._correction = false;
     }
-
-    get corrected() {
+    updateCorrected() {
       if (!this._correction) {
-        this._corrected = this.correction();
+        let c = this.correction();
+        if (this.board.strict) {
+          c = !!c;
+        }
+        if (this.corrected != c) {
+          Vue.set(this, "corrected", c);
+        }
         this._correction = true;
       }
-      if (this.board.strict) {
-        return !!this._corrected;
-      }
-      return this._corrected;
     }
 
     correction() {

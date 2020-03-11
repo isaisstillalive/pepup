@@ -54,7 +54,7 @@ define(function(require) {
         cell.refresh();
       }
       for (const cell of this.cells) {
-        cell.corrected;
+        cell.updateCorrected();
       }
     }
 
