@@ -15,20 +15,6 @@ define(function(require) {
       this.strictDefaultMark = false;
     }
 
-    static mixin(...modules) {
-      let klass = this;
-      for (let mod of modules) {
-        const args = [klass];
-        if (Array.isArray(mod)) {
-          const opt = mod;
-          mod = opt.shift();
-          args.push(...opt);
-        }
-        klass = mod(...args);
-      }
-      return klass;
-    }
-
     cell(addx, addy) {
       return this.board.get(this.x + addx, this.y + addy);
     }

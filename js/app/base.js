@@ -4,6 +4,20 @@ define(function(require) {
       this.board = board;
     }
 
+    static mixin(...modules) {
+      let klass = this;
+      for (let mod of modules) {
+        const args = [klass];
+        if (Array.isArray(mod)) {
+          const opt = mod;
+          mod = opt.shift();
+          args.push(...opt);
+        }
+        klass = mod(...args);
+      }
+      return klass;
+    }
+
     refresh() {
       this._evaluated = false;
     }
