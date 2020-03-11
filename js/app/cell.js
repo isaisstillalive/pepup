@@ -1,6 +1,8 @@
 define(function(require) {
-  class Cell {
+  class Cell extends require("app/base") {
     constructor(board, x, y) {
+      super();
+
       this.board = board;
       this.x = x;
       this.y = y;
@@ -80,30 +82,6 @@ define(function(require) {
       } else if (showok && this.evaluation === true) {
         images.push("ok");
       }
-    }
-
-    refresh() {
-      this._evaluated = false;
-    }
-    updateEvaluation() {
-      if (this._evaluated) {
-        return;
-      }
-      let c = this.evaluate();
-      if (this.board.strict) {
-        c = !!c;
-      }
-      if (this.evaluation !== c) {
-        Vue.set(this, "evaluation", c);
-      }
-      this._evaluated = true;
-    }
-
-    evaluate() {
-      // そのセルが完成していなければnull
-      // ルールに則っていればtrue
-      // ルールから逸脱していればfalse
-      return true;
     }
 
     correctionWall() {

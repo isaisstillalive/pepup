@@ -1,6 +1,8 @@
 define(function(require) {
-  class Room {
+  class Room extends require("app/base") {
     constructor(board, index) {
+      super();
+
       this.board = board;
       this.index = index;
 
