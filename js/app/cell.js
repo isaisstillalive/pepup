@@ -8,11 +8,11 @@ define(function(require) {
 
       this.wall = false;
 
-      // 書き込まれていればtrue
-      // 書き込まれないことが確定していればfalse
+      // 書き込まれていれば1以上
+      // 書き込まれないことが確定していれば-1
       // 未決定ならnull
       this.mark = null;
-      this.strictDefaultMark = false;
+      this.strictDefaultMark = -1;
     }
 
     cell(addx, addy) {
@@ -70,14 +70,14 @@ define(function(require) {
     }
 
     get marked() {
-      if (this.mark === null && this.board.strict) {
+      if (!this.mark && this.board.strict) {
         return this.strictDefaultMark;
       }
       return this.mark;
     }
 
     get filled() {
-      return this.wall || this.marked !== null;
+      return this.wall || !!this.marked;
     }
 
     aroundMarks() {
