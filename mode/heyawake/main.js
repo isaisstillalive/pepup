@@ -10,8 +10,14 @@ define(function(require) {
   const border = require("app/cell/layout/border");
   const fragment = require("app/cell/evaluation/fragment");
   const contiguous = require("app/cell/evaluation/contiguous");
+  const straddleRoom = require("app/cell/evaluation/straddle_room");
 
-  class Cell extends cell.mixin(border, fragment, contiguous) {
+  class Cell extends cell.mixin(
+    border,
+    fragment,
+    [contiguous],
+    [straddleRoom, 3, [-1]]
+  ) {
     touch(position, change) {
       if (position.y <= 0) {
         if (this.mark != -1) {
@@ -52,10 +58,7 @@ define(function(require) {
 
       if (this.marked == -1) {
         // 非塗りが3部屋連続していたらNG
-        if (this.isTreeWhiteRoom(1, 0)) {
-          return false;
-        }
-        if (this.isTreeWhiteRoom(0, 1)) {
+        if (!this.straddleRoom) {
           return false;
         }
       }
@@ -69,26 +72,6 @@ define(function(require) {
         return true;
       } else {
         return null;
-      }
-    }
-    isTreeWhiteRoom(addx, addy) {
-      const rooms = [];
-      rooms.push(this.room.index);
-      for (let s = -1; s <= 1; s += 2) {
-        for (let c = 1; true; c++) {
-          const cell = this.cell(addx * c * s, addy * c * s);
-          if (cell.wall || cell.marked != -1) {
-            break;
-          }
-          if (rooms.includes(cell.room.index)) {
-            continue;
-          }
-
-          rooms.push(cell.room.index);
-          if (rooms.length == 3) {
-            return true;
-          }
-        }
       }
     }
 
