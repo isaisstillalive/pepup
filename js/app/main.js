@@ -140,11 +140,11 @@ define(function(require) {
           this.board.history.confirm();
           this.pin = false;
         },
-        judge() {
-          if (this.judgment === null) {
-            this.board.judge();
+        evaluate() {
+          if (this.evaluation === null) {
+            this.board.evaluate();
           } else {
-            this.board.resetjudgment();
+            this.board.resetEvaluation();
           }
         },
         touchstart(event) {
@@ -274,8 +274,8 @@ define(function(require) {
           }
           return result;
         },
-        judgment() {
-          return this.board.judgment;
+        evaluation() {
+          return this.board.evaluation;
         }
       }
     });

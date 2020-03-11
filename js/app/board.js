@@ -13,7 +13,7 @@ define(function(require) {
 
       this.history = new History(this);
 
-      this.judgment = null;
+      this.evaluation = null;
 
       this.loading = true;
       const transcoder = new Transcoder(
@@ -46,31 +46,37 @@ define(function(require) {
       const index = x + y * this.width;
       Object.assign(this.cells[index], change);
       Vue.set(this.cells, index, this.cells[index]);
-      this.resetjudgment();
+      this.resetEvaluation();
     }
 
     async refresh() {
       for (const cell of this.cells) {
         cell.refresh();
       }
+      for (const room of this.rooms) {
+        room.refresh();
+      }
       for (const cell of this.cells) {
         cell.updateEvaluation();
       }
+      for (const room of this.rooms) {
+        room.updateEvaluation();
+      }
     }
 
-    judge() {
+    evaluate() {
       this.strict = true;
 
       this.refresh().then(() => {
-        const judgment =
+        const evaluation =
           this.cells.every(cell => cell.evaluation) &&
-          this.rooms.every(room => room.evaluate());
-        Vue.set(this, "judgment", judgment);
+          this.rooms.every(room => room.evaluation);
+        Vue.set(this, "evaluation", evaluation);
       });
     }
-    resetjudgment() {
+    resetEvaluation() {
       this.strict = false;
-      this.judgment = null;
+      this.evaluation = null;
       this.refresh();
     }
 

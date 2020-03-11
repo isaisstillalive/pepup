@@ -79,11 +79,11 @@
         >
           <img src="img/next-button.svg" />
         </div>
-      </template>
-      <div id="judgment" class="button" @click="judge">
-        <img v-if="judgment === true" src="img/thumb-up.svg" />
-        <img v-else-if="judgment === false" src="img/thumb-down.svg" />
-        <img v-else src="img/inspiration.svg" />
+      </div>
+      <div id="judgment" class="button" @click="evaluate">
+        <img v-if="evaluation === true" src="img/thumb-up.svg" />
+        <img v-else-if="evaluation === false" src="img/thumb-down.svg" />
+        <img src="img/inspiration.svg" />
       </div>
     </div>
     <template id="cell">
