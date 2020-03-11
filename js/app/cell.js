@@ -88,10 +88,10 @@ define(function(require) {
       };
 
       for (const cell of this.board.around(this.x, this.y)) {
-        if (cell.marked === true) {
+        if (cell.marked == 1) {
           result.marks += 1;
           result.filled += 1;
-        } else if (cell.marked === false) {
+        } else if (cell.marked == -1) {
           result.opens += 1;
           result.filled += 1;
         } else if (cell.filled) {

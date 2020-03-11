@@ -17,13 +17,13 @@ define(function(require) {
 
     touch(position, change) {
       if (this.circle || position.y <= 0) {
-        if (this.mark !== false) {
-          change.mark = false;
+        if (this.mark != -1) {
+          change.mark = -1;
           return true;
         }
       } else {
-        if (this.mark !== true) {
-          change.mark = true;
+        if (this.mark != 1) {
+          change.mark = 1;
           return true;
         }
       }
@@ -33,9 +33,9 @@ define(function(require) {
     }
 
     images(images) {
-      if (this.mark === true) {
+      if (this.mark == 1) {
         images.push("black");
-      } else if (this.mark === false) {
+      } else if (this.mark == -1) {
         images.push("white");
       } else {
         images.push("floor");
@@ -56,7 +56,7 @@ define(function(require) {
       }
 
       // 塗りなら丸はNG、丸でなければOK
-      if (this.marked === true) {
+      if (this.marked == 1) {
         return !this.circle;
       }
 
@@ -114,7 +114,7 @@ define(function(require) {
     }
 
     get open() {
-      return !this.wall && this.marked !== true;
+      return !this.wall && this.marked != 1;
     }
 
     isCape() {
