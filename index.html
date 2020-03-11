@@ -42,7 +42,7 @@
       </div>
       <div id="pin" class="button" @click="pin = !pin">
         <img v-show="pin" src="img/pin-on.svg" />
-        <img v-show="!pin" src="img/pin-off.svg" />
+        <img v-show="!pin" src="img/pin-off.svg" v-cloak />
       </div>
       <div v-show="pin">
         <div
@@ -62,7 +62,7 @@
           <img src="img/confirmed.svg" />
         </div>
       </div>
-      <div v-show="!pin">
+      <div v-show="!pin" v-cloak>
         <div
           id="undo"
           class="button"
@@ -82,8 +82,8 @@
       </div>
       <div id="judgment" class="button" @click="evaluate">
         <img v-show="evaluation === true" src="img/thumb-up.svg" />
-        <img v-show="evaluation === false" src="img/thumb-down.svg" />
-        <img v-show="evaluation === null" src="img/inspiration.svg" />
+        <img v-show="evaluation === false" src="img/thumb-down.svg" v-cloak />
+        <img v-show="evaluation === null" src="img/inspiration.svg" v-cloak />
       </div>
     </div>
     <template id="cell">
