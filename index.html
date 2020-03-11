@@ -41,10 +41,10 @@
         </div>
       </div>
       <div id="pin" class="button" @click="pin = !pin">
-        <img v-if="pin" src="img/pin-on.svg" />
-        <img v-else src="img/pin-off.svg" />
+        <img v-show="pin" src="img/pin-on.svg" />
+        <img v-show="!pin" src="img/pin-off.svg" />
       </div>
-      <template v-if="pin">
+      <div v-show="pin">
         <div
           id="dispose"
           class="button"
@@ -61,8 +61,8 @@
         >
           <img src="img/confirmed.svg" />
         </div>
-      </template>
-      <template v-else>
+      </div>
+      <div v-show="!pin">
         <div
           id="undo"
           class="button"
@@ -81,9 +81,9 @@
         </div>
       </div>
       <div id="judgment" class="button" @click="evaluate">
-        <img v-if="evaluation === true" src="img/thumb-up.svg" />
-        <img v-else-if="evaluation === false" src="img/thumb-down.svg" />
-        <img src="img/inspiration.svg" />
+        <img v-show="evaluation === true" src="img/thumb-up.svg" />
+        <img v-show="evaluation === false" src="img/thumb-down.svg" />
+        <img v-show="evaluation === null" src="img/inspiration.svg" />
       </div>
     </div>
     <template id="cell">
