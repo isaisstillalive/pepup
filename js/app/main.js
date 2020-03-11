@@ -115,6 +115,12 @@ define(function(require) {
         cursor: { x: 0, y: 0 },
         touch: {}
       },
+      created () {
+        window.addEventListener('keydown', this.onkey)
+      },
+      beforeDestroy () {
+        window.removeEventListener('keydown', this.onkey)
+      },
       methods: {
         setCursor(x, y) {
           if (this.cursor.x == x && this.cursor.y == y) {
@@ -125,6 +131,28 @@ define(function(require) {
 
           this.cursor.x = x;
           this.cursor.y = y;
+        },
+        onkey(event) {
+          let x = this.cursor.x;
+          let y = this.cursor.y;
+          switch (event.key) {
+            case "ArrowLeft":
+              x = Math.max(0, x - 1);
+              break;
+            case "ArrowRight":
+              x = Math.min(this.width-1, x + 1);
+              break;
+            case "ArrowUp":
+              y = Math.max(0, y - 1);
+              break;
+            case "ArrowDown":
+              y = Math.min(this.height-1, y + 1);
+              break;
+
+            default:
+              return;
+          }
+          this.setCursor(x,y);
         },
         undo() {
           this.board.history.undo();
