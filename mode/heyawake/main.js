@@ -14,13 +14,13 @@ define(function(require) {
   class Cell extends cell.mixin(border, fragment, contiguous) {
     touch(position, change) {
       if (position.y <= 0) {
-        if (this.mark !== false) {
-          change.mark = false;
+        if (this.mark != -1) {
+          change.mark = -1;
           return true;
         }
       } else {
-        if (this.mark !== true) {
-          change.mark = true;
+        if (this.mark != 1) {
+          change.mark = 1;
           return true;
         }
       }
@@ -30,9 +30,9 @@ define(function(require) {
     }
 
     images(images) {
-      if (this.mark === true) {
+      if (this.mark == 1) {
         images.push("black");
-      } else if (this.mark === false) {
+      } else if (this.mark == -1) {
         images.push("white");
       } else {
         images.push("floor");
@@ -46,11 +46,11 @@ define(function(require) {
     }
 
     evaluate() {
-      if (this.marked === true) {
+      if (this.marked == 1) {
         return !this.contiguous;
       }
 
-      if (this.marked === false) {
+      if (this.marked == -1) {
         // 非塗りが3部屋連続していたらNG
         if (this.isTreeWhiteRoom(1, 0)) {
           return false;
@@ -77,7 +77,7 @@ define(function(require) {
       for (let s = -1; s <= 1; s += 2) {
         for (let c = 1; true; c++) {
           const cell = this.cell(addx * c * s, addy * c * s);
-          if (cell.wall || cell.marked !== false) {
+          if (cell.wall || cell.marked != -1) {
             break;
           }
           if (rooms.includes(cell.room.index)) {
@@ -101,9 +101,7 @@ define(function(require) {
   class Room extends require("app/room") {
     evaluate() {
       if (this.qnum == -1) return true;
-      return (
-        this.qnum == this.cells.filter(cell => cell.marked === true).length
-      );
+      return this.qnum == this.cells.filter(cell => cell.marked == 1).length;
     }
   }
 

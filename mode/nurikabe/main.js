@@ -9,16 +9,16 @@ define(function(require) {
   const fragment = require("app/cell/evaluation/fragment");
   const cluster = require("app/cell/evaluation/cluster");
 
-  class Cell extends cell.mixin([fragment, false], cluster) {
+  class Cell extends cell.mixin([fragment, -1], cluster) {
     touch(position, change) {
       if (this.number >= 1 || position.y <= 0) {
-        if (this.mark !== false) {
-          change.mark = false;
+        if (this.mark != -1) {
+          change.mark = -1;
           return true;
         }
       } else {
-        if (this.mark !== true) {
-          change.mark = true;
+        if (this.mark != 1) {
+          change.mark = 1;
           return true;
         }
       }
@@ -28,9 +28,9 @@ define(function(require) {
     }
 
     images(images) {
-      if (this.mark === true) {
+      if (this.mark == 1) {
         images.push("black");
-      } else if (this.mark === false) {
+      } else if (this.mark == -1) {
         images.push("white");
       } else {
         images.push("floor");
@@ -42,7 +42,7 @@ define(function(require) {
     }
 
     evaluate() {
-      if (this.marked === true) {
+      if (this.marked == 1) {
         if (this.number !== undefined) {
           return false;
         }
@@ -94,7 +94,7 @@ define(function(require) {
       const cells = [];
       while (!result.done) {
         const cell = result.value;
-        if (cell.marked === true) {
+        if (cell.marked == 1) {
           result = it.next();
           continue;
         }

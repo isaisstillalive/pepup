@@ -11,13 +11,13 @@ define(function(require) {
   class Cell extends cell.mixin(adjacentMarks) {
     touch(position, change) {
       if (position.y <= 0) {
-        if (this.mark !== false) {
-          change.mark = false;
+        if (this.mark != -1) {
+          change.mark = -1;
           return true;
         }
       } else {
-        if (this.mark !== true) {
-          change.mark = true;
+        if (this.mark != 1) {
+          change.mark = 1;
           return false;
         }
       }
@@ -37,9 +37,9 @@ define(function(require) {
         images.push("bright");
       }
 
-      if (this.mark === true) {
+      if (this.mark == 1) {
         images.push("light");
-      } else if (this.mark === false) {
+      } else if (this.mark == -1) {
         images.push("none");
       }
     }
@@ -69,8 +69,14 @@ define(function(require) {
     }
 
     set mark(value) {
-      if (!!value != !!this._mark) {
-        this.ray(value ? 1 : -1);
+      if (this._mark == 1) {
+        if (value != 1) {
+          this.ray(-1);
+        }
+      } else {
+        if (value == 1) {
+          this.ray(1);
+        }
       }
       this._mark = value;
     }
