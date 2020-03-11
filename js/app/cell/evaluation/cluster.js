@@ -1,5 +1,5 @@
 define(function(require) {
-  return (cell, marks = [true]) => {
+  return (cell, marks = [1]) => {
     class Module extends cell {
       get cluster() {
         return (
@@ -11,7 +11,7 @@ define(function(require) {
       }
 
       isCluster() {
-        if (this.wall || marks.every(mark => this.marked !== mark)) {
+        if (this.wall || !marks.includes(cell.marked)) {
           return false;
         }
         const arounds = [

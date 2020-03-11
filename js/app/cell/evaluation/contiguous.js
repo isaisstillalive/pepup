@@ -1,5 +1,5 @@
 define(function(require) {
-  return (cell, mark = true) => {
+  return (cell, mark = 1) => {
     class Module extends cell {
       get contiguous() {
         if (this.marked !== mark) {

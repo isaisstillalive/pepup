@@ -1,5 +1,5 @@
 define(function(require) {
-  return (cell, marks = [true]) => {
+  return (cell, marks = [1]) => {
     class Module extends cell {
       get adjacentMarks() {
         if (this.number == null) {
@@ -27,7 +27,7 @@ define(function(require) {
         };
 
         for (const cell of this.board.around(this.x, this.y)) {
-          if (marks.some(mark => cell.marked === mark)) {
+          if (marks.includes(cell.marked)) {
             result.marks += 1;
             result.filled += 1;
           } else if (cell.filled) {

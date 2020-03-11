@@ -1,5 +1,5 @@
 define(function(require) {
-  return (cell, divideMark = true) => {
+  return (cell, divideMark = 1) => {
     class Module extends cell {
       refresh() {
         super.refresh();
