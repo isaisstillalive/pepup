@@ -86,16 +86,17 @@ define(function(require) {
       this._evaluated = false;
     }
     updateEvaluation() {
-      if (!this._evaluated) {
-        let c = this.evaluate();
-        if (this.board.strict) {
-          c = !!c;
-        }
-        if (this.evaluation != c) {
-          Vue.set(this, "evaluation", c);
-        }
-        this._evaluated = true;
+      if (this._evaluated) {
+        return;
       }
+      let c = this.evaluate();
+      if (this.board.strict) {
+        c = !!c;
+      }
+      if (this.evaluation !== c) {
+        Vue.set(this, "evaluation", c);
+      }
+      this._evaluated = true;
     }
 
     evaluate() {
