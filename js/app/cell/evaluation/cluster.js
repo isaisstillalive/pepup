@@ -11,7 +11,7 @@ define(function(require) {
       }
 
       isCluster() {
-        if (this.wall || !marks.includes(cell.marked)) {
+        if (this.wall || !marks.includes(this.marked)) {
           return false;
         }
         const arounds = [
