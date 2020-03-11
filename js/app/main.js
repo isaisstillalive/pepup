@@ -5,8 +5,8 @@ define(function(require) {
   const height = Number.parseInt(query[2]);
   const source = query[3];
 
-  if (mode == 'lightup') {
-    mode = 'akari';
+  if (mode == "lightup") {
+    mode = "akari";
   }
 
   requirejs([`../mode/${mode}/main`], function(game) {
@@ -119,11 +119,11 @@ define(function(require) {
         cursor: { x: 0, y: 0 },
         touch: {}
       },
-      created () {
-        window.addEventListener('keydown', this.onkey)
+      created() {
+        window.addEventListener("keydown", this.onkey);
       },
-      beforeDestroy () {
-        window.removeEventListener('keydown', this.onkey)
+      beforeDestroy() {
+        window.removeEventListener("keydown", this.onkey);
       },
       methods: {
         setCursor(x, y) {
@@ -144,19 +144,19 @@ define(function(require) {
               x = Math.max(0, x - 1);
               break;
             case "ArrowRight":
-              x = Math.min(this.width-1, x + 1);
+              x = Math.min(this.width - 1, x + 1);
               break;
             case "ArrowUp":
               y = Math.max(0, y - 1);
               break;
             case "ArrowDown":
-              y = Math.min(this.height-1, y + 1);
+              y = Math.min(this.height - 1, y + 1);
               break;
 
             default:
               return;
           }
-          this.setCursor(x,y);
+          this.setCursor(x, y);
         },
         undo() {
           this.board.history.undo();
