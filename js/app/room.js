@@ -24,7 +24,7 @@ define(function(require) {
       }
     }
 
-    correction() {
+    evaluate() {
       // その部屋が完成していなければnull
       // ルールに則っていればtrue
       // ルールから逸脱していればfalse

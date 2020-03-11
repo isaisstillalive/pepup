@@ -88,7 +88,7 @@ define(function(require) {
       this.bottom = 0;
     }
 
-    correction() {
+    evaluate() {
       // 白丸なら
       if (this.circle === true) {
         return this.correctionWhite();

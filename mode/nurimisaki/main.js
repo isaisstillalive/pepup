@@ -49,7 +49,7 @@ define(function(require) {
       }
     }
 
-    correction() {
+    evaluate() {
       // 4つ固まっていたらNG
       if (this.cluster) {
         return false;

@@ -54,7 +54,7 @@ define(function(require) {
         cell.refresh();
       }
       for (const cell of this.cells) {
-        cell.updateCorrected();
+        cell.updateEvaluation();
       }
     }
 
@@ -63,8 +63,8 @@ define(function(require) {
 
       this.refresh().then(() => {
         const judgment =
-          this.cells.every(cell => cell.corrected) &&
-          this.rooms.every(room => room.correction());
+          this.cells.every(cell => cell.evaluation) &&
+          this.rooms.every(room => room.evaluate());
         Vue.set(this, "judgment", judgment);
       });
     }

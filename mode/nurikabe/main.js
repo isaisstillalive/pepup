@@ -41,7 +41,7 @@ define(function(require) {
       }
     }
 
-    correction() {
+    evaluate() {
       if (this.marked === true) {
         if (this.number !== undefined) {
           return false;

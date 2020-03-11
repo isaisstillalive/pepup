@@ -41,7 +41,7 @@ define(function(require) {
       }
     }
 
-    correction() {
+    evaluate() {
       const wall = this.correctionWall();
       if (wall !== null) {
         return wall;

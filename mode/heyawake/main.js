@@ -45,7 +45,7 @@ define(function(require) {
       }
     }
 
-    correction() {
+    evaluate() {
       if (this.marked === true) {
         return !this.contiguous;
       }
@@ -99,7 +99,7 @@ define(function(require) {
   }
 
   class Room extends require("app/room") {
-    correction() {
+    evaluate() {
       if (this.qnum == -1) return true;
       return (
         this.qnum == this.cells.filter(cell => cell.marked === true).length

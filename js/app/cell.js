@@ -75,30 +75,30 @@ define(function(require) {
     }
 
     correctionimages(images, showok = false) {
-      if (this.corrected === false) {
+      if (this.evaluation === false) {
         images.push("ng");
-      } else if (showok && this.corrected === true) {
+      } else if (showok && this.evaluation === true) {
         images.push("ok");
       }
     }
 
     refresh() {
-      this._correction = false;
+      this._evaluated = false;
     }
-    updateCorrected() {
-      if (!this._correction) {
-        let c = this.correction();
+    updateEvaluation() {
+      if (!this._evaluated) {
+        let c = this.evaluate();
         if (this.board.strict) {
           c = !!c;
         }
-        if (this.corrected != c) {
-          Vue.set(this, "corrected", c);
+        if (this.evaluation != c) {
+          Vue.set(this, "evaluation", c);
         }
-        this._correction = true;
+        this._evaluated = true;
       }
     }
 
-    correction() {
+    evaluate() {
       // そのセルが完成していなければnull
       // ルールに則っていればtrue
       // ルールから逸脱していればfalse
