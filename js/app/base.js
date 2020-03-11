@@ -1,5 +1,9 @@
 define(function(require) {
   class Base {
+    constructor(board) {
+      this.board = board;
+    }
+
     refresh() {
       this._evaluated = false;
     }

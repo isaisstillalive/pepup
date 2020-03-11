@@ -1,9 +1,8 @@
 define(function(require) {
   class Cell extends require("app/base") {
     constructor(board, x, y) {
-      super();
+      super(board);
 
-      this.board = board;
       this.x = x;
       this.y = y;
 

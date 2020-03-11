@@ -1,9 +1,8 @@
 define(function(require) {
   class Room extends require("app/base") {
     constructor(board, index) {
-      super();
+      super(board);
 
-      this.board = board;
       this.index = index;
 
       this.cells = [];
@@ -24,13 +23,6 @@ define(function(require) {
           class: "bg"
         });
       }
-    }
-
-    evaluate() {
-      // その部屋が完成していなければnull
-      // ルールに則っていればtrue
-      // ルールから逸脱していればfalse
-      return true;
     }
   }
   return Room;
