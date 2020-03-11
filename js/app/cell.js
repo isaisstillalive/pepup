@@ -79,30 +79,6 @@ define(function(require) {
     get filled() {
       return this.wall || !!this.marked;
     }
-
-    aroundMarks() {
-      let result = {
-        marks: 0,
-        opens: 0,
-        filled: 0
-      };
-
-      for (const cell of this.board.around(this.x, this.y)) {
-        if (cell.marked == 1) {
-          result.marks += 1;
-          result.filled += 1;
-        } else if (cell.marked == -1) {
-          result.opens += 1;
-          result.filled += 1;
-        } else if (cell.filled) {
-          result.filled += 1;
-        }
-      }
-
-      result.filled = result.filled == 4;
-
-      return result;
-    }
   }
   return Cell;
 });
