@@ -1,9 +1,13 @@
 define(function(require) {
   const query = location.search.slice(1).split("/");
-  const mode = query[0];
+  let mode = query[0];
   const width = Number.parseInt(query[1]);
   const height = Number.parseInt(query[2]);
   const source = query[3];
+
+  if (mode == 'lightup') {
+    mode = 'akari';
+  }
 
   requirejs([`../mode/${mode}/main`], function(game) {
     const board = new game.board(width, height, source, game.cell, game.room);
