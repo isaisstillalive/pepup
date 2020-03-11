@@ -8,8 +8,8 @@ define(function(require) {
 
   const cell = require("app/cell");
   const border = require("app/cell/layout/border");
-  const fragment = require("app/cell/correction/fragment");
-  const contiguous = require("app/cell/correction/contiguous");
+  const fragment = require("app/cell/evaluation/fragment");
+  const contiguous = require("app/cell/evaluation/contiguous");
 
   class Cell extends cell.mixin(border, fragment, contiguous) {
     touch(position, change) {

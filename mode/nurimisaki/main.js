@@ -6,8 +6,8 @@ define(function(require) {
   }
 
   const cell = require("app/cell");
-  const fragment = require("app/cell/correction/fragment");
-  const cluster = require("app/cell/correction/cluster");
+  const fragment = require("app/cell/evaluation/fragment");
+  const cluster = require("app/cell/evaluation/cluster");
 
   class Cell extends cell.mixin(fragment, [cluster, [true, false]]) {
     constructor(...args) {
