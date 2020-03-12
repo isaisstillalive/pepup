@@ -250,14 +250,12 @@ define(function(require) {
           cell.update(this.mark.change);
         },
         markend(event) {
-          if (this.mark.cursorX == this.cursor.x &&
-            this.mark.cursorY == this.cursor.y) {
+          if (
+            this.mark.cursorX == this.cursor.x &&
+            this.mark.cursorY == this.cursor.y
+          ) {
             const cell = this.board.get(this.cursor.x, this.cursor.y);
-            cell.tap(
-              this.mark.position,
-              this.mark.change,
-              this.mark
-            );
+            cell.tap(this.mark.position, this.mark.change, this.mark);
             cell.update(this.mark.change);
           }
           this.mark = undefined;

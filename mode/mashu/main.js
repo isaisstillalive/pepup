@@ -15,11 +15,11 @@ define(function(require) {
       this.top = 0;
     }
 
-    touch(position, change, mark) {
-      return this.drawLine(mark);
+    touch(position, change, opt) {
+      return this.drawLine(opt);
     }
 
-    tap(position, change, mark) {
+    tap(position, change, opt) {
       this.blockLine(position, change);
     }
 

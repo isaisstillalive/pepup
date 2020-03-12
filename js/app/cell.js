@@ -19,15 +19,15 @@ define(function(require) {
       return this.board.get(this.x + addx, this.y + addy);
     }
 
-    touch(position, change) {
+    touch(position, change, opt) {
       return true;
     }
 
-    enter(x, y, change) {
+    enter(x, y, change, opt) {
       return;
     }
 
-    tap(change) {
+    tap(position, change, opt) {
       return;
     }
 
