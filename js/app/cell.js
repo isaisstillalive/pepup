@@ -27,6 +27,10 @@ define(function(require) {
       return;
     }
 
+    tap(change) {
+      return;
+    }
+
     update(change) {
       if (this.wall) {
         return;

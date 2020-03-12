@@ -215,7 +215,9 @@ define(function(require) {
         markstart(event) {
           this.mark = {
             multicell: false,
-            change: {}
+            change: {},
+            cursorX: this.cursor.x,
+            cursorY: this.cursor.y
           };
 
           const clientRect = event.currentTarget.getBoundingClientRect();
@@ -236,6 +238,7 @@ define(function(require) {
               return Math.atan2(this.y, this.x) / Math.PI;
             }
           };
+          this.mark.position = position;
 
           const cell = this.board.get(this.cursor.x, this.cursor.y);
           this.mark.multicell = cell.touch(
@@ -247,6 +250,16 @@ define(function(require) {
           cell.update(this.mark.change);
         },
         markend(event) {
+          if (this.mark.cursorX == this.cursor.x &&
+            this.mark.cursorY == this.cursor.y) {
+            const cell = this.board.get(this.cursor.x, this.cursor.y);
+            cell.tap(
+              this.mark.position,
+              this.mark.change,
+              this.mark
+            );
+            cell.update(this.mark.change);
+          }
           this.mark = undefined;
         },
         markenter(x, y) {
