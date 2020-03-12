@@ -96,8 +96,8 @@ define(function(require) {
 
       const arounds = [
         [-1, 0],
-        [1, 0],
         [0, -1],
+        [1, 0],
         [0, 1]
       ].filter((val, index) => dirs[index]);
       for (const around of arounds) {

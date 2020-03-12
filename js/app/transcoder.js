@@ -221,7 +221,7 @@ define(function(require) {
       const room = this.newRoom();
       while (!result.done) {
         const cell = result.value;
-        const dirs = [!cell.wleft, !cell.wright, !cell.wtop, !cell.wbottom];
+        const dirs = [!cell.wleft, !cell.wtop, !cell.wright, !cell.wbottom];
 
         room.addCell(cell);
 

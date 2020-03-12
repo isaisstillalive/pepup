@@ -20,8 +20,8 @@ define(function(require) {
           for (let x = 0; x < this.board.width; x++) {
             if (this.board.get(x, y).marked !== divideMark) {
               range[0] = Math.min(range[0], x);
-              range[1] = Math.max(range[1], x);
-              range[2] = Math.min(range[2], y);
+              range[1] = Math.min(range[1], y);
+              range[2] = Math.max(range[2], x);
               range[3] = Math.max(range[3], y);
             }
           }
@@ -56,10 +56,10 @@ define(function(require) {
           if (cell.x == range[0]) {
             borders[0] = true;
           }
-          if (cell.x == range[1]) {
+          if (cell.y == range[1]) {
             borders[1] = true;
           }
-          if (cell.y == range[2]) {
+          if (cell.x == range[2]) {
             borders[2] = true;
           }
           if (cell.y == range[3]) {
