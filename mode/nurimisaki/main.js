@@ -6,40 +6,27 @@ define(function(require) {
   }
 
   const cell = require("app/cell");
+  const monochrome = require("app/cell/mark/monochrome");
   const fragment = require("app/cell/evaluation/fragment");
   const cluster = require("app/cell/evaluation/cluster");
   const adjacentMarks = require("app/cell/evaluation/adjacent_marks");
 
   class Cell extends cell.mixin(
+    monochrome,
     fragment,
     [cluster, [1, -1]],
     [adjacentMarks, [-1]]
   ) {
     touch(position, change) {
       if (this.circle || position.y <= 0) {
-        if (this.mark != -1) {
-          change.mark = -1;
-          return true;
-        }
+        return this.changeToWhite(change);
       } else {
-        if (this.mark != 1) {
-          change.mark = 1;
-          return true;
-        }
+        return this.changeToBlack(change);
       }
-
-      change.mark = null;
-      return true;
     }
 
     images(images) {
-      if (this.mark == 1) {
-        images.push("black");
-      } else if (this.mark == -1) {
-        images.push("white");
-      } else {
-        images.push("floor");
-      }
+      this.imagesMonochrome(images);
 
       if (this.circle) {
         images.push("circle");

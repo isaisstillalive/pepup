@@ -8,43 +8,29 @@ define(function(require) {
 
   const cell = require("app/cell");
   const border = require("app/cell/layout/border");
+  const monochrome = require("app/cell/mark/monochrome");
   const fragment = require("app/cell/evaluation/fragment");
   const contiguous = require("app/cell/evaluation/contiguous");
   const straddleRoom = require("app/cell/evaluation/straddle_room");
 
   class Cell extends cell.mixin(
     border,
+    monochrome,
     fragment,
     [contiguous],
     [straddleRoom, 3, [-1]]
   ) {
     touch(position, change) {
       if (position.y <= 0) {
-        if (this.mark != -1) {
-          change.mark = -1;
-          return true;
-        }
+        return this.changeToWhite(change);
       } else {
-        if (this.mark != 1) {
-          change.mark = 1;
-          return true;
-        }
+        return this.changeToBlack(change);
       }
-
-      change.mark = null;
-      return true;
     }
 
     images(images) {
-      if (this.mark == 1) {
-        images.push("black");
-      } else if (this.mark == -1) {
-        images.push("white");
-      } else {
-        images.push("floor");
-      }
-
       this.imagesBorder(images);
+      this.imagesMonochrome(images);
 
       if (this.number >= 0) {
         images.push("number");
