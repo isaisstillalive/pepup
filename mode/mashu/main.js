@@ -16,11 +16,11 @@ define(function(require) {
     }
 
     touch(position, change, mark) {
-      if (position.distance <= 0.3) {
-        return this.drawLine(mark);
-      }
+      return this.drawLine(mark);
+    }
 
-      return this.blockLine(position, change);
+    tap(position, change, mark) {
+      this.blockLine(position, change);
     }
 
     images(images) {
