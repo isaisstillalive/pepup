@@ -20,6 +20,9 @@ define(function(require) {
         },
         value: {
           type: [Number, String]
+        },
+        color: {
+          type: String
         }
       },
       data() {
@@ -36,6 +39,7 @@ define(function(require) {
             this.layers[layer.id] = layer;
           }
           this.valuelayer = svg.contentDocument.querySelector("#number-value");
+          this.colorNode = svg.contentDocument.querySelector(".color");
           this.refresh();
         };
       },
@@ -45,11 +49,15 @@ define(function(require) {
         },
         value() {
           this.refresh();
+        },
+        color() {
+          this.refresh();
         }
       },
       methods: {
         refresh() {
           if (this.valuelayer) this.valuelayer.textContent = this.value;
+          if (this.colorNode) this.colorNode.style.stroke = this.color;
           for (const layer in this.layers) {
             this.layers[layer].style.display = "none";
           }
@@ -83,7 +91,8 @@ define(function(require) {
         return {
           board: board,
           current: current,
-          number: current.number
+          number: current.number,
+          color: current.color
         };
       },
       watch: {
