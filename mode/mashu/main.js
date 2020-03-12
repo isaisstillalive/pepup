@@ -9,6 +9,12 @@ define(function(require) {
   const line = require("app/cell/mark/line");
 
   class Cell extends cell.mixin(line) {
+    constructor(...args) {
+      super(...args);
+      this.left = 0;
+      this.top = 0;
+    }
+
     touch(position, change, mark) {
       if (position.distance <= 0.3) {
         return this.drawLine(mark);
@@ -33,8 +39,6 @@ define(function(require) {
       if (value >= 1) {
         this.circle = value == 1;
       }
-      this.right = 0;
-      this.bottom = 0;
     }
 
     evaluate() {
