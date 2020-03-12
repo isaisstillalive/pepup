@@ -9,20 +9,6 @@ define(function(require) {
   const line = require("app/cell/mark/line");
 
   class Cell extends cell.mixin(line) {
-    constructor(...args) {
-      super(...args);
-      this.left = 0;
-      this.top = 0;
-    }
-
-    touch(position, change, opt) {
-      return this.drawLine(opt);
-    }
-
-    tap(position, change, opt) {
-      this.blockLine(position, change);
-    }
-
     images(images) {
       this.imagesLine(images);
 

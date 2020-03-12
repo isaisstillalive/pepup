@@ -1,27 +1,26 @@
 define(function(require) {
   return cell => {
     class Module extends cell {
-      drawLine(mark) {
-        mark.line = undefined;
+      constructor(...args) {
+        super(...args);
+        this.left = 0;
+        this.top = 0;
+      }
+
+      touch(position, change, opt) {
+        return this.touchLine(position, change, opt);
+      }
+
+      touchLine(position, change, opt) {
+        opt.line = undefined;
         return true;
       }
 
-      blockLine(position, change) {
-        let property;
-        if (position.angle <= -0.75 || position.angle > 0.75) {
-          property = "left";
-        } else if (position.angle <= -0.25) {
-          property = "top";
-        } else if (position.angle <= 0.25) {
-          property = "right";
-        } else {
-          property = "bottom";
-        }
-        change[property] = this[property] == 2 ? 0 : 2;
-        return false;
+      enter(x, y, change, mark) {
+        return this.enterLine(x, y, change, mark);
       }
 
-      enter(x, y, change, mark) {
+      enterLine(x, y, change, mark) {
         let property;
         if (x <= -1) {
           property = "left";
@@ -37,6 +36,25 @@ define(function(require) {
         }
         change[property] = mark.line;
         return true;
+      }
+
+      tap(position, change, opt) {
+        return this.tapLine(position, change, opt);
+      }
+
+      tapLine(position, change, opt) {
+        let property;
+        if (position.angle <= -0.75 || position.angle > 0.75) {
+          property = "left";
+        } else if (position.angle <= -0.25) {
+          property = "top";
+        } else if (position.angle <= 0.25) {
+          property = "right";
+        } else {
+          property = "bottom";
+        }
+        change[property] = this[property] == 2 ? 0 : 2;
+        return false;
       }
 
       imagesLine(images) {
