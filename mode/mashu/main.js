@@ -28,6 +28,8 @@ define(function(require) {
     }
 
     evaluate() {
+      const loop = this.loop;
+
       // 白丸なら
       if (this.circle === true) {
         return this.correctionWhite();
@@ -35,14 +37,15 @@ define(function(require) {
         return this.correctionBlack();
       }
 
-      const lines = this.lines;
-      if (lines == 1) {
-        return null;
-      } else if (lines == 0 || lines == 2) {
+      if (this.junction == 0) {
         return true;
-      } else {
-        return false;
       }
+
+      if (loop) {
+        return true;
+      }
+
+      return null;
     }
     correctionWhite() {
       // 曲がっていればNG

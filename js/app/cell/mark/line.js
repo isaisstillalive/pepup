@@ -3,8 +3,16 @@ define(function(require) {
     class Module extends cell {
       constructor(...args) {
         super(...args);
+        this.line = null;
         this.left = 0;
         this.top = 0;
+      }
+
+      refresh() {
+        super.refresh();
+        this.line = null;
+        this._loop = null;
+        this.constructor.line = 0;
       }
 
       touch(position, change, opt) {
@@ -70,14 +78,53 @@ define(function(require) {
         }
       }
 
-      get lines() {
-        let line = 0;
-        ["right", "bottom", "left", "top"].forEach(dir => {
-          if (this[dir] == 1) {
-            line += 1;
+      get loop() {
+        if (this._loop === null) {
+          this.checkLoopAll();
+        }
+        return this._loop;
+      }
+
+      checkLoopAll() {
+        for (const cell of this.board.cells) {
+          cell.checkLoop();
+        }
+      }
+
+      checkLoop() {
+        if (this.junction == 0 || this._loop !== null) {
+          return;
+        }
+
+        let loop = true;
+        const cells = [];
+
+        for (const { cell, dirs } of this.board.recursion(this.x, this.y)) {
+          cells.push(cell);
+          const lines = cell.lines.map(line => line == 1);
+          for (let i = 0; i < 4; i++) {
+            dirs[i] = lines[i];
           }
-        });
-        return line;
+          if (cell.junction != 2) {
+            loop = false;
+          }
+        }
+
+        this.constructor.line += 1;
+        const line = this.constructor.line;
+        for (const cell of cells) {
+          cell._loop = loop;
+          cell.line = line;
+        }
+        console.log(this.x, this.y, this._loop, this.line);
+      }
+
+      get lines() {
+        return ["left", "top", "right", "bottom"].map(dir => this[dir]);
+      }
+
+      get junction() {
+        return this.lines.filter(line => line == 1).length;
       }
       get horizontal() {
         return this.right == 1 || this.left == 1;
