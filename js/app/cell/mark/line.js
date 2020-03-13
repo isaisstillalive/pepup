@@ -1,4 +1,10 @@
 define(function(require) {
+  const colors = [
+    "#660000",
+    "#006600",
+    "#000066",
+  ];
+
   return cell => {
     class Module extends cell {
       constructor(...args) {
@@ -85,6 +91,10 @@ define(function(require) {
         return this._loop;
       }
 
+      get singleLoop() {
+        return this.loop && this.constructor.line == 1;
+      }
+
       checkLoopAll() {
         for (const cell of this.board.cells) {
           cell.checkLoop();
@@ -115,6 +125,7 @@ define(function(require) {
         for (const cell of cells) {
           cell._loop = loop;
           cell.line = line;
+          Vue.set(cell, "color", colors[line % colors.length]);
         }
       }
 
