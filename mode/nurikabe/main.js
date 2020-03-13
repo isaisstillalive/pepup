@@ -71,17 +71,11 @@ define(function(require) {
         return this._count;
       }
 
-      const on = [true, true, true, true];
-
-      const it = this.board.recursion(this.x, this.y);
-      let result = it.next();
       let count = 0;
       let numbers = 0;
       const cells = [];
-      while (!result.done) {
-        const { cell, dirs } = result.value;
+      for (const { cell, dirs } of this.board.recursion(this.x, this.y)) {
         if (cell.marked == 1) {
-          result = it.next();
           continue;
         }
 
@@ -90,8 +84,7 @@ define(function(require) {
         if (cell.number !== undefined) {
           numbers += 1;
         }
-        dirs.fill(true, 0, 4)
-        result = it.next();
+        dirs.fill(true, 0, 4);
       }
       const counts = { count: count, numbers: numbers };
       for (const cell of cells) {

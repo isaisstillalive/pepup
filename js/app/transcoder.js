@@ -212,24 +212,18 @@ define(function(require) {
       }
     }
     setRoom(x, y) {
-      const it = this.board.recursion(x, y);
-      let result = it.next();
-      if (result.value.room !== undefined) {
+      if (this.board.get(x, y).room !== undefined) {
         return;
       }
 
       const room = this.newRoom();
-      while (!result.done) {
-        const { cell, dirs } = result.value;
-
+      for (const { cell, dirs } of this.board.recursion(x, y)) {
         dirs[0] = !cell.wleft;
         dirs[1] = !cell.wtop;
         dirs[2] = !cell.wright;
         dirs[3] = !cell.wbottom;
 
         room.addCell(cell);
-
-        result = it.next();
       }
     }
   }
