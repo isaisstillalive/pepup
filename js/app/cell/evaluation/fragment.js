@@ -8,12 +8,12 @@ define(function(require) {
 
       get fragment() {
         if (this._fragment === null) {
-          this.checkFragment();
+          this.checkFragmentAll();
         }
         return this._fragment;
       }
 
-      checkFragment() {
+      checkFragmentAll() {
         // 塗られていない最大サイズを求める
         const range = [this.board.width - 1, 0, this.board.height - 1, 0];
         for (let y = 0; y < this.board.height; y++) {
@@ -31,19 +31,19 @@ define(function(require) {
         for (let y = 0; y < this.board.height; y++) {
           for (let x = 0; x < this.board.width; x++) {
             if (this.board.get(x, y)._fragment === null) {
-              this.checkFragmentCell(x, y, range);
+              this.checkFragment(range);
             }
           }
         }
       }
 
-      checkFragmentCell(x, y, range) {
+      checkFragment(range) {
         const borders = [false, false, false, false];
         const on = [true, true, true, true];
 
         const cells = [];
 
-        const it = this.board.recursion(x, y);
+        const it = this.board.recursion(this.x, this.y);
         let result = it.next();
         while (!result.done) {
           const cell = result.value;
