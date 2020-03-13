@@ -220,12 +220,16 @@ define(function(require) {
 
       const room = this.newRoom();
       while (!result.done) {
-        const cell = result.value;
-        const dirs = [!cell.wleft, !cell.wtop, !cell.wright, !cell.wbottom];
+        const { cell, dirs } = result.value;
+
+        dirs[0] = !cell.wleft;
+        dirs[1] = !cell.wtop;
+        dirs[2] = !cell.wright;
+        dirs[3] = !cell.wbottom;
 
         room.addCell(cell);
 
-        result = it.next(dirs);
+        result = it.next();
       }
     }
   }

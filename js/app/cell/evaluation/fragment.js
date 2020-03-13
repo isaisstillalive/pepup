@@ -46,7 +46,7 @@ define(function(require) {
         const it = this.board.recursion(this.x, this.y);
         let result = it.next();
         while (!result.done) {
-          const cell = result.value;
+          const { cell, dirs } = result.value;
           if (cell.marked === divideMark) {
             result = it.next();
             continue;
@@ -66,7 +66,8 @@ define(function(require) {
             borders[3] = true;
           }
 
-          result = it.next(on);
+          dirs.fill(true, 0, 4);
+          result = it.next();
         }
 
         const fragment = borders.some(value => !value);

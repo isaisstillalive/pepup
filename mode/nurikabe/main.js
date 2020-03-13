@@ -79,7 +79,7 @@ define(function(require) {
       let numbers = 0;
       const cells = [];
       while (!result.done) {
-        const cell = result.value;
+        const { cell, dirs } = result.value;
         if (cell.marked == 1) {
           result = it.next();
           continue;
@@ -90,7 +90,8 @@ define(function(require) {
         if (cell.number !== undefined) {
           numbers += 1;
         }
-        result = it.next(on);
+        dirs.fill(true, 0, 4)
+        result = it.next();
       }
       const counts = { count: count, numbers: numbers };
       for (const cell of cells) {

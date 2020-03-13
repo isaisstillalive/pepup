@@ -87,12 +87,12 @@ define(function(require) {
       } else if (checked[i]) {
         return;
       }
-      const dirs = yield this.get(x, y);
-      checked[i] = true;
 
-      if (!dirs) {
-        return;
-      }
+      const cell = this.get(x, y);
+      const dirs = [false, false, false, false];
+      const obj = { cell: cell, dirs: dirs };
+      yield obj;
+      checked[i] = true;
 
       const arounds = [
         [-1, 0],
