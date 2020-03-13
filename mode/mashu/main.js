@@ -28,7 +28,7 @@ define(function(require) {
     }
 
     evaluate() {
-      const loop = this.loop;
+      const loop = this.singleLoop;
 
       // 白丸なら
       if (this.circle === true) {

@@ -85,6 +85,10 @@ define(function(require) {
         return this._loop;
       }
 
+      get singleLoop() {
+        return this.loop && this.constructor.line == 1;
+      }
+
       checkLoopAll() {
         for (const cell of this.board.cells) {
           cell.checkLoop();
