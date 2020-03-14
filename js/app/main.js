@@ -91,8 +91,7 @@ define(function(require) {
         return {
           board: board,
           current: current,
-          number: current.number,
-          color: current.color
+          number: current.number
         };
       },
       watch: {
@@ -107,6 +106,9 @@ define(function(require) {
         }
       },
       computed: {
+        color() {
+          return this.current.color;
+        },
         images() {
           if (!this.visibled) {
             return ["wall"];
