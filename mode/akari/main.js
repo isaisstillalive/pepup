@@ -50,7 +50,7 @@ define(function(require) {
       }
 
       // 明かりの場合、床が2回光っていればNG
-      if (this.marked) {
+      if (this.marked == 1) {
         if (this.bright >= 2) {
           return false;
         }
